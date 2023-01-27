@@ -1,0 +1,421 @@
+\documentclass{amsart}
+% \usepackage[margin=1.3333333in]{geometry}
+\usepackage[margin = 1in]{geometry}
+\newcommand{\ol}{\overline}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\LL}{\mathbb{L}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\wh}{\widehat}
+
+%%hyperref for clickable links
+\usepackage{hyperref}
+
+%%%thmtools to correct autoref
+\usepackage{thmtools}
+
+%%%% biblatex
+
+\usepackage{biblatex}
+\addbibresource{refs.bib}
+
+%%% lipsum for dummy text
+\usepackage{lipsum}
+
+%% AMS packages for math and theorems
+\usepackage{amsmath, amsthm, amssymb}
+
+%%% tikz packages for drawing and commutative diagrams
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{tikz-3dplot}
+\usepackage{quiver}
+
+%%%% euscript for better calligraphic characters in math mode
+\usepackage{eucal}[mathcal]
+
+%%%% enumitem package for better list environments
+\usepackage{enumitem}
+
+%%% Paragraph spacing
+
+% Paragraph spacing
+
+%\usepackage{parskip}
+%
+%\setlength{\parskip}{0.5em}
+%\setlength{\parindent}{1.5em}
+
+%% comment these lines if you do not want to use bibtex for bibliography management.
+%\usepackage{biblatex}
+%\addbibresource{refs.bib}
+
+
+%% theorems in usual style --- italicised text, bold header
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{thm*}{Theorem}
+
+%% theorems in `definition' style --- regular text, bold header
+\theoremstyle{definition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{discussion}[theorem]{Discussion}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[theorem]{Example}
+
+\DeclareMathOperator{\Ch}{Ch}
+\newcommand{\Mod}{\mbf{Mod}}
+\newcommand{\Top}{\mbf{Top}}
+\newcommand{\Grp}{\mbf{Grp}}
+\newcommand{\RMod}{R-\mbf{Mod}}
+
+\newcommand{\from}{\colon}
+\newcommand{\sseq}{\subseteq}
+\newcommand{\wt}{\widetilde}
+\newcommand{\spseq}{\supseteq}
+\newcommand{\brn}{\mathbb R^n}
+\newcommand{\bRn}{\mathbb R^n}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\cA}{\mathcal A}
+\newcommand{\cB}{\mathcal B}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\cD}{\mathcal D}
+\newcommand{\cE}{\mathcal E}
+\newcommand{\cF}{\mathcal F}
+\newcommand{\cG}{\mathcal G}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\cI}{\mathcal I}
+\newcommand{\cJ}{\mathcal J}
+\newcommand{\cK}{\mathcal K}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\cM}{\mathcal M}
+\newcommand{\cN}{\mathcal N}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\cP}{\mathcal P}
+\newcommand{\cQ}{\mathcal Q}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\onto}{\twoheadrightarrow}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cT}{\mathcal T}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\cV}{\mathcal V}
+\newcommand{\cW}{\mathcal W}
+\newcommand{\cX}{\mathcal X}
+\newcommand{\cY}{\mathcal Y}
+\newcommand{\cZ}{\mathcal Z}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\renewcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\dx}{\,\mathrm dx}
+\newcommand{\dt}{\,\mathrm dt}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\vare}{\varepsilon}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+\newcommand\defeq{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny def}}}{=}}}
+\newcommand{\phantomreplace}[2]{\makebox[0pt][l]{#1}\hphantom{#2}}
+\newcommand{\phantommathreplace}[2]{\makebox[0pt][l]{$\displaystyle #1$}\hphantom{#2}}
+\makeatletter
+\newcommand{\skipitems}[1]{%
+  \addtocounter{\@enumctr}{#1}%
+}
+\makeatother
+
+%%% hyperlinks/citations in document with prettier links
+\hypersetup{%
+	colorlinks,%
+	linkcolor={red!60!black},%
+	citecolor={red!60!black},%
+	urlcolor={red!60!black}%
+}
+
+%%% Shortened operators
+\def\on{\operatorname}
+\def\scr{\EuScript}
+\def\bb{\mathbb}
+\def\sf{\mathsf}
+\def\cal{\mathcal}
+
+%% blackboard bolds
+%\def\RR{\bb{R}}
+%\def\CC{\bb{C}}
+%\def\ZZ{\bb{Z}}
+%\def\NN{\bb{N}}
+%\def\QQ{\bb{Q}}
+
+% categories
+\def\Cat{\on{Cat}}
+\def\Set{\on{Set}}
+\def\Grp{\on{Grp}}
+\def\Ab{\on{Ab}}
+\def\Vect{\on{Vect}}
+\def\Hom{\on{Hom}}
+\def\Fun{\on{Fun}}
+\def\cC{\scr{C}}
+\def\dD{\scr{D}}
+\def\eE{\scr{E}}
+\def\aA{\scr{A}}
+\def\bB{\scr{B}}
+
+\newcommand{\Cof}{\mathcal C\mathrm{of}}
+\newcommand{\Fib}{\mathcal F\mathrm{ib}}
+\newcommand{\W}{\mathcal W}
+\newcommand{\inj}{\text-\mathrm{inj}}
+\newcommand{\proj}{\text-\mathrm{proj}}
+\newcommand{\fib}{\text-\mathrm{fib}}
+\newcommand{\cell}{\text-\mathrm{cell}}
+\newcommand{\cof}{\text-\mathrm{cof}}
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator{\Mor}{Mor}
+
+%%% so walker can write comments in a different color.
+\usepackage{xcolor}
+
+\newcommand{\shorten}[1]{{\color{purple} #1}}
+\newcommand{\remove}[1]{{\color{red} #1}}
+
+\newcommand{\ww}[1]{{\color{blue} Walker: #1}}
+\newcommand{\ii}[1]{{\color{teal} Isaiah Question: #1}}
+
+%%% parentheses will denote suggested text
+\newcommand{\sugs}[1]{{\color{blue} Suggested rewrite: 
+
+#1}}
+
+%%% to strike through text without deleting it
+\usepackage[normalem]{ulem}
+
+\title{Model Structures}
+
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+%\setcounter{tocdepth}{0}
+\tableofcontents
+
+\section{Preliminaries}
+
+\begin{definition}[Hovey Definition 2.1.1]
+  Suppose $\cC$ is a cocomplete category, and $\lambda$ is an ordinal. A \textit{$\lambda$-sequence} in $\cC$ is a colimit-preserving functor $X:\lambda\to\cC$, commonly written as
+  \[X_0\to X_1\to\cdots\to X_\beta\to\cdots.\]
+  Since $X$ preserves colimits, for all limit ordinals $\gamma<\lambda$, the induced map
+  \[\colim_{\beta<\lambda}X_\beta\to X_\gamma\]
+  is an isomorphism. We refer to the map $X_0\to \colim_{\beta<\lambda}X_\beta$ as the \textit{composition} of the $\lambda$-sequence. Given a collection $\cD$ of morphisms in $\cC$ such that every map $X_\beta\to X_{\beta+1}$ for $\beta+1<\lambda$ is in $\cD$, we refer to the composition $X_0\to\colim_{\beta<\lambda}X_\beta$ as a \textit{transfinite composition} of maps in $\cD$.
+\end{definition}
+
+\begin{definition}[Hovey Definition 2.1.2]
+  Let $\gamma$ be a cardinal. An ordinal $\alpha$ is \textit{$\gamma$-filtered} if it is a limit ordinal and, if $A\sseq\alpha$ and $|A|\leq\gamma$, then $\sup A<\alpha$.
+\end{definition}
+
+\begin{definition}
+  Suppose $\cC$ is a comcomplete category, $\cD\sseq\Mor\cC$ is some collection of morphisms of $\cC$, $A$ is an object of $\cC$, and $\kappa$ is a cardinal. We say that $A$ is \textit{$\kappa$-small relative to $\cD$} if, for all $\kappa$-filtered ordinals $\lambda$ and all $\lambda$-sequences
+  \[X_0\to X_1\to\cdots\to X_\beta\to\cdots\]
+  such that each map $X_\beta\to X_{\beta+1}$ is in $\cD$ for $\beta+1<\lambda$, the map of sets
+  \[\colim_{\beta<\lambda}\cC(A,X_\beta)\to\cC(A,\colim_{\beta<\lambda}X_\beta)\]
+  is an isomorphism. We say that $A$ is \textit{small relative to $\cD$} if it is $\kappa$-small relative to $\cD$ for some $\kappa$. We say that $A$ is \textit{small} if it is small relative to $\cC$ itself.
+\end{definition}
+
+\begin{definition}[Hovey Definition 2.1.7]
+  Let $I$ be a class of maps in a category $\cC$.\begin{enumerate}
+    \item A map is \textit{$I$-injective} if it has the right lifting property w.r.t.\ every map in $I$. The class of $I$-injective maps is denoted $I\inj$ (or $I_\perp$).
+    \item A map is \textit{$I$-projective} if it has the left lifting property w.r.t.\ every map in $I$. The class of $I$-projective maps is denoted $I\proj$ (or $_\perp I$).
+    \item A map is an \textit{$I$-cofibration} if it has the left lifting property w.r.t.\ every $I$-injective map. The class of $I$-cofibrations is the class $(I\inj)\proj$ and is denoted $I\cof$ (or $_\perp(I_\perp)$).
+    \item A map is an \textit{$I$-fibration} if it has the right lifting property w.r.t.\ every $I$-projective map. The class of $I$-fibrations is the class $(I\proj)\inj$ and is denoted $I\fib$ (or $(_\perp I)_\perp$).
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Hovey Definition 2.1.9]
+  Let $I$ be a set of maps in a cocomplete category $\cC$. A \textit{relative $I$-cell complex} is a transfinite composition of pushouts of elements of $I$. That is, if $f:A\to B$ is a relative $I$-cell complex, then there is an ordinal $\lambda$ and a $\lambda$-sequence $X:\lambda\to\cC$ such that $f$ is the composition of $X$ and such that, for each $\beta$ such that $\beta+1<\lambda$, there is a pushout square
+  \[\begin{tikzcd}
+    {C_\beta} & {X_\beta} \\
+    {D_\beta} & {X_{\beta+1}}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow["{g_\beta}"', from=1-1, to=2-1]
+  \end{tikzcd}\]
+  with $g_\beta\in I$. We denote the collection of relative $I$-cell complexes by $I\cell$. We say that $A\in\cC$ is an \textit{$I$-cell complex} if the map $0\to A$ is a relative $I$-cell complex.
+\end{definition}
+
+\begin{lemma}[Hovey 2.1.10]\label{2.1.10}
+  Suppose $I$ is a class of maps in a category $\cC$ with all small colimits. Then $I\cell\sseq I\cof$.
+\end{lemma}
+
+\begin{definition}[Hovey Definition 2.1.17]\label{2.1.17}
+  Suppose $\cC$ is a model category. We say that $\cC$ is \textit{cofibrantly generated} if there are sets $I$ and $J$ of maps such that:\begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
+    \item The domains of the maps of $I$ are small relative to $I\cell$;
+    \item The domains of the maps of $J$ are small relative to $J\cell$;
+    \item The class of fibrations is $J\inj$; and
+    \item The class of trivial fibrations is $I\inj$.
+  \end{enumerate}
+  We refer to $I$ as the set of \textit{generating cofibrations} and to $J$ as the set of \textit{generating trivial cofibrations}. A cofibrantly generated model category is \textit{finitely generated} if we can choose the sets $I$ and $J$ above so that the domains and codomains of $I$ and $J$ are finite relative to $I\cell$.
+\end{definition}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{proposition}[Hovey Proposition 2.1.18]\label{2.1.18}
+  Suppose $\cC$ is a cofibrantly generated model category, with generating cofibrations $I$ and generating trivial fibrations $J$.\begin{enumerate}[label=(\alph*),noitemsep,topsep=0pt]
+    \item The cofibrations form the class $I\cof$.
+    \item Every cofibration is a retract of a relative $I$-cell complex.
+    \item The domains of $I$ are small relative to the cofibrations.
+    \item The trivial cofibrations form the class $J\cof$.
+    \item Every trivial cofibration is a retract of a relative $J$-cell complex.
+    \item The domains of $J$ are small relative to the trivial cofibrations.
+  \end{enumerate}
+  If $\cC$ is fibrantly generated, then the domains and codomains of $I$ and $J$ are finite relative to the cofibrations.
+\end{proposition}
+
+\begin{theorem}[Hovey Theorem 2.1.19]\label{2.1.19}
+  Suppose $\cC$ is a complete \& cocomplete category. Suppose $\cW$ is a subcategory of $\cC$, and $I$ and $J$ are sets of maps of $\cC$. Then there is a cofibrantly generated model structure on $\cC$ with $I$ as the set of generating cofibrations, $J$ as the set of generating trivial fibrations, and $\cW$ as the subcategory of weak equivalences if and only if the following conditions are satisfied.\begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
+    \item The subcategory $\cW$ has the 2-of-3 property and is closed under retracts.
+    \item The domains of $I$ are small relative to $I\cell$.
+    \item The domains of $J$ are small relative to $J\cell$.
+    \item $J\cell\sseq\cW\cap I\cof$.
+    \item $I\inj\sseq\cW\cap J\inj$.
+    \item Either $\cW\cap I\cof\sseq J\cof$ or $\cW\cap J\inj\sseq I\inj$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{definition}\label{saturated}
+  Let $\cC$ be a category and $I$ a collection of morphisms in $\cC$. Then if $I$ is closed under transfinite composition, pushouts, and retracts then we say $I$ is \textit{saturated}.
+\end{definition}
+
+%\begin{proposition}
+%  Let $I$ be a set of maps in a cocomplete category $\cC$. Then $_\perp I$ is saturated.
+%\end{proposition}
+%\begin{proof}
+%  Let $X$ be a $\lambda$ sequence in $\cC$ for some ordinal $\lambda$ such that the map $X_\beta\to X_{\beta+1}$ is in $_\perp I$ for $\beta+1<\lambda$. Then we wish to show that the map $X_0\to X_\lambda:=\colim_{\beta<\lambda}X_\beta$ also is in $_\perp I$. Suppose we are given a lifting problem of the form
+%  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYXzAiXSxbMCwxLCJYX1xcbGFtYmRhIl0sWzEsMSwiQiJdLFsxLDAsIkEiXSxbMCwxXSxbMSwyXSxbMCwzXSxbMywyLCJmIl1d
+%  \[\begin{tikzcd}
+%    {X_0} & A \\
+%    {X_\lambda} & B
+%    \arrow[from=1-1, to=2-1]
+%    \arrow[from=2-1, to=2-2]
+%    \arrow[from=1-1, to=1-2]
+%    \arrow["f", from=1-2, to=2-2]
+%  \end{tikzcd}\]
+%  where $f\in I$.
+%\end{proof}
+
+%\section{Chain complexes of modules over a ring}
+%
+%
+%\begin{definition}
+  %Let $R$ be a ring. Given an $R$-module $M$, define $S^n(M),D^n(M)\in\Ch(R)$ by
+  %\[S^n(M)_k:=\begin{cases}
+    %M & k=n \\
+    %0 & \text{else }
+  %\end{cases}\quad\quad\quad\text{ and }\quad\quad\quad D^n(M):=\begin{cases}
+    %M & k=n,n-1 \\
+    %0 & \text{else},
+  %\end{cases}\]
+  %where the differential in $d_n$ in $D^n(M)$ is the identity. We denote $S^n(R)$ by simply $S^n$ and $D^n(R)$ by simply $D^n$. Define $I:=\bigcup_{n\in\bZ}\Ch(R)(S^{n-1},D^n)$, and define $J:=\bigcup_{n\in\bZ}\Ch(R)(0,D^n)$.
+%
+  %Now, define $\Fib_R:=J\inj$, $\Cof_R:=I\cof$, and define $\W_R$ to be the class of quasi-isomorphisms (i.e., those maps $f:A_\bullet\to B_\bullet$ such that $H_n(f):H_n(A_\bullet)\to H_n(B_\bullet)$ is an isomorphism for all $n\in\bZ$).
+%\end{definition}
+
+\section{Topological Spaces}
+
+An injective map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if $U$ is open in $X$ if and only if there is a $V$ open in $Y$ such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
+
+The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ will denote the unit sphere in $\bR^n$, so that we have the boundary inclusions $S^{n-1}\into D^n$. In particular, for $n=0$ we let $D^0=\{0\}$ and $S^{-1}=\emptyset$.
+
+\begin{definition}
+  A map $f:X\to Y$ in $\Top$ is called a \textit{weak equivalence} if
+  \[\pi_n(f,x):\pi_n(X,x)\to\pi_n(Y,f(x))\]
+  is an isomorphism for all $n\geq0$ and for all $x\in X$.
+
+  Define the set of maps $I'$ to consist of all the boundary inclusion $S^{n-1}\into D^n$ for all $n\geq0$, and define the set $J$ to consist of all the inclusions $D^n\into D^n\times I$ mapping $x\mapsto(x,0)$ for $n\geq0$. Then a map $f$ will be called a \textit{cofibration} if it is in $I'\cof={_\perp({I'}_\perp)}$, and a \textit{fibration} if it is in $J\inj=J_\perp$.
+
+  A map in $I'\cell$ is usually called a \textit{relative cell complex}; a relative CW-complex is a special case of a relative cell complex, where, in particular, the cells can be attached in order of their dimension. Note that in particular maps of $J$ are relative CW complexes, hence are relative $I$-cell complexes. 
+  %Thus $J\cof\sseq I'\cof$.
+  A fibration is often known as a \textit{Serre fibration} in the literature.
+\end{definition}
+
+\begin{theorem}[Hovey Theorem 2.4.19]\label{2.4.19}
+  There is a finitely generated model structure on $\Top$ with $I'$ as the set of generating cofibrations, $J$ as the set of generating trivial cofibrations, and the cofibrations, fibrations, and weak equivalences as above. Every object of $\Top$ is fibrant, and the cofibrant objects are retracts of relative cell complexes.
+\end{theorem}
+\begin{proof}
+  We will apply \autoref{2.1.19} to get that there is a cofibrantly generated model structure on $\Top$ with $I'$ as the set of generating cofibrations, $J$ as the set of generating trivial fibrations, and $\cW$ as the subcategory of weak equivalences. The six requirements outlined in the theorem will be verified like so:
+  \begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
+    \item $\cW$ is a subcategory of $\cC$ which has the 2-of-3 property and is closed under retracts: \autoref{2.4.4}.
+    \item The domains of $I'$ are small relative to $I'\cell$: In {\color{red}Hovey 2.4.1}, we will show that every space is small relative to the inclusions, and in particular every space is small relative to the class $\cT$ of closed $T_1$ inclusions. Hence, it will suffice to show that $I'\cell\sseq\cT$. In \autoref{2.4.5-6}, we will show that $\cT$ is saturated, and clearly every map in $I'$ is a closed $T_1$ inclusion, so the desired result follows.
+    \item The domains of $J$ are small relative to $J\cell$: By the same argument given above, this will follow by {\color{red}Hovey 2.4.1}, \autoref{2.4.5-6}, and the fact that $J\sseq\cT$.
+    \item $J\cell\sseq\cW\cap I'\cof$: In {\color{red}Hovey 2.4.9}, we will show $J\cof\sseq\cW\cap I'\cof$, and by \autoref{2.1.10} $J\cell\sseq J\cof$.
+    \item $I'\inj\sseq\cW\cap J\inj$: {\color{red}Hovey 2.4.10}
+    \item $\cW\cap J\inj\sseq I'\inj$: {\color{red}Hovey 2.4.12}
+  \end{enumerate}
+  It will follow by the definition of a cofibrantly generated model structure (\autoref{2.1.17}) that the fibrations in this model structure are given by $J\inj$, which is precisely how we defined it. By \autoref{2.1.18}, the class of cofibrations will be given by $I'\cof$, which is likewise exactly how we defined them.
+
+  In {\color{red}Hovey 2.4.2}, we will show that compact spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions. Hence, this model structure will be finitely generated, as the domains and codomains of $I'$ and $J$ are all compact, and by the reasoning given above we will have shown $I'\cell\sseq\cT$.
+  
+  Finally, we will show that every object of $\Top$ is fibrant in {\color{red}Hovey 2.4.14}, and that the cofibrant objects are retracts of relative cell complexes in \autoref{}.
+\end{proof}
+
+\begin{proposition}[Hovey 2.4.5 \& 2.4.6]\label{2.4.5-6}
+  The class of closed $T_1$ inclusions is saturated.
+\end{proposition}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{lemma}[Hovey Lemma 2.4.4]\label{2.4.4}
+  The weak equivalences in $\Top$ are closed under retracts and satisfy 2-of-3 axiom (so that in particular the weak equivalences form a subcategory, as clearly identities are weak equivalences).
+\end{lemma}
+\begin{proof}
+  First we show that weak equivalences satisfy 2-of-3. Let $f:X\to Y$ and $g:Y\to Z$ be continuous functions of topological spaces. 
+  
+  First of all, suppose $f$ and $g$ are both weak equivalences. Then by functoriality of $\pi_n$, since $\pi_n(f,x)$ and $\pi_n(g,f(x))$ are isomorphisms for all $x\in X$, $\pi_n(g\circ f,x)=\pi_n(g,f(x))\circ\pi_n(f,x)$ is likewise an isomorphism for all $x\in X$, so that $g\circ f$ is a weak equivalence.
+
+  Now, suppose that $g\circ f$ and $g$ are weak equivalences. Pick a point $x\in X$. We wish to show that $\pi_n(f,x):\pi_n(X,x)\to\pi_n(Y,f(x))$ is an isomorphism for all $n\geq0$. We know that $\pi_n(g\circ f,x)$ is an isomorphism, and $\pi_n(g,f(x))$ is an isomorphism, say with inverse, $\varphi$, so that
+  \[\varphi\circ\pi_n(g\circ f,x)=\varphi\circ\pi_n(g,f(x))\circ\pi_n(f,x)=\pi_n(f,x)\]
+  is an isomorphism, as it is a composition of isomorphisms.
+
+  Now, suppose that $g\circ f$ and $f$ are weak equivalences. Pick a point $y\in Y$. Since $\pi_0(f)$ is an isomorphism, there exists a point $x\in X$ such that $f(x)$ belongs to the path component containing $y$, so that there exists some $\alpha:I\to Y$ with $\alpha(0)=f(x)$ and $\alpha(1)=f(y)$. Then consider the following diagram
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXHBpX24oWSx5KSJdLFsxLDAsIlxccGlfbihaLGcoeSkpIl0sWzAsMSwiXFxwaV9uKFksZih4KSkiXSxbMSwxLCJcXHBpX24oWixnKGYoeCkpKSJdLFswLDEsIlxccGlfbihnLHkpIl0sWzAsMl0sWzIsMywiXFxwaV9uKGcsZih4KSkiLDJdLFsxLDNdXQ==
+  \[\begin{tikzcd}
+    {\pi_n(Y,y)} & {\pi_n(Z,g(y))} \\
+    {\pi_n(Y,f(x))} & {\pi_n(Z,g(f(x)))}
+    \arrow["{\pi_n(g,y)}", from=1-1, to=1-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow["{\pi_n(g,f(x))}", from=2-1, to=2-2]
+    \arrow[from=1-2, to=2-2]
+  \end{tikzcd}\]
+  where the left arrow is the isomorphism given by conjugation by the path $\alpha$, and the right arrow is the isomorphism given by conjugation by the path $g\circ\alpha$. It is tedious yet straightforward to verify that the diagram commutes.
+  Furthermore, we know that $\pi_n(f,x)$ and $\pi_n(g\circ f,x)=\pi_n(g,f(x))\circ\pi_n(f,x)$ are isomorphisms for all $n$, so that if we denote the inverse of $\pi_n(f,x)$ by $\varphi$, then
+  \[\pi_n(g\circ f,x)\circ\varphi=\pi_n(g,f(x))\circ\pi_n(f,x)\circ\varphi=\pi_n(g,f(x))\]
+  is an isomorphism, as it is given as a composition of isomorphisms. Hence, the top arrow must likewise be an isomorphism, precisely the desired result.
+
+  The fact that weak equivalences in $\Top$ are closed under retracts is entirely straightforward and follows from the fact that the class of isomorphisms in any category is closed under retracts.
+\end{proof}
+
+Questions:\begin{enumerate}
+  \item What is an example of a relative cell complex that is not a CW complex?
+\end{enumerate}
+
+\end{document}
