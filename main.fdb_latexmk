@@ -1,10 +1,10 @@
 # Fdb version 3
-["biber main"] 1674849629 "main.bcf" "main.bbl" "main" 1674861769
-  "main.bcf" 1674861768 106503 4a09ba87dd08159097ccad4eb3dc1377 "pdflatex"
+["biber main"] 1674863352 "main.bcf" "main.bbl" "main" 1674863421
+  "main.bcf" 1674863422 106503 4a09ba87dd08159097ccad4eb3dc1377 "pdflatex"
   (generated)
   "main.blg"
   "main.bbl"
-["pdflatex"] 1674861765 "i:/Classes Winter 2023/Hovey/Model Categories/main.tex" "main.pdf" "main" 1674861769
+["pdflatex"] 1674863419 "i:/Classes Winter 2023/Hovey/Model Categories/main.tex" "main.pdf" "main" 1674863421
   "c:/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1628532046 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1628530254 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1628530254 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -217,18 +217,18 @@
   "c:/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1628536062 2801529 24aad3863ac0d3d008f650617dd721bb ""
   "c:/texlive/2021/texmf.cnf" 1628535918 713 e69b156964470283e0530f5060668171 ""
   "c:/texlive/texmf-local/tex/latex/quiver.sty" 1632936808 1606 c6f282754d9607d1f07ab5f09ca65cab ""
-  "i:/Classes Winter 2023/Hovey/Model Categories/main.tex" 1674861766 21514 d13390072c349964edf964fb96babb23 ""
-  "main.aux" 1674861768 5721 335f611b9b3df9d91ac859a6e891b3f7 "pdflatex"
-  "main.bbl" 1674849632 486 f7f239c736cf01ac6ce7bd829f9b3c7b "biber main"
-  "main.out" 1674861768 280 41abcfc2b6fe08b004b3479cb224418d "pdflatex"
-  "main.run.xml" 1674861768 2299 33d8dfeb54dc04cad67f98afaa10639d "pdflatex"
-  "main.tex" 1674861766 21514 d13390072c349964edf964fb96babb23 ""
-  "main.toc" 1674861768 325 e2abc1ca4761e96487b3a4ae1c588dbe "pdflatex"
+  "i:/Classes Winter 2023/Hovey/Model Categories/main.tex" 1674863420 22664 4ed8b58cc1e14aaf8afc5699c10a9e68 ""
+  "main.aux" 1674863422 7663 21e151722f172aceb27f18cd482508ab "pdflatex"
+  "main.bbl" 1674863354 486 f7f239c736cf01ac6ce7bd829f9b3c7b "biber main"
+  "main.out" 1674863422 280 41abcfc2b6fe08b004b3479cb224418d "pdflatex"
+  "main.run.xml" 1674863422 2299 33d8dfeb54dc04cad67f98afaa10639d "pdflatex"
+  "main.tex" 1674863420 22664 4ed8b58cc1e14aaf8afc5699c10a9e68 ""
+  "main.toc" 1674863422 325 e2abc1ca4761e96487b3a4ae1c588dbe "pdflatex"
   (generated)
   "main.aux"
+  "main.out"
+  "main.bcf"
+  "main.log"
+  "main.run.xml"
   "main.pdf"
   "main.toc"
-  "main.log"
-  "main.out"
-  "main.run.xml"
-  "main.bcf"
