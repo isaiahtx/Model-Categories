@@ -235,6 +235,53 @@
   is an isomorphism. We say that $A$ is \textit{small relative to $\cD$} if it is $\kappa$-small relative to $\cD$ for some $\kappa$. We say that $A$ is \textit{small} if it is small relative to $\cC$ itself.
 \end{definition}
 
+Recall that given a small category $\cD$ and a functor $F:\cD\to\Set$, we may explicitly construct the colimit of $F$ as the set
+\[\colim F:=\(\coprod_{d\in \cD}F(d)\)/\sim,\]
+where the equivalence relation $\sim$ is \textbf{generated} by
+\[((x\in F(d))\sim(x'\in F(d')))\quad\text{ if }\quad(\exists(f:d\to d')\text{ with }Ff(x)=x').\]
+In particular, if $\cD$ is a filtered category then the resulting relation can be described as follows:
+\begin{equation}\label{eq1}
+  ((x\in F(d))\sim(x'\in F(d')))\quad\text{ iff }\quad(\exists\ d'',\,(f:d\to d''),\,(g:d'\to d'')\text{ with }Ff(x)=Fg(x')).
+\end{equation}
+given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps the equivalence class of $x\in F(d)$ to the element $\eta_d(x)\in X$. We will use this characterization of the colimit in the following example.
+
+\begin{example}[Hovey 2.1.5]\label{2.1.5}
+  Every set is small. Indeed, if $A$ is a set we claim that $A$ is $|A|$-small. To see this, suppose $\lambda$ is an $|A|$-filtered ordinal, and $X$ is a $\lambda$-sequence of sets. Given $\alpha<\beta<\lambda$, let $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ denote the induced morphism. We will write $X_\lambda:=\colim_{\beta<\lambda}X_\beta$, and let $\iota:X\Rightarrow X_\lambda$ be the colimit cone, so that given $\beta<\lambda$, $\iota_\beta:X_\beta\to X_\lambda$ is the leg of the colimit cone at $X_\beta$. By composing with the functor $\cC(A,-):\Set\to\Set$, we get another $\lambda$-sequence $\{\cC(X_\beta,A)\}_{\beta<\lambda}$. The cone $\iota$ under $X$ induces a cone $\iota_*$ under $\cC(X_\beta,A)$ with nadir $\cC(A,X_\lambda)$. Let $\eta:\cC(X_\beta,A)\Rightarrow\underline{\colim_{\beta<\lambda}\cC(X_\beta,A)}$ be the colimit cone, and let $\ell:\colim_{\beta<\lambda}\cC(A,X_\lambda)\to\cC(A,X_\lambda)$ be the unique morphism of cones so that the following diagram commutes
+  \[\begin{tikzcd}
+    {\cC(A,X_0)} && {\cC(A,X_1)} && \cdots && {\cC(A,X_\beta)} && \cdots \\
+    \\
+    &&&& {\colim_{\beta<\lambda}\cC(A,X_\beta)} \\
+    \\
+    &&&& {\cC(A,X_\lambda)}
+    \arrow["{(\iota_{0,1})_*}", from=1-1, to=1-3]
+    \arrow["{(\iota_{1,2})_*}", from=1-3, to=1-5]
+    \arrow[from=1-5, to=1-7]
+    \arrow["{(\iota_{\beta,\beta+1})_*}", from=1-7, to=1-9]
+    \arrow["{\eta_\beta}"', from=1-7, to=3-5]
+    \arrow["{\eta_1}", from=1-3, to=3-5]
+    \arrow["{\eta_0}"{pos=0.3}, from=1-1, to=3-5]
+    \arrow["{(\iota_\beta)_*}", from=1-7, to=5-5]
+    \arrow["\ell", dashed, from=3-5, to=5-5]
+    \arrow["{(\iota_1)_*}"'{pos=0.4}, from=1-3, to=5-5]
+    \arrow["{(\iota_0)_*}"', from=1-1, to=5-5]
+  \end{tikzcd}\]
+  First, we wish to show that $\ell$ is surjective. Indeed, let $f:A\to X_\lambda$. For each $a\in A$, there exists some $\beta_a\in\lambda$ and some $a'\in X_{\beta_a}$ such that $f(a)=\eta_{\beta_a}(a')$ (see the preceeding discussion). Then let $\gamma:=\sup_{a\in A}\beta_a$. Since $|\{\beta_a\}_{a\in A}|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Now, define $g:A\to X_\gamma$ like so: for $a\in A$, define $g(a):=\iota_{\beta_a,\gamma}(a')$, where $a'\in X_{\beta_a}$ was chosen earlier so that $\iota_{\beta_a}(a')=f(a)$. Then we claim that $\ell(\eta_\gamma(g))=f$. Indeed, as $\ell$ is a morphism of cocones, $\ell\circ\eta=\iota_*$, so that we have
+  \[\ell(\eta_\gamma(g))=(\iota_\gamma)_*(g)=\iota_\gamma\circ g,\]
+  and given $a\in A$ we have 
+  \[\iota_\gamma(g(a))=\iota_\gamma(\iota_{\beta_a,\gamma}(a')).\] 
+  By definition of a cone, $\iota_{\gamma}\circ\iota_{\beta_a,\gamma}=\iota_{\beta_a}$, so that
+  \[\ell(\eta_{\gamma}(g))(a)=\iota_\gamma(\iota_{\beta_a,\gamma}(a'))=\iota_{\beta_a}(a')=f(a),\]
+  so that indeed $\ell(\eta_\gamma(g))=f$.
+
+  It remains to show $\ell$ is injective. Suppose we are given $[f],[g]\in\colim_{\beta<\lambda}\cC(A,X_\beta)$ such that $\ell([f])=\ell([g])$. Then by the preceeding discussion, there exists $\alpha,\beta<\lambda$, $f\in\cC(A,X_\alpha)$, and $g\in\cC(A,X_\beta)$ such that $\eta_\alpha(f)=[f]$ and $\eta_\beta(g)=[g]$. 
+  Then since $\ell\circ\eta=\iota_*$, we have
+  \[\ell([f])=\ell([g])\implies\iota_\alpha\circ f= (\iota_\alpha)_*(f)=\ell(\eta_\alpha(f))=\ell(\eta_\beta(g))=(\iota_\beta)_*(g)=\iota_\beta\circ g.\]
+  %Now, WLOG assume $\alpha\leq\beta$. 
+  For each $a\in A$, since $\iota_\alpha(f(a))=\iota_\beta(g(a))$, by \autoref{eq1} there exists $\gamma_a$ with $\alpha,\beta\leq\gamma_a$ such that $\iota_{\alpha,\gamma_a}(f(a))=\iota_{\beta,\gamma_a}(g(a))$. Then let $\gamma:=\sup_{a\in A}\gamma_a$. Since $|\{\gamma_a\}_{a\in A}|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Now, in order to show $[f]=[g]$, by \autoref{eq1} it suffices to show that $(\iota_{\alpha,\gamma})_*(f)=(\iota_{\beta,\gamma})_*(g)$. Indeed, given $a\in A$, we have
+  \[(\iota_{\alpha,\gamma})_*(f)(a)=\iota_{\alpha,\gamma}(f(a))=\iota_{\gamma_a,\gamma}\circ\iota_{\alpha,\gamma_a}(f(a))=\iota_{\gamma_a,\gamma}\circ\iota_{\beta,\gamma_a}(g(a))=\iota_{\beta,\gamma}(g(a))=(\iota_{\beta,\gamma})_*(g)(a),\]
+  precisely the desired result.
+\end{example}
+
 \begin{definition}[Hovey Definition 2.1.7]
   Let $I$ be a class of maps in a category $\cC$.\begin{enumerate}
     \item A map is \textit{$I$-injective} if it has the right lifting property w.r.t.\ every map in $I$. The class of $I$-injective maps is denoted $I\inj$ (or $I_\perp$).
