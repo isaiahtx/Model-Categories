@@ -227,6 +227,8 @@
   Let $\gamma$ be a cardinal. An ordinal $\alpha$ is \textit{$\gamma$-filtered} if it is a limit ordinal and, if $A\sseq\alpha$ and $|A|\leq\gamma$, then $\sup A<\alpha$.
 \end{definition}
 
+Given a cardinal $\gamma$, a $\gamma$-filtered category is one such that any diagram $\cD\to\cC$ has a cocone where $\cD$ has $<\gamma$ arrows. A catgory is just ``filtered'' if it is $\omega$-filtered, i.e., if every finite diagram in $\cC$ admits a cocone. Note that an ordinal $\alpha$ is $\gamma$-filtered precisely when it is $\gamma$-filtered as a category, and in particular every ordinal is $\omega$-filtered.
+
 \begin{definition}[Hovey Definition 2.1.3]
   Suppose $\cC$ is a comcomplete category, $\cD\sseq\Mor\cC$ is some collection of morphisms of $\cC$, $A$ is an object of $\cC$, and $\kappa$ is a cardinal. We say that $A$ is \textit{$\kappa$-small relative to $\cD$} if, for all $\kappa$-filtered ordinals $\lambda$ and all $\lambda$-sequences
   \[X_0\to X_1\to\cdots\to X_\beta\to\cdots\]
@@ -429,7 +431,7 @@ The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ 
   Every topological space is small relative to the inclusions.
 \end{lemma}
 \begin{proof}
-  \color{red}TODO.
+  As with the case of sets, we claim that every topological space $X$ is $|X|$-small. 
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.2]\label{2.4.2}
