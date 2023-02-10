@@ -205,7 +205,7 @@
 
 \title{Model Structures}
 
-\author{}
+\author{Isaiah Dailey}
 \date{\today}
 
 \begin{document}
@@ -422,6 +422,15 @@ The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ 
 
 Recall: If $F:\cJ\to\Top$ is a functor, where $\cJ$ is a small category, the limit of $F$ is obtained by taking the limit in the category of sets, and then topologizing it with the \textit{initial topology}, where if $\eta:\underline{\lim F}\Rightarrow F$ is the limit cone, then the open sets in $\lim F$ are precisely the sets of the form $\eta_j^{-1}(U)$ where $j\in\cJ$ and $U\sseq F_j$ is open. Similarly, the colimit of $F$ is obtained by taking the colimit $\colim F$ in the category of sets, and declaring a set $U\sseq\colim F$ to be open if and only if $\vare_j^{-1}(U)$ is open in $F_j$ for all $j\in\cJ$, where $\vare:F\Rightarrow\underline{\colim F}$ is the colimit cone.
 
+Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if for every subset $A\sseq X$, $A$ is closed in $X$ if and only if $A\cap K$ is closed in $K$ for all compact subspaces $K\sseq X$.
+
+\begin{proposition}\label{compactly_generated_hausdorff_spaces_are_exponentiable}
+  If $X$ is a compactly generated Hausdorff space, then the functor $-\times X:\Top\to\Top$ has a right adjoint (so that in particular, $-\times X$ preserves colimits).
+\end{proposition}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
 \begin{definition}
   A map $f:X\to Y$ in $\Top$ is called a \textit{weak equivalence} if
   \[\pi_n(f,x):\pi_n(X,x)\to\pi_n(Y,f(x))\]
@@ -547,17 +556,60 @@ Recall: If $F:\cJ\to\Top$ is a functor, where $\cJ$ is a small category, the lim
   \end{tikzcd}\]
   It can be seen that $j_n$ includes $D^n$ as a hemisphere of $S^n=\partial D^{n+1}\sseq D^{n+1}$. Note that $D^{n}\times I$ is homeomorphic to $D^{n+1}$ (``smooth out'' the sharp edges of the cylinder) via some homeomorphism $h_n:D^{n+1}\to D^n\times I$, and in particular, we may define $h_n$ so that $h_n(j_n(D^n))= D^n\times\{0\}\sseq D^n\times I$ by squashing the hemisphere $j_n(D^n)$ to be one of the faces of the cylinder $D^n\times I$, in which case $h_n\circ j_n:D^n\to D^n\times I$ is precisely the inclusion $D^n\into D^n\times I$ sending $x\mapsto (x,0)$, and since $j_n\in I'\cell$, $h_n\circ j_n\in I'\cell$ by \autoref{I-cell_closed_under_composition_with_isomorphisms}.
 
-  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell} and \autoref{2.1.15}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Thus, it suffices to find a saturated class $\cS$ of maps in $\Top$ with $J\sseq\cS\sseq\cW$. Indeed, let $\cS$ be the class of \textit{inclusions of a deformation retract}, i.e., those maps $i:A\to B$ such that there exists a homotopy $H:B\times I\to B$ with $H(i(a),t)=i(a)$ for all $a\in A$, $H(b,0)=b$ for all $b\in B$, and $H(b,1)=i(r(b))$ for some map $r:B\to A$. We must complete three steps:
+  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell} and \autoref{2.1.15}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Thus, it suffices to find a saturated class $\cS$ of maps in $\Top$ with $J\sseq\cS\sseq\cW$. Indeed, let $\cS$ be the class of \textit{inclusions of a deformation retract}, i.e., those \textbf{injective} maps $i:A\to B$ such that there exists a homotopy $H:B\times I\to B$ with $H(i(a),t)=i(a)$ for all $a\in A$, $H(b,0)=b$ for all $b\in B$, and $H(b,1)=i(r(b))$ for some map $r:B\to A$\footnote{Hovey has a typo here, namely, he does not specify that $i$ must be injective. Without this specification, his assertion fails. For example, tkae $A=\bR^2$, $B=\bR$, $i(x,y)=x$, $H(b,t)=b$, and $r(b)=(b,0)$. Then $i$ is an inclusion of a deformation retract according to Hovey's ``definition,'' but $i$ is not injective and $r$ is not a retract.}. We must complete three steps:
   \begin{enumerate}[listparindent=\parindent,parsep=0pt]
-    \item $J\sseq\cS$.
-    
-    For $n\geq0$, let $j_n:D^n\into D^n\times I$ denote the inclusion of $D^n$ as the subset $D^n\times\{0\}$. Define a deformation retract $H:D^n\times I\times I\to D^n\times I$ by $(x,s,t)\mapsto(x,s(1-t))$. Then indeed we have $H(j_n(x),t)=H(x,0,t)=(x,0)=j_n(x)$ for all $x\in D^n$, $H(x,t,0)=(x,t(1-0))=(x,t)$ for all $(x,t)\in D^n\times I$, and $H(x,t,1)=(x,t(1-1))=(x,0)=j_n(r(x))$ for all $(x,t)\in D^n\times I$, where $r:D^n\times I\to D^n$ is the projection onto time zero sending $(x,t)\mapsto(x,0)$. Thus, indeed $J\sseq\cS$.
-
     \item $\cS\sseq\cW$.
     
-    It suffices to show that if $i:A\to B$ belongs to $\cS$, then $i$ is a homotopy equivalence. Indeed, given $i:A\to B$, let $H:B\times I\to B$ and $r:B\to A$ be a homotopy and retract satisfying the conditions above. Then in particular, $H$ is a homotopy between $\id_B$ (at time $t=0$) and $i\circ r:$ (at time $t=1$), so it remains to show that $r\circ i$ is homotopic to $\id_A$.
+    It suffices to show that if $i:A\to B$ belongs to $\cS$, then $i$ is a homotopy equivalence. Indeed, given $i:A\to B$, let $H:B\times I\to B$ and $r:B\to A$ be a homotopy and retract satisfying the conditions above. Then in particular, $H$ is a homotopy between $\id_B$ (at time $t=0$) and $i\circ r$ (at time $t=1$). It remains to show that $r\circ i=\id_A$. First of all, note that since $H(b,1)=i(r(b))$ for all $b\in B$, we have $H(i(a),1)=i(r(i(a)))$. Yet, we also know that $H(i(a),t)=i(a)$ for all $t\in I$, so $i(r(i(a)))=i(a)$, and $i$ is injective so $r(i(a))=a$.
+
+    \item $J\sseq\cS$.
+    
+    For $n\geq0$, let $j_n:D^n\into D^n\times I$ denote the inclusion of $D^n$ as the subset $D^n\times\{0\}$. Define a deformation retract $H:D^n\times I\times I\to D^n\times I$ by $(x,s,t)\mapsto(x,s(1-t))$. Then indeed we have $H(j_n(x),t)=H(x,0,t)=(x,0)=j_n(x)$ for all $x\in D^n$, $H(x,t,0)=(x,t(1-0))=(x,t)$ for all $(x,t)\in D^n\times I$, and $H(x,t,1)=(x,t(1-1))=(x,0)=j_n(r(x))$ for all $(x,t)\in D^n\times I$, where $r:D^n\times I\to D^n$ is the projection onto time zero sending $(x,t)\mapsto(x,0)$. Finally, $j_n$ is clearly injective. Thus, indeed $J\sseq\cS$.
 
     \item $\cW$ is saturated.
+    
+    First, suppose we are given a pushout diagram
+    \[\begin{tikzcd}
+      A & C \\
+      B & D
+      \arrow["i"', from=1-1, to=2-1]
+      \arrow["g"', from=2-1, to=2-2]
+      \arrow["f", from=1-1, to=1-2]
+      \arrow["j", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \end{tikzcd}\]
+    where $i\in\cS$. Then we wish to show $j$ in $\cS$. First, injectivity. Suppose for the sake of a contradiction there existed nonequal $c,c'\in C$ such that $j(c)=j(c')$. Define $X:=\{1,2,3\}$ (with the indiscrete topology, if you like), $h:C\to X$ by $c\mapsto 1$, $c'\mapsto2$, and $C\setminus\{c,c'\}\mapsto 3$, and $k:B\to X$ by $i(f^{-1}(c))\mapsto 1$, $i(f^{-1}(c'))\mapsto 2$, and $i(f^{-1}(C\setminus\{c,c'\}))\mapsto 3$. Then it is straightforward to see that $h\circ f=k\circ i$. Thus, there must exist a (unique) function $\ell:D\to X$ such that $\ell\circ j=h$ and $\ell\circ g=k$. But then we would have $h(c)=\ell(j(c))=\ell(j(c'))=h(c')$ since $j(c)=j(c')$, a contradiction of the fact that $h(c)\neq h(c')$. Hence, $j$ must be injective. Now, we look to construct $H$ and $r$. Let $K:B\times I\to B$ and $r:B\to A$ be maps satisfying the conditions for $i$ to be an inclusion of a deformation retract. 
+    We wish to define a homotopy $H:D\times I\to D$. Then $I$ is a compactly generated Hausdorff space (in particular, it is compact and Hausdorff), so that the functor $-\times I:\Top\to\Top$ preserves colimits (\autoref{compactly_generated_hausdorff_spaces_are_exponentiable}), meaning the following is a pushout diagram:
+    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFx0aW1lcyBJICJdLFsxLDAsIkNcXHRpbWVzIEkiXSxbMSwxLCJEXFx0aW1lcyBJIl0sWzAsMSwiQlxcdGltZXMgSSJdLFswLDEsImZcXHRpbWVzXFxpZF9JIl0sWzEsMiwialxcdGltZXNcXGlkX0kiXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyLWludmVyc2UifX1dLFswLDMsImlcXHRpbWVzXFxpZF9JIiwyXSxbMywyLCJnXFx0aW1lc1xcaWRfSSIsMl1d
+    \[\begin{tikzcd}
+      {A\times I } & {C\times I} \\
+      {B\times I} & {D\times I}
+      \arrow["{f\times\id_I}", from=1-1, to=1-2]
+      \arrow["{j\times\id_I}", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+      \arrow["{i\times\id_I}"', from=1-1, to=2-1]
+      \arrow["{g\times\id_I}"', from=2-1, to=2-2]
+    \end{tikzcd}\]
+    Then by the universal property of the pushout, there is a map $H:D\times I\to D$ (the dashed line) such that the following diagram commutes
+    % https://q.uiver.app/?q=WzAsNyxbMCwwLCJBXFx0aW1lcyBJICJdLFsxLDAsIkNcXHRpbWVzIEkiXSxbMSwxLCJEXFx0aW1lcyBJIl0sWzAsMSwiQlxcdGltZXMgSSJdLFsyLDIsIkQiXSxbMSwyLCJCIl0sWzIsMSwiQyJdLFswLDEsImZcXHRpbWVzXFxpZF9JIl0sWzEsMiwialxcdGltZXNcXGlkX0kiXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyLWludmVyc2UifX1dLFswLDMsImlcXHRpbWVzXFxpZF9JIiwyXSxbMywyLCJnXFx0aW1lc1xcaWRfSSIsMl0sWzEsNiwiXFxwaV8xIiwwLHsiY3VydmUiOi0yLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw1LCJLIiwyLHsiY3VydmUiOjJ9XSxbNSw0LCJnIiwyXSxbNiw0LCJqIl0sWzIsNCwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+    \[\begin{tikzcd}
+      {A\times I } & {C\times I} \\
+      {B\times I} & {D\times I} & C \\
+      & B & D
+      \arrow["{f\times\id_I}", from=1-1, to=1-2]
+      \arrow["{j\times\id_I}", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+      \arrow["{i\times\id_I}"', from=1-1, to=2-1]
+      \arrow["{g\times\id_I}"', from=2-1, to=2-2]
+      \arrow["{\pi_1}", curve={height=-12pt}, two heads, from=1-2, to=2-3]
+      \arrow["K"', curve={height=12pt}, from=2-1, to=3-2]
+      \arrow["g"', from=3-2, to=3-3]
+      \arrow["j", from=2-3, to=3-3]
+      \arrow[dashed, from=2-2, to=3-3]
+    \end{tikzcd}\]
+    Now, note given $c\in C$ and $t\in I$, $H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c)$. Given $d\in D$, we want to show $H(d,0)=d$. If $d=j(c)$ for some $c$, we are done by what we have just shown. Thus, we may assume $d=g(b)$ for some $b\in B$, in which case $H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d$.
+
+    \color{red}TODO: Finish.
   \end{enumerate}
 \end{proof}
 
@@ -583,7 +635,14 @@ Recall: If $F:\cJ\to\Top$ is a functor, where $\cJ$ is a small category, the lim
 \end{proof}
 
 \textbf{Questions:}\begin{enumerate}
-  \item Lemma 2.3 help pls (limit ordinal case in transfinite induction)
+  \item Lemma 2.3 help pls (limit ordinal case in transfinite induction).
+  \item Am I correct that Hovey's definition of ``inclusion of a deformation retract'' is wrong?
+  \item Why does it follow that we can take the product of a pushout diagram with $I$ to get a new pushout diagram? I conjecture the following:
+  
+  Let $\cC$ be a monoidal category. Suppose $c\in\cC$ is \textbf{exponentiable}, i.e., that the functor $-\otimes c:\cC\to\cC$ has a right adjoint. Then given a small diagram $F:\cI\to\cC$ and a colimit cone $\eta:F\Rightarrow\ul x$, the cone $\eta\otimes\id_c$ defined by $(\eta\otimes\id_c)_i:=\eta_i\otimes\id_c$ is a colimit cone with nadir $x\otimes c$ for the diagram $F\otimes c:=(-\otimes c)\circ F:\cI\to\cC$. Is this true?
+  
+  I also would like to go over the proof that compactly generated Hausdorff spaces are exponentiable.
+  \item 
 \end{enumerate}
 
 \end{document}
