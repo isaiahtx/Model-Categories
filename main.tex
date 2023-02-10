@@ -92,11 +92,13 @@
 \newcommand{\cB}{\mathcal B}
 \newcommand{\cC}{\mathcal C}
 \newcommand{\cD}{\mathcal D}
+\newcommand{\id}{\mathrm{id}}
 \newcommand{\cE}{\mathcal E}
 \newcommand{\cF}{\mathcal F}
 \newcommand{\cG}{\mathcal G}
 \newcommand{\cH}{\mathcal H}
 \newcommand{\cI}{\mathcal I}
+\newcommand{\p}{{_\perp}}
 \newcommand{\cJ}{\mathcal J}
 \newcommand{\cK}{\mathcal K}
 \newcommand{\cL}{\mathcal L}
@@ -219,8 +221,8 @@
   Suppose $\cC$ is a cocomplete category, and $\lambda$ is an ordinal. A \textit{$\lambda$-sequence} in $\cC$ is a colimit-preserving functor $X:\lambda\to\cC$, commonly written as
   \[X_0\to X_1\to\cdots\to X_\beta\to\cdots.\]
   Since $X$ preserves colimits, for all limit ordinals $\gamma<\lambda$, the induced map
-  \[\colim_{\beta<\lambda}X_\beta\to X_\gamma\]
-  is an isomorphism. We refer to the map $X_0\to \colim_{\beta<\lambda}X_\beta$ as the \textit{composition} of the $\lambda$-sequence. Given a collection $\cD$ of morphisms in $\cC$ such that every map $X_\beta\to X_{\beta+1}$ for $\beta+1<\lambda$ is in $\cD$, we refer to the composition $X_0\to\colim_{\beta<\lambda}X_\beta$ as a \textit{transfinite composition} of maps in $\cD$.
+  \[\colim_{\beta<\gamma}X_\beta\to X_\gamma\]
+  is an isomorphism. We refer to the map $X_0\to \colim_{\beta<\lambda}X_\beta$ as the \textit{composition} of the $\lambda$-sequence. Given a collection $\cD$ of morphisms in $\cC$ such that every map $X_\beta\to X_{\beta+1}$ for $\beta+1<\lambda$ is in $\cD$, we refer to the composition $X_0\to\colim_{\beta<\lambda}X_\beta$ as a \textit{transfinite composition} of maps in $\cD$.\footnote{To be more precise, there may be different (isomorphic) choices of colimit $\colim_{\beta<\gamma}X_\beta$, which give rise to different choices of composition $X_0\to\colim_{\beta<\gamma}X_\beta$. Thus, the composition of a $\lambda$-sequence is only unique up to composition by a unique isomorphism.}
 \end{definition}
 
 \begin{definition}[Hovey Definition 2.1.2]
@@ -286,12 +288,19 @@ given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F
 
 \begin{definition}[Hovey Definition 2.1.7]
   Let $I$ be a class of maps in a category $\cC$.\begin{enumerate}
-    \item A map is \textit{$I$-injective} if it has the right lifting property w.r.t.\ every map in $I$. The class of $I$-injective maps is denoted $I\inj$ (or $I_\perp$).
-    \item A map is \textit{$I$-projective} if it has the left lifting property w.r.t.\ every map in $I$. The class of $I$-projective maps is denoted $I\proj$ (or $_\perp I$).
-    \item A map is an \textit{$I$-cofibration} if it has the left lifting property w.r.t.\ every $I$-injective map. The class of $I$-cofibrations is the class $(I\inj)\proj$ and is denoted $I\cof$ (or $_\perp(I_\perp)$).
-    \item A map is an \textit{$I$-fibration} if it has the right lifting property w.r.t.\ every $I$-projective map. The class of $I$-fibrations is the class $(I\proj)\inj$ and is denoted $I\fib$ (or $(_\perp I)_\perp$).
+    \item A map is \textit{$I$-injective} if it has the right lifting property w.r.t.\ every map in $I$. The class of $I$-injective maps is denoted $I\inj$ (or $I\p$).
+    \item A map is \textit{$I$-projective} if it has the left lifting property w.r.t.\ every map in $I$. The class of $I$-projective maps is denoted $I\proj$ (or $\p I$).
+    \item A map is an \textit{$I$-cofibration} if it has the left lifting property w.r.t.\ every $I$-injective map. The class of $I$-cofibrations is the class $(I\inj)\proj$ and is denoted $I\cof$ (or $\p(I\p)$).
+    \item A map is an \textit{$I$-fibration} if it has the right lifting property w.r.t.\ every $I$-projective map. The class of $I$-fibrations is the class $(I\proj)\inj$ and is denoted $I\fib$ (or $(\p I)\p$).
   \end{enumerate}
 \end{definition}
+
+\begin{lemma}\label{useful_LP_properties}
+  Given classes $A$ and $B$ of maps in a category $\cC$ with $A\sseq B$, $A\sseq {\p(A\p)}$, $A\sseq (\p A)\p$, $(\p(A\p))\p=A\p$, $\p((\p A)\p)={\p A}$, $A\p\spseq B\p$, $\p A\spseq {\p B}$, ${\p(A\p)}\sseq {\p(B\p)}$, and $(\p A)\p\sseq (\p B)\p$.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
 
 \begin{definition}[Hovey Definition 2.1.9]
   Let $I$ be a set of maps in a cocomplete category $\cC$. A \textit{relative $I$-cell complex} is a transfinite composition of pushouts of elements of $I$. That is, if $f:A\to B$ is a relative $I$-cell complex, then there is an ordinal $\lambda$ and a $\lambda$-sequence $X:\lambda\to\cC$ such that $f$ is the composition of $X$ and such that, for each $\beta$ such that $\beta+1<\lambda$, there is a pushout square
@@ -307,26 +316,77 @@ given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F
   with $g_\beta\in I$. We denote the collection of relative $I$-cell complexes by $I\cell$. We say that $A\in\cC$ is an \textit{$I$-cell complex} if the map $0\to A$ is a relative $I$-cell complex.
 \end{definition}
 
-\begin{lemma}[Hovey 2.1.10]\label{2.1.10}
-  Suppose $I$ is a class of maps in a category $\cC$ with all small colimits. Then $I\cell\sseq I\cof$.
+\begin{lemma}\label{I-cell_closed_under_composition_with_isomorphisms}
+  Let $\cC$ be a category and $I$ a class of morphisms in $\cC$. Then $I\cell$ is closed under composition with isomorphisms.
 \end{lemma}
+\begin{proof}
+  Suppose that $f:B\to C$ is an element of $I\cell$, and $h:A\to B$ and $g:C\to D$ are isomorphisms in $\cC$. We wish to show $f\circ h$ and $g\circ f$ are also elements of $I\cell$. Since $f\in I\cell$, there exists an ordinal $\lambda$, a $\lambda$-sequence $X$ with $X_0=B$, and a colimit cone $\eta:X\Rightarrow\underline C$, such that $\eta_0=f$. 
+  
+  First of all, construct a new cone $\eta':X\Rightarrow\underline D$ under $X$ where $\eta'_\beta:=g\circ\eta_\beta$. It is straightforward to verify that $\eta'$ is a colimit cone for $X$ since $\eta$ is a colimit cone and $g$ is an isomorphism. Thus, $g\circ f=g\circ\eta_0=\eta_0'\in I\cell$, as $\eta_0'$ is the composition of a sequence of pushouts of elements of $I$.
+
+  On the other hand, we may construct a new $\lambda$-sequence $X'$ by defining $X'_0=A$, $X_\beta'=X_\beta$ for all $0<\beta<\lambda$, the map $X_0'\to X_\beta'$ for $0<\beta<\lambda$ to be the composition
+  \[\begin{tikzcd}
+    A & {B=X_0} & {X_\beta},
+    \arrow["h", from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-3]
+  \end{tikzcd}\]
+  and the composition $X'_\alpha\to X'_\beta$ to simply be the same map $X_\alpha\to X_\beta$ for $0<\alpha\leq \beta<\lambda$. It is straightforward to verify that defines a $\lambda$-sequence, and that we may define a colimit cone $\eta':X'\Rightarrow\underline C$ by $\eta'_0=\eta_0\circ h=f\circ h$, and $\eta'_\beta=\eta_\beta$ for $0<\beta<\lambda$. Furthermore, clearly for all $1<\beta+1<\lambda$, we have the arrow $X_\beta'\to X_{\beta+1}'$ is a pushout of a map in $I$. Thus, in order to show $f\circ h\in I\cell$, it remains to show that the arrow $A=X_0'\to X_1'=X_1$ is a pushout of a map in $I$. Indeed, we know since $B=X_0\to X_1$ is a pushout of a map $k:P\to Q$ in $I$, and it can be easily verified the diagram on the right is a pushout diagram:
+  \[\begin{tikzcd}[row sep=small,column sep=small]
+    P && {X_0} && P & {X_0} & {X_0'} \\
+    &&& \leadsto &&& {X_0} \\
+    Q && {X_1} && Q && {X_1'}
+    \arrow[from=1-3, to=3-3]
+    \arrow[from=3-1, to=3-3]
+    \arrow[from=1-1, to=1-3]
+    \arrow["k"', from=1-1, to=3-1]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+    \arrow[from=1-5, to=1-6]
+    \arrow["h", from=1-7, to=2-7]
+    \arrow[from=2-7, to=3-7]
+    \arrow[from=1-5, to=3-5]
+    \arrow[from=3-5, to=3-7]
+    \arrow["{h^{-1}}", from=1-6, to=1-7]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-7, to=1-5]
+  \end{tikzcd}\qedhere\]
+\end{proof}
+
+\begin{lemma}[Hovey 2.1.10]\label{2.1.10}
+  Suppose $I$ is a class of maps in a category $\cC$ with all small colimits. Then $I\cell\sseq{\p(I\p)}$.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{theorem}[Small Object Argument, Hovey 2.1.14]\label{2.1.14}
+  Suppose $\cC$ is a cocomplete categroy, and $I$ is a set of maps in $\cC$. Suppose the domains of the maps of $I$ are small relative to $I\cell$. Then there is a functorial factorization $(\gamma,\delta)$ on $\cC$ such that for all morphisms $f\in\cC$, the map $\gamma(f)$ is in $I\cell$ and the map $\delta(f)$ is in $I\inj$.
+\end{theorem}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{corollary}[Hovey 2.1.15]\label{2.1.15}
+  Suppose that $I$ is a set of maps in a cocomplete category $\cC$. Suppose as well that the domains of $I$ are small relative to $I\cell$. Then given $f:A\to B$ in $\p(I\p)$, there is a $g:A\to C$ in $I\cell$ such that $f$ is a retract of $g$ by a map which fixes $A$.
+\end{corollary}
+\begin{proof}
+  \color{red}TODO
+\end{proof}
 
 \begin{definition}[Hovey Definition 2.1.17]\label{2.1.17}
   Suppose $\cC$ is a model category. We say that $\cC$ is \textit{cofibrantly generated} if there are sets $I$ and $J$ of maps such that:\begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
     \item The domains of the maps of $I$ are small relative to $I\cell$;
     \item The domains of the maps of $J$ are small relative to $J\cell$;
-    \item The class of fibrations is $J\inj$; and
-    \item The class of trivial fibrations is $I\inj$.
+    \item The class of fibrations is $J\p$; and
+    \item The class of trivial fibrations is $I\p$.
   \end{enumerate}
   We refer to $I$ as the set of \textit{generating cofibrations} and to $J$ as the set of \textit{generating trivial cofibrations}. A cofibrantly generated model category is \textit{finitely generated} if we can choose the sets $I$ and $J$ above so that the domains and codomains of $I$ and $J$ are finite relative to $I\cell$.
 \end{definition}
 
 \begin{proposition}[Hovey Proposition 2.1.18]\label{2.1.18}
   Suppose $\cC$ is a cofibrantly generated model category, with generating cofibrations $I$ and generating trivial fibrations $J$.\begin{enumerate}[label=(\alph*),noitemsep,topsep=0pt]
-    \item The cofibrations form the class $I\cof$.
+    \item The cofibrations form the class ${\p(I\p)}$.
     \item Every cofibration is a retract of a relative $I$-cell complex.
     \item The domains of $I$ are small relative to the cofibrations.
-    \item The trivial cofibrations form the class $J\cof$.
+    \item The trivial cofibrations form the class ${\p(J\p)}$.
     \item Every trivial cofibration is a retract of a relative $J$-cell complex.
     \item The domains of $J$ are small relative to the trivial cofibrations.
   \end{enumerate}
@@ -341,9 +401,9 @@ given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F
     \item The subcategory $\cW$ has the 2-of-3 property and is closed under retracts.
     \item The domains of $I$ are small relative to $I\cell$.
     \item The domains of $J$ are small relative to $J\cell$.
-    \item $J\cell\sseq\cW\cap I\cof$.
-    \item $I\inj\sseq\cW\cap J\inj$.
-    \item Either $\cW\cap I\cof\sseq J\cof$ or $\cW\cap J\inj\sseq I\inj$.
+    \item $J\cell\sseq\cW\cap {\p(I\p)}$.
+    \item $I\p\sseq\cW\cap J\p$.
+    \item Either $\cW\cap {\p(I\p)}\sseq {\p(J\p)}$ or $\cW\cap J\p\sseq I\p$.
   \end{enumerate}
 \end{theorem}
 \begin{proof}
@@ -354,54 +414,22 @@ given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F
   Let $\cC$ be a category and $I$ a collection of morphisms in $\cC$. Then if $I$ is closed under transfinite composition, pushouts, and retracts then we say $I$ is \textit{saturated}.
 \end{definition}
 
-%\begin{proposition}
-%  Let $I$ be a set of maps in a cocomplete category $\cC$. Then $_\perp I$ is saturated.
-%\end{proposition}
-%\begin{proof}
-%  Let $X$ be a $\lambda$ sequence in $\cC$ for some ordinal $\lambda$ such that the map $X_\beta\to X_{\beta+1}$ is in $_\perp I$ for $\beta+1<\lambda$. Then we wish to show that the map $X_0\to X_\lambda:=\colim_{\beta<\lambda}X_\beta$ also is in $_\perp I$. Suppose we are given a lifting problem of the form
-%  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYXzAiXSxbMCwxLCJYX1xcbGFtYmRhIl0sWzEsMSwiQiJdLFsxLDAsIkEiXSxbMCwxXSxbMSwyXSxbMCwzXSxbMywyLCJmIl1d
-%  \[\begin{tikzcd}
-%    {X_0} & A \\
-%    {X_\lambda} & B
-%    \arrow[from=1-1, to=2-1]
-%    \arrow[from=2-1, to=2-2]
-%    \arrow[from=1-1, to=1-2]
-%    \arrow["f", from=1-2, to=2-2]
-%  \end{tikzcd}\]
-%  where $f\in I$.
-%\end{proof}
-
-%\section{Chain complexes of modules over a ring}
-%
-%
-%\begin{definition}
-  %Let $R$ be a ring. Given an $R$-module $M$, define $S^n(M),D^n(M)\in\Ch(R)$ by
-  %\[S^n(M)_k:=\begin{cases}
-    %M & k=n \\
-    %0 & \text{else }
-  %\end{cases}\quad\quad\quad\text{ and }\quad\quad\quad D^n(M):=\begin{cases}
-    %M & k=n,n-1 \\
-    %0 & \text{else},
-  %\end{cases}\]
-  %where the differential in $d_n$ in $D^n(M)$ is the identity. We denote $S^n(R)$ by simply $S^n$ and $D^n(R)$ by simply $D^n$. Define $I:=\bigcup_{n\in\bZ}\Ch(R)(S^{n-1},D^n)$, and define $J:=\bigcup_{n\in\bZ}\Ch(R)(0,D^n)$.
-%
-  %Now, define $\Fib_R:=J\inj$, $\Cof_R:=I\cof$, and define $\W_R$ to be the class of quasi-isomorphisms (i.e., those maps $f:A_\bullet\to B_\bullet$ such that $H_n(f):H_n(A_\bullet)\to H_n(B_\bullet)$ is an isomorphism for all $n\in\bZ$).
-%\end{definition}
-
 \section{Topological Spaces}
 
 An injective map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if $U$ is open in $X$ if and only if there is a $V$ open in $Y$ such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
 
 The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ will denote the unit sphere in $\bR^n$, so that we have the boundary inclusions $S^{n-1}\into D^n$. In particular, for $n=0$ we let $D^0=\{0\}$ and $S^{-1}=\emptyset$.
 
+Recall: If $F:\cJ\to\Top$ is a functor, where $\cJ$ is a small category, the limit of $F$ is obtained by taking the limit in the category of sets, and then topologizing it with the \textit{initial topology}, where if $\eta:\underline{\lim F}\Rightarrow F$ is the limit cone, then the open sets in $\lim F$ are precisely the sets of the form $\eta_j^{-1}(U)$ where $j\in\cJ$ and $U\sseq F_j$ is open. Similarly, the colimit of $F$ is obtained by taking the colimit $\colim F$ in the category of sets, and declaring a set $U\sseq\colim F$ to be open if and only if $\vare_j^{-1}(U)$ is open in $F_j$ for all $j\in\cJ$, where $\vare:F\Rightarrow\underline{\colim F}$ is the colimit cone.
+
 \begin{definition}
   A map $f:X\to Y$ in $\Top$ is called a \textit{weak equivalence} if
   \[\pi_n(f,x):\pi_n(X,x)\to\pi_n(Y,f(x))\]
   is an isomorphism for all $n\geq0$ and for all $x\in X$. We will write $\cW$ to refer to the class of all weak equivalences in $\Top$.
 
-  Define the set of maps $I'$ to consist of all the boundary inclusion $S^{n-1}\into D^n$ for all $n\geq0$, and define the set $J$ to consist of all the inclusions $D^n\into D^n\times I$ mapping $x\mapsto(x,0)$ for $n\geq0$. Then a map $f$ will be called a \textit{cofibration} if it is in $I'\cof={_\perp({I'}_\perp)}$, and a \textit{fibration} if it is in $J\inj=J_\perp$.
+  Define the set of maps $I'$ to consist of all the boundary inclusion $S^{n-1}\into D^n$ for all $n\geq0$, and define the set $J$ to consist of all the inclusions $D^n\into D^n\times I$ mapping $x\mapsto(x,0)$ for $n\geq0$. Then a map $f$ will be called a \textit{cofibration} if it is in $I\cof={\p( I'\p )}$, and a \textit{fibration} if it is in $J\inj=J\p$.
 
-  A map in $I'\cell$ is usually called a \textit{relative cell complex}; a relative CW-complex is a special case of a relative cell complex, where, in particular, the cells can be attached in order of their dimension. Note that in particular maps of $J$ are relative CW complexes, hence are relative $I$-cell complexes. 
+  A map in $I'\cell$ is usually called a \textit{relative cell complex}; a relative CW-complex is a special case of a relative cell complex, where, in particular, the cells can be attached in order of their dimension. Note that in particular maps of $J$ are relative CW complexes, hence are relative $I'$-cell complexes. 
   %Thus $J\cof\sseq I'\cof$.
   A fibration is often known as a \textit{Serre fibration} in the literature.
 \end{definition}
@@ -413,13 +441,13 @@ The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ 
   We will apply \autoref{2.1.19} to get that there is a cofibrantly generated model structure on $\Top$ with $I'$ as the set of generating cofibrations, $J$ as the set of generating trivial fibrations, and $\cW$ as the subcategory of weak equivalences. The six requirements outlined in the theorem will be verified like so:
   \begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
     \item $\cW$ is a subcategory of $\cC$ which has the 2-of-3 property and is closed under retracts: \autoref{2.4.4}.
-    \item The domains of $I'$ are small relative to $I'\cell$: In \autoref{2.4.1}, we will show that every space is small relative to the inclusions, and in particular every space is small relative to the class $\cT$ of closed $T_1$ inclusions. Hence, it will suffice to show that $I'\cell\sseq\cT$. In \autoref{2.4.5-6}, we will show that $\cT$ is saturated, and clearly every map in $I'$ is a closed $T_1$ inclusion, so the desired result follows.
-    \item The domains of $J$ are small relative to $J\cell$: By the same argument given above, this will follow by \autoref{2.4.1}, \autoref{2.4.5-6}, and the fact that $J\sseq\cT$.
-    \item $J\cell\sseq\cW\cap I'\cof$: In \autoref{2.4.9}, we will show $J\cof\sseq\cW\cap I'\cof$, and by \autoref{2.1.10} $J\cell\sseq J\cof$.
-    \item $I'\inj\sseq\cW\cap J\inj$: \autoref{2.4.10}
-    \item $\cW\cap J\inj\sseq I'\inj$: \autoref{2.4.12}
+    \item The domains of $I'$ are small relative to $I'\cell$: \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}.
+    \item The domains of $J$ are small relative to $J\cell$: \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}.
+    \item $J\cell\sseq\cW\cap {\p( I'\p )}$: In \autoref{2.4.9}, we will show ${\p({J}\p)}\sseq\cW\cap {\p( I'\p )}$, and by \autoref{2.1.10} $J\cell\sseq {\p({J}\p)}$.
+    \item $ I'\p \sseq\cW\cap J\p$: \autoref{2.4.10}
+    \item $\cW\cap J\p\sseq  I'\p $: \autoref{2.4.12}
   \end{enumerate}
-  It will follow by the definition of a cofibrantly generated model structure (\autoref{2.1.17}) that the fibrations in this model structure are given by $J\inj$, which is precisely how we defined it. By \autoref{2.1.18}, the class of cofibrations will be given by $I'\cof$, which is likewise exactly how we defined them.
+  It will follow by the definition of a cofibrantly generated model structure (\autoref{2.1.17}) that the fibrations in this model structure are given by $J\p$, which is precisely how we defined it. By \autoref{2.1.18}, the class of cofibrations will be given by ${\p( I'\p )}$, which is likewise exactly how we defined them.
 
   In \autoref{2.4.2}, we will show that compact spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions. Hence, this model structure will be finitely generated, as the domains and codomains of $I'$ and $J$ are all compact, and by the reasoning given above we will have shown $I'\cell\sseq\cT$.
   
@@ -431,21 +459,32 @@ The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ 
   Every topological space is small relative to the inclusions.
 \end{lemma}
 \begin{proof}
-  As with the case of sets, we claim that every topological space $X$ is $|X|$-small!
+  As with the case of sets, we claim that every topological space $X$ is $|X|$-small relative to the inclusions. Indeed, suppose $X$ is a $\lambda$-sequence of inclusions in $\Top$. First, we claim that each map $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ is an inclusion for $\alpha\leq\beta<\lambda$. We do so by presuming $\alpha<\lambda$ fixed and performing transfinite induction on $\beta$. First of all, in the case $\beta=\alpha$, $\iota_{\alpha,\alpha}$ is the identity and therefore clearly an inclusion. Now, suppose that $\iota_{\alpha,\beta}$ is an inclusion, then we wish to show that $\iota_{\alpha,\beta+1}$ is an inclusion. Since $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ the composition of inclusions, it too is clearly an inclusion. Finally, suppose that $\gamma$ is a limit ordinal, and that the map $\iota_{\alpha,\beta}$ is an inclusion for all $\alpha\leq\beta<\gamma$. We wish to show that the map $\iota_{\alpha,\gamma}$ is an inclusion. First, we claim this map is an injection. Since $\gamma$ is a limit ordinal and $X$ is colimit-preserving, $X_\gamma$ is the colimit of the diagram $X$ restricted to those $X_\beta$ such that $\beta<\gamma$, so that in particular by \autoref{eq1} and the discussion at the beginning of this section, given $a,b\in X_\alpha$, $\iota_{\alpha,\gamma}(a)=\iota_{\alpha,\gamma}(b)$ iff $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$ for some $\alpha\leq\beta<\gamma$. But we know the map $\iota_{\alpha,\beta}$ is an inclusion, so that if $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$, then it must have been true $a=b$ in $X_\alpha$. Hence, $\iota_{\alpha,\gamma}$ is injective. Finally, we wish to show that $U\sseq X_\alpha$ is open if and only if there is some $V\sseq X_\gamma$ open such that $\iota_{\alpha,\gamma}^{-1}(V)=U$. The backwards direction is clear as $\iota_{\alpha,\gamma}$ is continuous. Now suppose, $U\sseq X_\alpha$ is open. Then since $\iota_{\alpha,\beta}$ is an inclusion for all $\alpha\leq\beta<\gamma$, for $\alpha\leq\beta$ there exists $V_\beta\sseq X_\beta$ open such that $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$. Now, define
+  \[V:=\bigcup_{\alpha\leq\beta<\gamma}\iota_{\beta,\gamma}(V_\beta).\]
+  First of all, we claim that $\iota_{\beta,\gamma}^{-1}(V)=V_\beta$ for all $\beta<\gamma$.{\color{red}TODO: FINISH.}
+
+  Now, 
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.2]\label{2.4.2}
   Compact topological spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions.
 \end{proposition}
 \begin{proof}
-  \color{red}TODO.
+  
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.5 \& 2.4.6]\label{2.4.5-6}
-  The class of closed $T_1$ inclusions is saturated.
+  The class $\cT$ of closed $T_1$ inclusions is saturated.
 \end{proposition}
 \begin{proof}
   \color{red}TODO.
+\end{proof}
+
+\begin{proposition}\label{domains_of_I'/J_small_rel_I'-cell/J-cell}
+  The domains of $I'$ (resp.\ $J$) are small relative to $I'\cell$.
+\end{proposition}
+\begin{proof}
+  By \autoref{2.4.1}, every space is small relative to the inclusions, and in particular every space is small relative to the class $\cT$ of closed $T_1$ inclusions. Hence, it suffices to show that $J\cell,I'\cell\sseq\cT$. We showed above in \autoref{2.4.5-6} that $\cT$ is saturated, and clearly every map in $I'$ and $J$ is a closed $T_1$ inclusion, so the desired result follows.
 \end{proof}
 
 \begin{lemma}[Hovey Lemma 2.4.4]\label{2.4.4}
@@ -479,37 +518,72 @@ The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ 
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.9]\label{2.4.9}
-  $J\cof\sseq\cW\cap I'\cof$.
+  ${\p({J}\p)}\sseq\cW\cap {\p( I'\p )}$.
 \end{proposition}
 \begin{proof}
-  \color{red}TODO.
+  First, in order to show ${\p(J\p)}\sseq{\p( I'\p )}$, It suffices to show that $J\sseq I'\cell$, as by \autoref{2.1.10} we would have $J\sseq{\p( I'\p )}$, and
+  \[J\sseq {\p( I'\p )}\implies{\p(J\p)}\sseq{\p((\p( I'\p ))\p)}={\p( I'\p )},\]
+  where the implication and equality both follow from \autoref{useful_LP_properties} which asserts that
+  \[A\sseq B\implies {\p(A\p)}\sseq{\p(B\p)}\quad\text{ and }\quad(\p({A}\p))\p=A\p.\]
+  Now, to show $J\sseq I'\cell$, first consider the composition $j_n:D^n\into S^n\into D^{n+1}$, where the first map is the pushout
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    {D^n} & {S^n}
+    \arrow[hook, from=1-1, to=1-2]
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\]
+  obtained by gluing two copies of $D^n$ along their boundary, and the second map map is simply the inclusion $S^n\into D^{n+1}$, which can be written as the pushout
+  \[\begin{tikzcd}
+    {S^n} & {S^n} \\
+    {D^{n+1}} & {D^{n+1}}
+    \arrow[Rightarrow, no head, from=1-1, to=1-2]
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow[Rightarrow, no head, from=2-1, to=2-2]
+    \arrow[hook, from=1-2, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\]
+  It can be seen that $j_n$ includes $D^n$ as a hemisphere of $S^n=\partial D^{n+1}\sseq D^{n+1}$. Note that $D^{n}\times I$ is homeomorphic to $D^{n+1}$ (``smooth out'' the sharp edges of the cylinder) via some homeomorphism $h_n:D^{n+1}\to D^n\times I$, and in particular, we may define $h_n$ so that $h_n(j_n(D^n))= D^n\times\{0\}\sseq D^n\times I$ by squashing the hemisphere $j_n(D^n)$ to be one of the faces of the cylinder $D^n\times I$, in which case $h_n\circ j_n:D^n\to D^n\times I$ is precisely the inclusion $D^n\into D^n\times I$ sending $x\mapsto (x,0)$, and since $j_n\in I'\cell$, $h_n\circ j_n\in I'\cell$ by \autoref{I-cell_closed_under_composition_with_isomorphisms}.
+
+  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell} and \autoref{2.1.15}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Thus, it suffices to find a saturated class $\cS$ of maps in $\Top$ with $J\sseq\cS\sseq\cW$. Indeed, let $\cS$ be the class of \textit{inclusions of a deformation retract}, i.e., those maps $i:A\to B$ such that there exists a homotopy $H:B\times I\to B$ with $H(i(a),t)=i(a)$ for all $a\in A$, $H(b,0)=b$ for all $b\in B$, and $H(b,1)=i(r(b))$ for some map $r:B\to A$. We must complete three steps:
+  \begin{enumerate}[listparindent=\parindent,parsep=0pt]
+    \item $J\sseq\cS$.
+    
+    For $n\geq0$, let $j_n:D^n\into D^n\times I$ denote the inclusion of $D^n$ as the subset $D^n\times\{0\}$. Define a deformation retract $H:D^n\times I\times I\to D^n\times I$ by $(x,s,t)\mapsto(x,s(1-t))$. Then indeed we have $H(j_n(x),t)=H(x,0,t)=(x,0)=j_n(x)$ for all $x\in D^n$, $H(x,t,0)=(x,t(1-0))=(x,t)$ for all $(x,t)\in D^n\times I$, and $H(x,t,1)=(x,t(1-1))=(x,0)=j_n(r(x))$ for all $(x,t)\in D^n\times I$, where $r:D^n\times I\to D^n$ is the projection onto time zero sending $(x,t)\mapsto(x,0)$. Thus, indeed $J\sseq\cS$.
+
+    \item $\cS\sseq\cW$.
+    
+    It suffices to show that if $i:A\to B$ belongs to $\cS$, then $i$ is a homotopy equivalence. Indeed, given $i:A\to B$, let $H:B\times I\to B$ and $r:B\to A$ be a homotopy and retract satisfying the conditions above. Then in particular, $H$ is a homotopy between $\id_B$ (at time $t=0$) and $i\circ r:$ (at time $t=1$), so it remains to show that $r\circ i$ is homotopic to $\id_A$.
+
+    \item $\cW$ is saturated.
+  \end{enumerate}
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.10]\label{2.4.10}
-  $I'\inj\sseq\cW\cap J\inj$
+  $I'\p\sseq\cW\cap J\p$
 \end{proposition}
 \begin{proof}
   \color{red}TODO.
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.12]\label{2.4.12}
-  $\cW\cap J\inj\sseq I'\inj$
+  $\cW\cap J\p\sseq I'\p $
 \end{proposition}
 \begin{proof}
   \color{red}TODO.
 \end{proof}
 
 \begin{corollary}[Hovey 2.4.14]\label{2.4.14}
-  Every topological space is fibrant, i.e., given a space $X$, the unique map $X\to\ast$ is an element of $J\inj$.
+  Every topological space is fibrant, i.e., given a space $X$, the unique map $X\to\ast$ is an element of $J\p$.
 \end{corollary}
 \begin{proof}
   \color{red}TODO.
 \end{proof}
 
-\pagebreak
-
-Questions:\begin{enumerate}
-  \item What is an example of a relative cell complex that is not a CW complex?
+\textbf{Questions:}\begin{enumerate}
+  \item Lemma 2.3 help pls (limit ordinal case in transfinite induction)
 \end{enumerate}
 
 \end{document}
