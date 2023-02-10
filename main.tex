@@ -607,7 +607,7 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
       \arrow["j", from=2-3, to=3-3]
       \arrow[dashed, from=2-2, to=3-3]
     \end{tikzcd}\]
-    Now, note given $c\in C$ and $t\in I$, $H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c)$. Given $d\in D$, we want to show $H(d,0)=d$. If $d=j(c)$ for some $c$, we are done by what we have just shown. Thus, we may assume $d=g(b)$ for some $b\in B$, in which case $H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d$.
+    Now, note given $c\in C$ and $t\in I$, $H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c)$. Given $d\in D$, we want to show $H(d,0)=d$. If $d=j(c)$ for some $c$, we are done by what we have just shown. Thus, we may assume $d=g(b)$ for some $b\in B$, in which case $H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d$. Finally, we wish to define a map $r:D\times I\to C\times I$
 
     \color{red}TODO: Finish.
   \end{enumerate}
@@ -637,11 +637,7 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
 \textbf{Questions:}\begin{enumerate}
   \item Lemma 2.3 help pls (limit ordinal case in transfinite induction).
   \item Am I correct that Hovey's definition of ``inclusion of a deformation retract'' is wrong?
-  \item Why does it follow that we can take the product of a pushout diagram with $I$ to get a new pushout diagram? I conjecture the following:
-  
-  Let $\cC$ be a monoidal category. Suppose $c\in\cC$ is \textbf{exponentiable}, i.e., that the functor $-\otimes c:\cC\to\cC$ has a right adjoint. Then given a small diagram $F:\cI\to\cC$ and a colimit cone $\eta:F\Rightarrow\ul x$, the cone $\eta\otimes\id_c$ defined by $(\eta\otimes\id_c)_i:=\eta_i\otimes\id_c$ is a colimit cone with nadir $x\otimes c$ for the diagram $F\otimes c:=(-\otimes c)\circ F:\cI\to\cC$. Is this true?
-  
-  I also would like to go over the proof that compactly generated Hausdorff spaces are exponentiable.
+  \item I would like to go over the proof that compactly generated Hausdorff spaces are exponentiable.
   \item 
 \end{enumerate}
 
