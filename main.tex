@@ -489,6 +489,13 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
   \color{red}TODO.
 \end{proof}
 
+\begin{lemma}[Hovey 2.4.8]\label{2.4.8}
+  $\cW\cap\cT$ is closed under transfinite compositions.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
 \begin{proposition}\label{domains_of_I'/J_small_rel_I'-cell/J-cell}
   The domains of $I'$ (resp.\ $J$) are small relative to $I'\cell$.
 \end{proposition}
@@ -556,7 +563,9 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
   \end{tikzcd}\]
   It can be seen that $j_n$ includes $D^n$ as a hemisphere of $S^n=\partial D^{n+1}\sseq D^{n+1}$. Note that $D^{n}\times I$ is homeomorphic to $D^{n+1}$ (``smooth out'' the sharp edges of the cylinder) via some homeomorphism $h_n:D^{n+1}\to D^n\times I$, and in particular, we may define $h_n$ so that $h_n(j_n(D^n))= D^n\times\{0\}\sseq D^n\times I$ by squashing the hemisphere $j_n(D^n)$ to be one of the faces of the cylinder $D^n\times I$, in which case $h_n\circ j_n:D^n\to D^n\times I$ is precisely the inclusion $D^n\into D^n\times I$ sending $x\mapsto (x,0)$, and since $j_n\in I'\cell$, $h_n\circ j_n\in I'\cell$ by \autoref{I-cell_closed_under_composition_with_isomorphisms}.
 
-  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell} and \autoref{2.1.15}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Thus, it suffices to find a saturated class $\cS$ of maps in $\Top$ with $J\sseq\cS\sseq\cW$. Indeed, let $\cS$ be the class of \textit{inclusions of a deformation retract}, i.e., those \textbf{injective} maps $i:A\to B$ such that there exists a homotopy $H:B\times I\to B$ with $H(i(a),t)=i(a)$ for all $a\in A$, $H(b,0)=b$ for all $b\in B$, and $H(b,1)=i(r(b))$ for some map $r:B\to A$\footnote{Hovey has a typo here, namely, he does not specify that $i$ must be injective. Without this specification, his assertion fails. For example, tkae $A=\bR^2$, $B=\bR$, $i(x,y)=x$, $H(b,t)=b$, and $r(b)=(b,0)$. Then $i$ is an inclusion of a deformation retract according to Hovey's ``definition,'' but $i$ is not injective and $r$ is not a retract.}. We must complete three steps:
+  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{2.1.15} and \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Furthermore, we know that $\cW$ is closed under retracts (\autoref{2.4.4}), so that it suffices to show that $J\cell\sseq\cW$. We claim it suffices to show that pushouts of maps in $J$ are weak equivalences. Supposing we had shown this, we would have that pushouts of maps in $J$ are weak equivalences and $T_1$ inclusions, as $J\sseq\cT$ and $\cT$ is saturated by \autoref{2.4.5-6}. Then by \autoref{2.4.8}, we would have that $I\cell\sseq\cW\cap\cT$, precisely the desired result.
+  
+  Now, let $\cS$ be the class of \textit{inclusions of a deformation retract}, i.e., those \textbf{injective} maps $i:A\to B$ such that there exists a homotopy $H:B\times I\to B$ with $H(i(a),t)=i(a)$ for all $a\in A$, $H(b,0)=b$ for all $b\in B$, and $H(b,1)=i(r(b))$ for all $b\in B$ for some map $r:B\to A$\footnote{Hovey has a typo here, namely, he does not specify that $i$ must be injective. Without this specification, his assertion fails. For example, take $A=\bR^2$, $B=\bR$, $i(x,y)=x$, $H(b,t)=b$, and $r(b)=(b,0)$. Then $i$ is an inclusion of a deformation retract according to Hovey's ``definition,'' but $i$ is not injective and $r$ is not a retract.}. We will show the following:
   \begin{enumerate}[listparindent=\parindent,parsep=0pt]
     \item $\cS\sseq\cW$.
     
@@ -566,9 +575,9 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
     
     For $n\geq0$, let $j_n:D^n\into D^n\times I$ denote the inclusion of $D^n$ as the subset $D^n\times\{0\}$. Define a deformation retract $H:D^n\times I\times I\to D^n\times I$ by $(x,s,t)\mapsto(x,s(1-t))$. Then indeed we have $H(j_n(x),t)=H(x,0,t)=(x,0)=j_n(x)$ for all $x\in D^n$, $H(x,t,0)=(x,t(1-0))=(x,t)$ for all $(x,t)\in D^n\times I$, and $H(x,t,1)=(x,t(1-1))=(x,0)=j_n(r(x))$ for all $(x,t)\in D^n\times I$, where $r:D^n\times I\to D^n$ is the projection onto time zero sending $(x,t)\mapsto(x,0)$. Finally, $j_n$ is clearly injective. Thus, indeed $J\sseq\cS$.
 
-    \item $\cW$ is saturated.
+    \item $\cS$ is closed under pushouts.
     
-    First, suppose we are given a pushout diagram
+    Suppose we are given a pushout diagram
     \[\begin{tikzcd}
       A & C \\
       B & D
@@ -607,8 +616,7 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
       \arrow["j", from=2-3, to=3-3]
       \arrow[dashed, from=2-2, to=3-3]
     \end{tikzcd}\]
-    Now, note given $c\in C$ and $t\in I$, $H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c)$. Given $d\in D$, we want to show $H(d,0)=d$. If $d=j(c)$ for some $c$, we are done by what we have just shown. Thus, we may assume $d=g(b)$ for some $b\in B$, in which case $H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d$. Finally, we wish to define a map $r:D\times I\to C\times I$
-
+    Now, note given $c\in C$ and $t\in I$, $H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c)$. Given $d\in D$, we want to show $H(d,0)=d$. If $d=j(c)$ for some $c$, we are done by what we have just shown. Thus, we may assume $d=g(b)$ for some $b\in B$, in which case $H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d$. Finally, we claim that $H(d,1)\in j(C)$ for all $d\in D$: if $d=j(c)$, then $H(d,1)=H(j(c),1)=j(c)\in j(C)$, and if $d=g(b)$, then $H(g(b),1)=g(K(b,1))=g(i(r(b)))=j(f(r(b)))\in j(C)$. Thus, since $j$ is injective as a map $C\to j(C)$, define $r':D\to C$ by defining $r'(d):=c_d$ to be the unique elt. of $C$ such that $H(d,1)=j(c_d)$. Then it remains to show $r$ is continuous.
     \color{red}TODO: Finish.
   \end{enumerate}
 \end{proof}
