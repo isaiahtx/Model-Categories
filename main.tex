@@ -1,3 +1,5 @@
+% Hirschorn model structure on Top
+
 \documentclass{amsart}
 % \usepackage[margin=1.3333333in]{geometry}
 \usepackage[margin = 1in]{geometry}
@@ -247,7 +249,7 @@ In particular, if $\cD$ is a filtered category then the resulting relation can b
 \begin{equation}\label{eq1}
   ((x\in F(d))\sim(x'\in F(d')))\quad\text{ iff }\quad(\exists\ d'',\,(f:d\to d''),\,(g:d'\to d'')\text{ with }Ff(x)=Fg(x')).
 \end{equation}
-given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps the equivalence class of $x\in F(d)$ to the element $\eta_d(x)\in X$. We will use this characterization of the colimit in the following example.
+Given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps the equivalence class of $x\in F(d)$ to the element $\eta_d(x)\in X$. We will use this characterization of the colimit in the following example.
 
 \begin{example}[Hovey 2.1.5]\label{2.1.5}
   Every set is small. Indeed, if $A$ is a set we claim that $A$ is $|A|$-small. To see this, suppose $\lambda$ is an $|A|$-filtered ordinal, and $X$ is a $\lambda$-sequence of sets. Given $\alpha<\beta<\lambda$, let $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ denote the induced morphism. We will write $X_\lambda:=\colim_{\beta<\lambda}X_\beta$, and let $\iota:X\Rightarrow X_\lambda$ be the colimit cone, so that given $\beta<\lambda$, $\iota_\beta:X_\beta\to X_\lambda$ is the leg of the colimit cone at $X_\beta$. By composing with the functor $\cC(A,-):\Set\to\Set$, we get another $\lambda$-sequence $\{\cC(X_\beta,A)\}_{\beta<\lambda}$. The cone $\iota$ under $X$ induces a cone $\iota_*$ under $\cC(X_\beta,A)$ with nadir $\cC(A,X_\lambda)$. Let $\eta:\cC(X_\beta,A)\Rightarrow\underline{\colim_{\beta<\lambda}\cC(X_\beta,A)}$ be the colimit cone, and let $\ell:\colim_{\beta<\lambda}\cC(A,X_\lambda)\to\cC(A,X_\lambda)$ be the unique morphism of cones so that the following diagram commutes
@@ -295,8 +297,10 @@ given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F
   \end{enumerate}
 \end{definition}
 
+The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but not proven. We provide a proof.
+
 \begin{lemma}\label{useful_LP_properties}
-  Given classes $A$ and $B$ of maps in a category $\cC$ with $A\sseq B$, $A\sseq {\p(A\p)}$, $A\sseq (\p A)\p$, $(\p(A\p))\p=A\p$, $\p((\p A)\p)={\p A}$, $A\p\spseq B\p$, $\p A\spseq {\p B}$, ${\p(A\p)}\sseq {\p(B\p)}$, and $(\p A)\p\sseq (\p B)\p$.
+  Given classes $A$ and $B$ of maps in a category $\cC$ with $A\sseq B$, we have $A\sseq {\p(A\p)}$, $A\sseq (\p A)\p$, $(\p(A\p))\p=A\p$, $\p((\p A)\p)={\p A}$, $A\p\spseq B\p$, $\p A\spseq {\p B}$, ${\p(A\p)}\sseq {\p(B\p)}$, and $(\p A)\p\sseq (\p B)\p$.
 \end{lemma}
 \begin{proof}
   \color{red}TODO.
@@ -351,7 +355,7 @@ given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F
 \end{proof}
 
 \begin{lemma}[Hovey 2.1.10]\label{2.1.10}
-  Suppose $I$ is a class of maps in a category $\cC$ with all small colimits. Then $I\cell\sseq{\p(I\p)}$.
+  Suppose $I$ is a class of maps in a cocomplete category $\cC$. Then $I\cell\sseq{\p(I\p)}$.
 \end{lemma}
 \begin{proof}
   \color{red}TODO.
@@ -461,7 +465,6 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
   In \autoref{2.4.2}, we will show that compact spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions. Hence, this model structure will be finitely generated, as the domains and codomains of $I'$ and $J$ are all compact, and by the reasoning given above we will have shown $I'\cell\sseq\cT$.
   
   We will show that every object of $\Top$ is fibrant in \autoref{2.4.14}. 
-  \color{red}Finally, to see that cofibrant objects are retracts of relative cell complexes, FINISH
 \end{proof}
 
 \begin{lemma}[Hovey 2.4.1]\label{2.4.1}
@@ -470,16 +473,14 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
 \begin{proof}
   As with the case of sets, we claim that every topological space $X$ is $|X|$-small relative to the inclusions. Indeed, suppose $X$ is a $\lambda$-sequence of inclusions in $\Top$. First, we claim that each map $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ is an inclusion for $\alpha\leq\beta<\lambda$. We do so by presuming $\alpha<\lambda$ fixed and performing transfinite induction on $\beta$. First of all, in the case $\beta=\alpha$, $\iota_{\alpha,\alpha}$ is the identity and therefore clearly an inclusion. Now, suppose that $\iota_{\alpha,\beta}$ is an inclusion, then we wish to show that $\iota_{\alpha,\beta+1}$ is an inclusion. Since $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ the composition of inclusions, it too is clearly an inclusion. Finally, suppose that $\gamma$ is a limit ordinal, and that the map $\iota_{\alpha,\beta}$ is an inclusion for all $\alpha\leq\beta<\gamma$. We wish to show that the map $\iota_{\alpha,\gamma}$ is an inclusion. First, we claim this map is an injection. Since $\gamma$ is a limit ordinal and $X$ is colimit-preserving, $X_\gamma$ is the colimit of the diagram $X$ restricted to those $X_\beta$ such that $\beta<\gamma$, so that in particular by \autoref{eq1} and the discussion at the beginning of this section, given $a,b\in X_\alpha$, $\iota_{\alpha,\gamma}(a)=\iota_{\alpha,\gamma}(b)$ iff $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$ for some $\alpha\leq\beta<\gamma$. But we know the map $\iota_{\alpha,\beta}$ is an inclusion, so that if $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$, then it must have been true $a=b$ in $X_\alpha$. Hence, $\iota_{\alpha,\gamma}$ is injective. Finally, we wish to show that $U\sseq X_\alpha$ is open if and only if there is some $V\sseq X_\gamma$ open such that $\iota_{\alpha,\gamma}^{-1}(V)=U$. The backwards direction is clear as $\iota_{\alpha,\gamma}$ is continuous. Now suppose, $U\sseq X_\alpha$ is open. Then since $\iota_{\alpha,\beta}$ is an inclusion for all $\alpha\leq\beta<\gamma$, for $\alpha\leq\beta$ there exists $V_\beta\sseq X_\beta$ open such that $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$. Now, define
   \[V:=\bigcup_{\alpha\leq\beta<\gamma}\iota_{\beta,\gamma}(V_\beta).\]
-  First of all, we claim that $\iota_{\beta,\gamma}^{-1}(V)=V_\beta$ for all $\beta<\gamma$.{\color{red}TODO: FINISH.}
-
-  Now, 
+  First of all, we claim that $\iota_{\beta,\gamma}^{-1}(V)=V_\beta$ for all $\beta<\gamma$. 
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.2]\label{2.4.2}
   Compact topological spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions.
 \end{proposition}
 \begin{proof}
-  
+  \color{red}TODO.
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.5 \& 2.4.6]\label{2.4.5-6}
@@ -563,7 +564,7 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
   \end{tikzcd}\]
   It can be seen that $j_n$ includes $D^n$ as a hemisphere of $S^n=\partial D^{n+1}\sseq D^{n+1}$. Note that $D^{n}\times I$ is homeomorphic to $D^{n+1}$ (``smooth out'' the sharp edges of the cylinder) via some homeomorphism $h_n:D^{n+1}\to D^n\times I$, and in particular, we may define $h_n$ so that $h_n(j_n(D^n))= D^n\times\{0\}\sseq D^n\times I$ by squashing the hemisphere $j_n(D^n)$ to be one of the faces of the cylinder $D^n\times I$, in which case $h_n\circ j_n:D^n\to D^n\times I$ is precisely the inclusion $D^n\into D^n\times I$ sending $x\mapsto (x,0)$, and since $j_n\in I'\cell$, $h_n\circ j_n\in I'\cell$ by \autoref{I-cell_closed_under_composition_with_isomorphisms}.
 
-  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{2.1.15} and \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Furthermore, we know that $\cW$ is closed under retracts (\autoref{2.4.4}), so that it suffices to show that $J\cell\sseq\cW$. We claim it suffices to show that pushouts of maps in $J$ are weak equivalences. Supposing we had shown this, we would have that pushouts of maps in $J$ are weak equivalences and $T_1$ inclusions, as $J\sseq\cT$ and $\cT$ is saturated by \autoref{2.4.5-6}. Then by \autoref{2.4.8}, we would have that $I\cell\sseq\cW\cap\cT$, precisely the desired result.
+  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{2.1.15} and \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Furthermore, we know that $\cW$ is closed under retracts (\autoref{2.4.4}), so that it suffices to show that $J\cell\sseq\cW$. We claim it suffices to show that pushouts of maps in $J$ are weak equivalences. Supposing we had shown this, we would have that pushouts of maps in $J$ are weak equivalences and $T_1$ inclusions, as $J\sseq\cT$ and $\cT$ is saturated by \autoref{2.4.5-6}. Then by \autoref{2.4.8}, we would have that $J\cell\sseq\cW\cap\cT$, precisely the desired result.
   
   Now, let $\cS$ be the class of \textit{inclusions of a deformation retract}, i.e., those \textbf{injective} maps $i:A\to B$ such that there exists a homotopy $H:B\times I\to B$ with $H(i(a),t)=i(a)$ for all $a\in A$, $H(b,0)=b$ for all $b\in B$, and $H(b,1)=i(r(b))$ for all $b\in B$ for some map $r:B\to A$\footnote{Hovey has a typo here, namely, he does not specify that $i$ must be injective. Without this specification, his assertion fails. For example, take $A=\bR^2$, $B=\bR$, $i(x,y)=x$, $H(b,t)=b$, and $r(b)=(b,0)$. Then $i$ is an inclusion of a deformation retract according to Hovey's ``definition,'' but $i$ is not injective and $r$ is not a retract.}. We will show the following:
   \begin{enumerate}[listparindent=\parindent,parsep=0pt]
@@ -587,7 +588,8 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
       \arrow["j", from=1-2, to=2-2]
       \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
     \end{tikzcd}\]
-    where $i\in\cS$. Then we wish to show $j$ in $\cS$. First, injectivity. Suppose for the sake of a contradiction there existed nonequal $c,c'\in C$ such that $j(c)=j(c')$. Define $X:=\{1,2,3\}$ (with the indiscrete topology, if you like), $h:C\to X$ by $c\mapsto 1$, $c'\mapsto2$, and $C\setminus\{c,c'\}\mapsto 3$, and $k:B\to X$ by $i(f^{-1}(c))\mapsto 1$, $i(f^{-1}(c'))\mapsto 2$, and $i(f^{-1}(C\setminus\{c,c'\}))\mapsto 3$. Then it is straightforward to see that $h\circ f=k\circ i$. Thus, there must exist a (unique) function $\ell:D\to X$ such that $\ell\circ j=h$ and $\ell\circ g=k$. But then we would have $h(c)=\ell(j(c))=\ell(j(c'))=h(c')$ since $j(c)=j(c')$, a contradiction of the fact that $h(c)\neq h(c')$. Hence, $j$ must be injective. Now, we look to construct $H$ and $r$. Let $K:B\times I\to B$ and $r:B\to A$ be maps satisfying the conditions for $i$ to be an inclusion of a deformation retract. 
+    where $i\in\cS$. Then we wish to show $j$ in $\cS$. First, injectivity. Suppose for the sake of a contradiction there existed nonequal $c,c'\in C$ such that $j(c)=j(c')$. Define $X:=\{1,2,3\}$ (with the indiscrete topology, if you like), $h:C\to X$ by $c\mapsto 1$, $c'\mapsto2$, and $C\setminus\{c,c'\}\mapsto 3$, and $k:B\to X$ by $i(f^{-1}(c))\mapsto 1$, $i(f^{-1}(c'))\mapsto 2$, and $i(f^{-1}(C\setminus\{c,c'\}))\mapsto 3$. Then it is straightforward to see that $h\circ f=k\circ i$. Thus, there must exist a (unique) function $\ell:D\to X$ such that $\ell\circ j=h$ and $\ell\circ g=k$. But then we would have $h(c)=\ell(j(c))=\ell(j(c'))=h(c')$ since $j(c)=j(c')$, a contradiction of the fact that $h(c)\neq h(c')$. Hence, $j$ must be injective. Now, we look to construct $H$ and $r$. Let $K:B\times I\to B$ and $r':B\to A$ be maps satisfying the conditions for $i$ to be an inclusion of a deformation retract.
+
     We wish to define a homotopy $H:D\times I\to D$. Then $I$ is a compactly generated Hausdorff space (in particular, it is compact and Hausdorff), so that the functor $-\times I:\Top\to\Top$ preserves colimits (\autoref{compactly_generated_hausdorff_spaces_are_exponentiable}), meaning the following is a pushout diagram:
     % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFx0aW1lcyBJICJdLFsxLDAsIkNcXHRpbWVzIEkiXSxbMSwxLCJEXFx0aW1lcyBJIl0sWzAsMSwiQlxcdGltZXMgSSJdLFswLDEsImZcXHRpbWVzXFxpZF9JIl0sWzEsMiwialxcdGltZXNcXGlkX0kiXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyLWludmVyc2UifX1dLFswLDMsImlcXHRpbWVzXFxpZF9JIiwyXSxbMywyLCJnXFx0aW1lc1xcaWRfSSIsMl1d
     \[\begin{tikzcd}
@@ -600,7 +602,6 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
       \arrow["{g\times\id_I}"', from=2-1, to=2-2]
     \end{tikzcd}\]
     Then by the universal property of the pushout, there is a map $H:D\times I\to D$ (the dashed line) such that the following diagram commutes
-    % https://q.uiver.app/?q=WzAsNyxbMCwwLCJBXFx0aW1lcyBJICJdLFsxLDAsIkNcXHRpbWVzIEkiXSxbMSwxLCJEXFx0aW1lcyBJIl0sWzAsMSwiQlxcdGltZXMgSSJdLFsyLDIsIkQiXSxbMSwyLCJCIl0sWzIsMSwiQyJdLFswLDEsImZcXHRpbWVzXFxpZF9JIl0sWzEsMiwialxcdGltZXNcXGlkX0kiXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyLWludmVyc2UifX1dLFswLDMsImlcXHRpbWVzXFxpZF9JIiwyXSxbMywyLCJnXFx0aW1lc1xcaWRfSSIsMl0sWzEsNiwiXFxwaV8xIiwwLHsiY3VydmUiOi0yLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw1LCJLIiwyLHsiY3VydmUiOjJ9XSxbNSw0LCJnIiwyXSxbNiw0LCJqIl0sWzIsNCwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
     \[\begin{tikzcd}
       {A\times I } & {C\times I} \\
       {B\times I} & {D\times I} & C \\
@@ -614,10 +615,32 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
       \arrow["K"', curve={height=12pt}, from=2-1, to=3-2]
       \arrow["g"', from=3-2, to=3-3]
       \arrow["j", from=2-3, to=3-3]
-      \arrow[dashed, from=2-2, to=3-3]
+      \arrow["H", dashed, from=2-2, to=3-3]
     \end{tikzcd}\]
-    Now, note given $c\in C$ and $t\in I$, $H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c)$. Given $d\in D$, we want to show $H(d,0)=d$. If $d=j(c)$ for some $c$, we are done by what we have just shown. Thus, we may assume $d=g(b)$ for some $b\in B$, in which case $H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d$. Finally, we claim that $H(d,1)\in j(C)$ for all $d\in D$: if $d=j(c)$, then $H(d,1)=H(j(c),1)=j(c)\in j(C)$, and if $d=g(b)$, then $H(g(b),1)=g(K(b,1))=g(i(r(b)))=j(f(r(b)))\in j(C)$. Thus, since $j$ is injective as a map $C\to j(C)$, define $r':D\to C$ by defining $r'(d):=c_d$ to be the unique elt. of $C$ such that $H(d,1)=j(c_d)$. Then it remains to show $r$ is continuous.
-    \color{red}TODO: Finish.
+    Now, note $r'\circ i=\id_A$. Indeed, given $a\in A$, we have $i(r'(i(a)))=K(i(a),t)=i(a)$ and $i$ is injective, so that $r'(i(a))=a$, as desired. Hence, there exists a unique map $r:D\to C$ (the dashed line) such that the following diagram commutes:
+    % https://q.uiver.app/?q=WzAsNixbMCwwLCJBIl0sWzEsMCwiQyJdLFsxLDEsIkQiXSxbMCwxLCJCIl0sWzIsMiwiQyJdLFsxLDIsIkEiXSxbMCwxLCJmIl0sWzEsMiwiaiJdLFsyLDAsIiIsMCx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXItaW52ZXJzZSJ9fV0sWzAsMywiaSIsMl0sWzMsMiwiZyIsMl0sWzMsNSwiciIsMix7ImN1cnZlIjoyfV0sWzUsNCwiZiIsMl0sWzIsNCwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsNCwiIiwyLHsiY3VydmUiOi0yLCJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+    \[\begin{tikzcd}
+      A & C \\
+      B & D \\
+      & A & C
+      \arrow["f", from=1-1, to=1-2]
+      \arrow["j", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+      \arrow["i"', from=1-1, to=2-1]
+      \arrow["g"', from=2-1, to=2-2]
+      \arrow["r'"', curve={height=12pt}, from=2-1, to=3-2]
+      \arrow["f"', from=3-2, to=3-3]
+      \arrow["r", dashed, from=2-2, to=3-3]
+      \arrow[curve={height=-20pt}, Rightarrow, no head, from=1-2, to=3-3]
+    \end{tikzcd}\]
+    Now we claim that our constructions $H$ and $r$ endue $j$ with the structure of an inclusion of a deformation retract, as desired. First $c\in C$, we wish to show $H(j(c),t)=j(c)$ for all $t$. Indeed, we have 
+    \[H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c).\]
+    Given $d\in D$, we want to show $H(d,0)=d$. By the explicit description of the colimit in $\Top$, we know that every element of $D$ is in the image of either $j$ or $g$. If $d=j(c)$ for some $c$, then we have just shown $H(d,0)=H(j(c),0)=j(c)=d$, as desired. On the other hand, if $d=g(b)$ for some $b\in B$ we have 
+    \[H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d.\] 
+    Finally, we claim that $H(d,1)=j(r(d))$ for all $d\in D$. If $d=j(c)$ for some $c\in C$, then we have 
+    \[H(d,1)=H(j(c),1)=j(c)=j(r(j(c)))=j(r(d)),\] 
+    as desired. On the other hand, if $d=g(b)$ for some $b\in B$, then
+    \[H(d,1)=H(g\times\id_I(b,1))=g(K(b,1))=g(i(r'(b)))=j(f(r'(b)))=j(r(g(b)))=j(r(d)).\qedhere\]
   \end{enumerate}
 \end{proof}
 
@@ -625,7 +648,24 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
   $I'\p\sseq\cW\cap J\p$
 \end{proposition}
 \begin{proof}
-  \color{red}TODO.
+  First, by \autoref{2.4.9} we know $\p(J\p)\sseq\p(I'\p)$, and this implies $I'\p\sseq J\p$, as by \autoref{useful_LP_properties} we have
+  \[\p(J\p)\sseq\p(I'\p)\implies J\p=(\p(J\p))\p\spseq(\p(I'\p))\p=I'\p.\]
+  Thus, it suffices to show that $I'\p\sseq\cW$. Now, suppose $p:X\to Y$ is in $I'\p$, and $x\in X$. We wish to show that the map $\pi_n(p,x):\pi_n(X,x)\to\pi_n(Y,p(x))$ is an isomorphism for all $n$. 
+  
+  First we show that $\pi_n(p,x)$ is surjective. Let $g:(S^n,\ast)\to(Y,p(x))$ be a map. Then we have the following commutative diagram
+  \[\begin{tikzcd}
+    \ast & X \\
+    {S^n} & Y
+    \arrow[from=1-1, to=2-1]
+    \arrow["g", from=2-1, to=2-2]
+    \arrow[from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  where the top arrow picks out $x$. Note that the map $\ast\to S^n$ may be realized as a pushout of the diagram $D^n\leftarrow S^{n-1}\rightarrow\ast$, so that $\ast\to S^n$ belongs to $I'\cell$, and therefore $\p(I'\p)$ by \autoref{2.1.10}. Then by \autoref{useful_LP_properties}, $(\p(I'\p))\p=I'\p$, and $p\in I'\p$, so that $p$ has the right lifting property with respect to every element of $\p(I'\p)$, and in particular, the map $\ast\to S^n$. Thus, the above diagram has a lift $f:(S^n,\ast)\to (X,x)$ such that $p\circ f=g$, so that $\pi_n(p,x)([f])=[p\circ f]=[g]$, as desired.
+
+  Finally, we show that $\pi_n(p,x)$ is injective. Suppose we have two maps $f,g:(S^n,\ast)\to(X,x)$ such that $p\circ f$ and $p\circ g$ represent the same element of $\pi_n(Y,p(x))$. Then there is a homotopy $H:S^n\times I\to Y$ such that $H(x,0)=p(f(x))$, $H(x,1)=p(g(x))$, and $H(\ast,t)=p(x)$ for all $t$. We construct the following pushouts:
+
+  \color{red}FINISH.
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.12]\label{2.4.12}
@@ -643,10 +683,9 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
 \end{proof}
 
 \textbf{Questions:}\begin{enumerate}
-  \item Lemma 2.3 help pls (limit ordinal case in transfinite induction).
-  \item Am I correct that Hovey's definition of ``inclusion of a deformation retract'' is wrong?
-  \item I would like to go over the proof that compactly generated Hausdorff spaces are exponentiable.
-  \item 
+  %\item Lemma 2.3 help pls (limit ordinal case in transfinite induction).
+  %\item I would like to go over the proof that compactly generated Hausdorff spaces are exponentiable.
+  \item How to construct the map $S^n\vee S^n\to S^n\wedge I_+$ as abstractly as possible?
 \end{enumerate}
 
 \end{document}
