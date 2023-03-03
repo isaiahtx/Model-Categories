@@ -79,6 +79,7 @@
 \DeclareMathOperator{\Ch}{Ch}
 \newcommand{\Mod}{\mbf{Mod}}
 \newcommand{\Top}{\mbf{Top}}
+\newcommand{\Set}{\mbf{Set}}
 \newcommand{\Grp}{\mbf{Grp}}
 \newcommand{\RMod}{R-\mbf{Mod}}
 
@@ -163,20 +164,6 @@
 %\def\NN{\bb{N}}
 %\def\QQ{\bb{Q}}
 
-% categories
-\def\Cat{\on{Cat}}
-\def\Set{\on{Set}}
-\def\Grp{\on{Grp}}
-\def\Ab{\on{Ab}}
-\def\Vect{\on{Vect}}
-\def\Hom{\on{Hom}}
-\def\Fun{\on{Fun}}
-\def\cC{\scr{C}}
-\def\dD{\scr{D}}
-\def\eE{\scr{E}}
-\def\aA{\scr{A}}
-\def\bB{\scr{B}}
-
 \newcommand{\Cof}{\mathcal C\mathrm{of}}
 \newcommand{\Fib}{\mathcal F\mathrm{ib}}
 \newcommand{\W}{\mathcal W}
@@ -233,12 +220,16 @@
 
 Given a cardinal $\gamma$, a $\gamma$-filtered category $\cC$ is one such that any diagram $\cD\to\cC$ has a cocone when $\cD$ has $<\gamma$ arrows. A catgory is just ``filtered'' if it is $\omega$-filtered, i.e., if every finite diagram in $\cC$ admits a cocone. Note that an ordinal $\alpha$ is $\gamma$-filtered precisely when it is $\gamma$-filtered as a category, and in particular every ordinal is $\omega$-filtered.
 
-\begin{definition}[Hovey Definition 2.1.3]
+\begin{definition}[Hovey Definition 2.1.3]\label{2.1.3}
   Suppose $\cC$ is a comcomplete category, $\cD\sseq\Mor\cC$ is some collection of morphisms of $\cC$, $A$ is an object of $\cC$, and $\kappa$ is a cardinal. We say that $A$ is \textit{$\kappa$-small relative to $\cD$} if, for all $\kappa$-filtered ordinals $\lambda$ and all $\lambda$-sequences
   \[X_0\to X_1\to\cdots\to X_\beta\to\cdots\]
-  such that each map $X_\beta\to X_{\beta+1}$ is in $\cD$ for $\beta+1<\lambda$, the map of sets
+  such that each map $X_\beta\to X_{\beta+1}$ is in $\cD$ for $\beta+1<\lambda$, the canonical map of sets
   \[\colim_{\beta<\lambda}\cC(A,X_\beta)\to\cC(A,\colim_{\beta<\lambda}X_\beta)\]
   is an isomorphism. We say that $A$ is \textit{small relative to $\cD$} if it is $\kappa$-small relative to $\cD$ for some $\kappa$. We say that $A$ is \textit{small} if it is small relative to $\cC$ itself.
+\end{definition}
+
+\begin{definition}[Hovey Definition 2.1.4]
+  Suppose $\cC$ is a cocomplete category, $\cD$ is a collection of morphisms of $\cC$, and $A$ is an object of $\cC$. We say that $A$ is \textit{finite relative to $\cD$} if $A$ is $\kappa$-small relative to $\cD$ for some finite cardinal $\kappa$. We say $A$ is \textit{finite} if it is finite relative to $\cC$ itself. In this case, maps from $A$ commute with colimits of arbitrary $\lambda$-sequences, as long as $\lambda$ is a limit ordinal.
 \end{definition}
 
 \begin{remark}\label{explicit_description_of_colimit_in_set}
@@ -250,53 +241,54 @@ In particular, if $\cD$ is a filtered category then the resulting relation can b
 \begin{equation*}
   ((x\in F(d))\sim(x'\in F(d')))\quad\text{ iff }\quad(\exists\ d'',\,(f:d\to d''),\,(g:d'\to d'')\text{ with }Ff(x)=Fg(x')).
 \end{equation*}
-Given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps the equivalence class of $x\in F(d)$ to the element $\eta_d(x)\in X$. 
+Then the colimit cone $\eta:F\Rightarrow\ul{\colim F}$ is defined by $\eta_d(x)=[x]$ for $d\in\cD$ and $x\in F(d)$, where $[x]$ denotes the equivalence class of $x$ in $\colim F$. Given a cone $\vare:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps an equivalence class $[x]$ represented by an element $x\in F(d)$ to the element $\vare_d(x)$.
 \end{remark}
 
-We will use the characterization of the colimit afforded by \autoref{explicit_description_of_colimit_in_set} in the following example.
+Now we unravel what the ``canonical map'' of \autoref{2.1.3} is. Suppose we are given a cocomplete category $\cC$, an element $A\in\cC$, an ordinal $\lambda$, and a $\lambda$-sequence $X:\lambda\to\cC$. For $\alpha\leq\beta<\lambda$, let $\iota_{\alpha,\beta}$ be the map $X_\alpha\to X_\beta$. Let $\eta:X\Rightarrow\ul{\colim X}$ be the colimit cone. By whiskering the colimit cone along the functor $\cC(A,-)$, we get a cone $\cC(A,\eta):\{\cC(A,X_\beta)\}_{\beta<\lambda}\Rightarrow\ul{\cC(A,\colim X)}$. Then if we let $\vare:\{\cC(A,X_\beta)\}_{\beta<\lambda}\Rightarrow\ul{\colim_{\beta<\lambda}\cC(A,X_\beta)}$ be the colimit cone, the universal property of the colimit gives us the canonical map $\ell:\colim_{\beta<\lambda}\cC(A,X_\beta)\to\cC(A,\colim X)$, so that the following diagram commutes:
+\[\begin{tikzcd}
+  {\cC(A,X_0)} && {\cC(A,X_1)} && \cdots && {\cC(A,X_\beta)} && \cdots \\
+  \\
+  &&&& {\colim_{\beta<\lambda}\cC(A,X_\beta)} \\
+  \\
+  &&&& {\cC(A,\colim X)}
+  \arrow["{(\iota_{0,1})_*}", from=1-1, to=1-3]
+  \arrow["{(\iota_{1,2})_*}", from=1-3, to=1-5]
+  \arrow[from=1-5, to=1-7]
+  \arrow["{(\iota_{\beta,\beta+1})_*}", from=1-7, to=1-9]
+  \arrow["{\vare_\beta}"', from=1-7, to=3-5]
+  \arrow["{\vare_1}", from=1-3, to=3-5]
+  \arrow["{\vare_0}"{pos=0.3}, from=1-1, to=3-5]
+  \arrow["{(\eta_\beta)_*}", from=1-7, to=5-5]
+  \arrow["\ell", dashed, from=3-5, to=5-5]
+  \arrow["{(\eta_1)_*}"'{pos=0.4}, from=1-3, to=5-5]
+  \arrow["{(\eta_0)_*}"', from=1-1, to=5-5]
+\end{tikzcd}\]
+In particular, by \autoref{explicit_description_of_colimit_in_set}, we know elements of $\colim_{\beta<\lambda}\cC(A,X_\beta)$ are equivalence classes of arrows $f:A\to X_\beta$ for $\beta<\lambda$ under the relation $[f:A\to X_\beta]=[g:A\to X_{\beta'}]$ iff there exists $\beta''\geq\beta,\beta'$ with $\iota_{\beta,\beta''}\circ f=\iota_{\beta',\beta''}\circ g$, and the map $\vare_\beta$ sends an arrow $f\in\cC(A,X_\beta)$ to the element $[f]$. Then it follows that $\ell([f:A\to X_\beta])=\eta_\beta\circ f$. Thus, this gives us the following result:
+
+\begin{remark}\label{nicer_description_of_smallness_conditions}
+  Given a cocomplete category $\cC$, a collection $\cD$ of arrows in $\cC$, an object $A$ in $\cC$, and a cardinal $\kappa$, $A$ is $\kappa$-small relative to $\cD$, if, for all $\kappa$-filtered ordinals $\lambda$ and all $\lambda$-sequences $X:\lambda\to\cC$ such that the map $X_{\beta}\to X_{\beta+1}$ belongs to $\cD$ for all $\beta+1<\lambda$, the following hold:
+  \begin{enumerate}[label=(\roman*)]
+    \item Given arrows $f:A\to X_\alpha$ and $g:A\to X_{\beta}$ in $\cC$, if $f$ and $g$ agree in the colimit (i.e., if the compositions $A\xrightarrow{f} X_\alpha\to\colim X$ and $A\xrightarrow{g} X_{\beta}\to \colim X$ are equal), then $f$ and $g$ are equal in some stage of the colimit (i.e., there exists $\gamma<\lambda$ with $\alpha,\beta\leq\gamma$ such that the compositions $A\xrightarrow{f} X_\alpha\to X_\gamma$ and $A\xrightarrow{g} X_{\beta}\to X_{\gamma}$ are equal).
+    \item Any arrow $f:A\to\colim X$ factors through some stage of the colimit (i.e., there exists $\beta<\lambda$ and an arrow $\wt f:A\to X_\beta$ such that the composition $A\xrightarrow{\wt f}X_\beta\to\colim X$ equals $f$).
+  \end{enumerate}
+  In terms of the canonical map $\colim_{\beta<\lambda}\cC(A,X_\beta)\to\cC(A,\colim X)$, the first condition shows injectivity, while the second shows surjectivity.
+\end{remark}
+
+We will use the characterization of smallness given by this remark whenever proving smallness arguments, as in the following example.
 
 \begin{example}[Hovey 2.1.5]\label{2.1.5}
-  Every set is small. Indeed, if $A$ is a set we claim that $A$ is $|A|$-small. To see this, suppose $\lambda$ is an $|A|$-filtered ordinal, and $X$ is a $\lambda$-sequence of sets. Given $\alpha<\beta<\lambda$, let $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ denote the induced morphism. We will write $X_\lambda:=\colim_{\beta<\lambda}X_\beta$, and let $\iota:X\Rightarrow X_\lambda$ be the colimit cone, so that given $\beta<\lambda$, $\iota_\beta:X_\beta\to X_\lambda$ is the leg of the colimit cone at $X_\beta$. By composing with the functor $\cC(A,-):\Set\to\Set$, we get another $\lambda$-sequence $\{\cC(X_\beta,A)\}_{\beta<\lambda}$. The cone $\iota$ under $X$ induces a cone $\iota_*$ under $\cC(X_\beta,A)$ with nadir $\cC(A,X_\lambda)$. Let $\eta:\cC(X_\beta,A)\Rightarrow\underline{\colim_{\beta<\lambda}\cC(X_\beta,A)}$ be the colimit cone, and let $\ell:\colim_{\beta<\lambda}\cC(A,X_\lambda)\to\cC(A,X_\lambda)$ be the unique morphism of cones so that the following diagram commutes
-  \[\begin{tikzcd}
-    {\cC(A,X_0)} && {\cC(A,X_1)} && \cdots && {\cC(A,X_\beta)} && \cdots \\
-    \\
-    &&&& {\colim_{\beta<\lambda}\cC(A,X_\beta)} \\
-    \\
-    &&&& {\cC(A,X_\lambda)}
-    \arrow["{(\iota_{0,1})_*}", from=1-1, to=1-3]
-    \arrow["{(\iota_{1,2})_*}", from=1-3, to=1-5]
-    \arrow[from=1-5, to=1-7]
-    \arrow["{(\iota_{\beta,\beta+1})_*}", from=1-7, to=1-9]
-    \arrow["{\eta_\beta}"', from=1-7, to=3-5]
-    \arrow["{\eta_1}", from=1-3, to=3-5]
-    \arrow["{\eta_0}"{pos=0.3}, from=1-1, to=3-5]
-    \arrow["{(\iota_\beta)_*}", from=1-7, to=5-5]
-    \arrow["\ell", dashed, from=3-5, to=5-5]
-    \arrow["{(\iota_1)_*}"'{pos=0.4}, from=1-3, to=5-5]
-    \arrow["{(\iota_0)_*}"', from=1-1, to=5-5]
-  \end{tikzcd}\]
-  First, we wish to show that $\ell$ is surjective. Indeed, let $f:A\to X_\lambda$. For each $a\in A$, there exists some $\beta_a\in\lambda$ and some $a'\in X_{\beta_a}$ such that $f(a)=\eta_{\beta_a}(a')$ (see the preceeding discussion). Then let $\gamma:=\sup_{a\in A}\beta_a$. Since $|\{\beta_a\}_{a\in A}|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Now, define $g:A\to X_\gamma$ like so: for $a\in A$, define $g(a):=\iota_{\beta_a,\gamma}(a')$, where $a'\in X_{\beta_a}$ was chosen earlier so that $\iota_{\beta_a}(a')=f(a)$. Then we claim that $\ell(\eta_\gamma(g))=f$. Indeed, as $\ell$ is a morphism of cocones, $\ell\circ\eta=\iota_*$, so that we have
-  \[\ell(\eta_\gamma(g))=(\iota_\gamma)_*(g)=\iota_\gamma\circ g,\]
-  and given $a\in A$ we have 
-  \[\iota_\gamma(g(a))=\iota_\gamma(\iota_{\beta_a,\gamma}(a')).\] 
-  By definition of a cone, $\iota_{\gamma}\circ\iota_{\beta_a,\gamma}=\iota_{\beta_a}$, so that
-  \[\ell(\eta_{\gamma}(g))(a)=\iota_\gamma(\iota_{\beta_a,\gamma}(a'))=\iota_{\beta_a}(a')=f(a),\]
-  so that indeed $\ell(\eta_\gamma(g))=f$.
+  Every set is small. Indeed, if $A$ is a set we claim that $A$ is $|A|$-small. To see this, suppose $\lambda$ is an $|A|$-filtered ordinal, and $X$ is a $\lambda$-sequence of sets. First of all, by \autoref{explicit_description_of_colimit_in_set}, the elements of $\colim X$ are equivalence classes of elements $a\in X_\alpha$ where $a\in X_\alpha$ and $b\in X_\beta$ represent the same element of $\colim X$ iff there exists $\alpha,\beta\leq\gamma<\lambda$ so that $a$ and $b$ are sent to the same elements by the maps $X_\alpha\to X_\gamma$ and $X_\beta\to X_\gamma$, respectively. Now, we show the conditions of \autoref{nicer_description_of_smallness_conditions}.
+  
+  First, we need to show that given $\alpha,\beta<\lambda$, if $f:A\to X_\alpha$ and $g:A\to X_{\beta}$ such that the compositions $\ol f:A\xrightarrow{f}X_\alpha\to \colim X$ and $\ol g:A\xrightarrow{g}X_{\beta}\to \colim X$ are equal, then $f$ and $g$ are equal in some stage of the colimit. For each $a\in A$, since $\ol f(a)=\ol f(g)$ in $\colim X$, by the above characterization of $\colim X$, there exists $\gamma_a<\lambda$ with $\alpha,\beta\leq\gamma_a$ such that $f(a)$ and $g(a)$ are sent to the same element in $X_{\gamma_a}$ by the maps $X_\alpha\to X_{\gamma_a}$ and $X_\beta\to X_{\gamma_a}$, respectively. Then let $\gamma:=\sup_{a\in A}\gamma_a$. Since $\left|\{\gamma_a\}_{a\in A}\right|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Then clearly the compositions $A\xrightarrow{f}X_\alpha\to X_\gamma$ and $A\xrightarrow{g}X_\beta\to X_\gamma$ agree for all $a\in A$.
 
-  It remains to show $\ell$ is injective. Suppose we are given $[f],[g]\in\colim_{\beta<\lambda}\cC(A,X_\beta)$ such that $\ell([f])=\ell([g])$. Then by the preceeding discussion, there exists $\alpha,\beta<\lambda$, $f\in\cC(A,X_\alpha)$, and $g\in\cC(A,X_\beta)$ such that $\eta_\alpha(f)=[f]$ and $\eta_\beta(g)=[g]$. 
-  Then since $\ell\circ\eta=\iota_*$, we have
-  \[\ell([f])=\ell([g])\implies\iota_\alpha\circ f= (\iota_\alpha)_*(f)=\ell(\eta_\alpha(f))=\ell(\eta_\beta(g))=(\iota_\beta)_*(g)=\iota_\beta\circ g.\]
-  %Now, WLOG assume $\alpha\leq\beta$. 
-  For each $a\in A$, since $\iota_\alpha(f(a))=\iota_\beta(g(a))$, by \autoref{explicit_description_of_colimit_in_set} there exists $\gamma_a$ with $\alpha,\beta\leq\gamma_a$ such that $\iota_{\alpha,\gamma_a}(f(a))=\iota_{\beta,\gamma_a}(g(a))$. Then let $\gamma:=\sup_{a\in A}\gamma_a$. Since $|\{\gamma_a\}_{a\in A}|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Now, in order to show $[f]=[g]$, by \autoref{explicit_description_of_colimit_in_set} it suffices to show that $(\iota_{\alpha,\gamma})_*(f)=(\iota_{\beta,\gamma})_*(g)$. Indeed, given $a\in A$, we have
-  \[(\iota_{\alpha,\gamma})_*(f)(a)=\iota_{\alpha,\gamma}(f(a))=\iota_{\gamma_a,\gamma}\circ\iota_{\alpha,\gamma_a}(f(a))=\iota_{\gamma_a,\gamma}\circ\iota_{\beta,\gamma_a}(g(a))=\iota_{\beta,\gamma}(g(a))=(\iota_{\beta,\gamma})_*(g)(a),\]
-  precisely the desired result.
+  Secondly, we wish to show that given a map $f:A\to\colim X$, that $f$ factors through $X_\beta\to \colim X$ for some $\beta<\lambda$. For each $a\in A$, by the explicit description of $\colim X$, there exists some $\beta_a<\lambda$ and some $x_a\in X_{\beta_a}$ such that $f(a)=[x_a]$. Then let $\beta:=\sup_{a\in A}\beta_a$, so $\beta<\lambda$ as $X$ is $|A|$-filtered. Now define $\wt f:A\to X_\beta$ like so: for $a\in A$, define $\wt f(a)\in X_\beta$ to be the image of $x_a$ along the map $X_{\beta_a}\to X_\beta$. Then clearly the composition $f':A\xrightarrow{\wt f}X_\beta\to\colim X$ is equal to $f$, by unravelling definitions.
 \end{example}
 
 \begin{lemma}\label{colimit_of_directed_set_can_be_truncated}
   Let $\cJ$ be a directed set (so $\cJ$ is a nonempty set with a relation $\leq$ such that $\leq$ is reflexive, transitive, and given $x,y\in\cJ$, there exists $z\in\cJ$ with $x\leq z$ and $y\leq z$). Then given any object $x\in\cJ$, define $\cJ_x$ to be the subcategory of $\cJ$ containing precisely those elements $y\in\cJ$ with $y\geq x$. Then given a functor $F:\cJ\to\cC$ and an element $x\in\cJ$, if $\eta$ is a colimit cone for $F$, then $\eta$ restricts to a colimit cone for $F|_{\cJ_x}$ for all $x\in\cJ$.
 \end{lemma}
 \begin{proof}[Proof Sketch]
-  Let $\eta:F\Rightarrow\ul X$ be a colimit cone for $F$, then it clearly restricts to a cone under $F|_{\cJ_x}$. In order to show that $\eta$ restricts to a colimit cone, it suffices to show that any cone under $F|_{\cJ_x}$ extends uniquely to a cone under $F$. This can be easily checked.
+  Let $\eta:F\Rightarrow\ul X$ be a colimit cone for $F$, then it clearly restricts to a cone under $F|_{\cJ_x}$. In order to show that $\eta$ restricts to a colimit cone, it suffices to show that any cone under $F|_{\cJ_x}$ extends uniquely to a cone under $F$ (compose with the maps $F(z)\to F(x)$ for $z<x$). This can be easily checked.
 \end{proof}
 
 \begin{definition}[Hovey Definition 2.1.7]
@@ -503,7 +495,7 @@ Given a topological space $X$, we say that $X$ is \textit{locally compact} if fo
   \[\pi_n(f,x):\pi_n(X,x)\to\pi_n(Y,f(x))\]
   is an isomorphism for all $n\geq0$ and for all $x\in X$. We will write $\cW$ to refer to the class of all weak equivalences in $\Top$.
 
-  Define the set of maps $I'$ to consist of all the boundary inclusion $S^{n-1}\into D^n$ for all $n\geq0$, and define the set $J$ to consist of all the inclusions $D^n\into D^n\times I$ mapping $x\mapsto(x,0)$ for $n\geq0$. Then a map $f$ will be called a \textit{cofibration} if it is in $I\cof={\p( I'\p )}$, and a \textit{fibration} if it is in $J\inj=J\p$.
+  Define the set of maps $I'$ to consist of all the boundary inclusion $S^{n-1}\into D^n$ for all $n\geq0$, and define the set $J$ to consist of all the inclusions $D^n\into D^n\times I$ mapping $x\mapsto(x,0)$ for $n\geq0$. Then a map $f$ will be called a \textit{cofibration} if it is in $I'\cof={\p( I'\p )}$, and a \textit{fibration} if it is in $J\inj=J\p$.
 
   A map in $I'\cell$ is usually called a \textit{relative cell complex}; a relative CW-complex is a special case of a relative cell complex, where, in particular, the cells can be attached in order of their dimension. Note that in particular maps of $J$ are relative CW complexes, hence are relative $I'$-cell complexes. 
   %Thus $J\cof\sseq I'\cof$.
@@ -530,58 +522,95 @@ Given a topological space $X$, we say that $X$ is \textit{locally compact} if fo
   We will show that every object of $\Top$ is fibrant in \autoref{2.4.14}. 
 \end{proof}
 
-\pagebreak
-\begin{lemma}\label{lambda_sequence_of_inclusions_makes_everything_an_inclusion}
-  Let $\lambda$ be an ordinal, and $X$ a $\lambda$-sequence of inclusions in $\Top$. Then the map $X_\alpha\to X_\beta$ is an inclusion for all $\alpha\leq\beta<\gamma$.
+\begin{lemma}
+  Let $\iota:X\to Y$ be an inclusion. Then $\iota$ is closed iff $\iota(X)$ is a closed subset of $Y$.
 \end{lemma}
-Given $\alpha\leq\beta<\gamma$, let $\iota_{\alpha,\beta}$ denote the map $X_\alpha\to X_\beta$. In what follows, given a continuous map $f:A\to B$ of topological spaces, let $(\ast)$ be the property ``for all $U\sseq A$ open, there exists $V\sseq B$ open with $f^{-1}(V)=U$'' (so an inclusion is an injective continuous map satisfying $(\ast)$). Hence to prove the above Lemma, suffices to prove the following two statements separately:
-\begin{enumerate}[label=(\arabic*),listparindent=\parindent,parsep=5pt]
-  \item If $\iota_{\beta,\beta+1}$ is injective for all $\beta+1<\lambda$, then $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\lambda$.
-  \begin{proof}
-    Let $\alpha<\lambda$. We perform a proof by transfinite induction on $\beta$ for $\alpha\leq\beta<\lambda$ that $\iota_{\alpha,\beta}$ is injective. For the zero case, clearly $\iota_{\alpha,\alpha}=\id_\alpha$ is injective. Supposing $\iota_{\alpha,\beta}$ is injective for some $\alpha<\beta+1<\lambda$, we have $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ is a composition of injections, and is therefore clearly injective itself. Finally, suppose $\gamma$ is a limit ordinal with $\alpha\leq\gamma<\lambda$ such that $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\gamma$. We claim $\iota_{\alpha,\gamma}$ is injective. Since $X_\gamma$ is colimit preserving and $\gamma$ is a limit ordinal, $X_\gamma$ is the colimit of the diagram $\{X_\beta\}_{\beta<\gamma}$ via the maps $\iota_{\beta,\gamma}$, so that in particular by \autoref{explicit_description_of_colimit_in_set} and the discussion at the beginning of this section, given $a,b\in X_\alpha$ with $\iota_{\alpha,\gamma}(a)=\iota_{\alpha,\gamma}(b)$, there exists some $\beta<\gamma$ with $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$, and $\iota_{\alpha,\beta}$ is injective for all $\beta<\gamma$, so it must have been true $a=b$ in $X_\alpha$. 
-  \end{proof}
-  \item If $\iota_{\beta,\beta+1}$ satisfies $(\ast)$ for all $\beta+1<\lambda$, then $\iota_{\alpha,\beta}$ satisfies $(\ast)$ for $\alpha\leq\beta<\lambda$.
-  \begin{proof}
-   We will prove the following slightly stronger statement: for each $\alpha<\lambda$ and $U\sseq X_\alpha$ open, there exist open sets $V_\beta\sseq X_\beta$ for $\alpha\leq\beta<\lambda$ with $V_\alpha=U$ such that for all $\alpha\leq\beta'\leq\beta$, $\iota_{\beta',\beta}^{-1}(V_{\beta})=V_{\beta'}$ (so that in particular for all $\alpha\leq\beta<\lambda$, $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$). We perform transfinite induction on $\beta$, viewing $\alpha$ and $U$ as fixed.
+\begin{proof}
+  The implication $\implies$ is obvious. Conversely, suppose $\iota(X)$ is closed in $Y$. Let $C\sseq X$ be closed. $X\setminus C$ is open in $X$, so there exists $V\sseq Y$ with $\iota^{-1}(V)=X\setminus C$, so that
+  \begin{align*}
+    \iota(X)\setminus\iota(C)&=\iota(\iota^{-1}(V))\\
+    &=\iota(\iota^{-1}((V\cap\iota(X))\cup(V\setminus\iota(X)))) \\
+    &=\iota(\iota^{-1}(V\cap\iota(X)))\cup\iota(\iota^{-1}(V\setminus\iota(X))) \\
+    &=V\cap\iota(X)\cup\iota(\emptyset) \\
+    &=V\cap\iota(X),
+  \end{align*}
+  where the second-to-last equality follows since $V\cap\iota(X)$ is in the image of $\iota$, so $\iota(\iota^{-1}(V\cap\iota(X)))=V\cap\iota(X)$. Thus, $\iota(C)$ is indeed closed in $\iota(X)$, as $\iota(X)\setminus\iota(C)=V\cap\iota(X)$ and $V$ is open in $Y$.\color{red}FINISH.
+\end{proof}
 
-    The zero case has been taken care of: $V_\alpha=U$. For the sucessor case, given $\alpha<\beta+1<\lambda$, supposing $V_\beta$ has been defined with the desired properties, since $\iota_{\beta,\beta+1}$ is an inclusion, there exists $V_{\beta+1}\sseq X_{\beta+1}$ with $\iota_{\beta,\beta+1}^{-1}(V_{\beta+1})=V_\beta$. Then given $\alpha\leq\beta'\leq\beta$, we have
+\begin{lemma}\label{lambda_sequence_of_inclusions_makes_everything_an_inclusion}
+  Let $\lambda$ be an ordinal, and $X$ a $\lambda$-sequence in $\Top$. For $\alpha\leq\beta<\lambda$, let $\iota_{\alpha,\beta}$ be the map $X_\alpha\to X_\beta$. Then:
+  \begin{enumerate}[label=(\roman*)]
+    \item If $X_\beta\to X_{\beta+1}$ is an inclusion for all $\beta+1<\lambda$, then $X_\alpha\to X_\beta$ is an inclusion for all $\alpha\leq\beta<\lambda$.
+    \item If for all $\beta+1<\lambda$ and $U\sseq X_\beta$ open there exists $V\sseq X_{\beta+1}$ open such that $\iota_{\beta,\beta+1}^{-1}(V)=U$, then for each $\alpha<\lambda$ and $U\sseq X_\alpha$, there exist open sets $V_\beta\sseq X_\beta$ for $\alpha\leq\beta<\lambda$ with $V_\alpha=U$ such that for all $\alpha\leq\beta'\leq\beta$, $\iota_{\beta',\beta}^{-1}(V_\beta)=V_{\beta'}$.
+    \item If for all $\beta+1<\lambda$ the map $X_{\beta}\to X_{\beta+1}$ is a closed $T_1$ inclusion, $X_\alpha\to X_\beta$ is a closed $T_1$ inclusion for all $\alpha\leq\beta<\lambda$.
+    %\item if for all $\beta+1<\lambda$, every point in $X_{\beta+1}\setminus\iota_{\beta,\beta+1}(X_\beta)$ is closed, then every point in $X_\beta\setminus\iota_{\alpha,\beta}(X_\alpha)$ is closed for all $\alpha\leq\beta<\lambda$.
+  \end{enumerate}
+  Then in particular, if $X$ is a $\lambda$-sequence of inclusions, then $\iota_{\alpha,\beta}$ is an inclusion for all $\alpha\leq\beta<\lambda$. If $X$ is furthermore a $\lambda$-sequence of closed $T_1$ inclusions, then $\iota_{\alpha,\beta}$ is a closed $T_1$ inclusion for all $\alpha\leq\beta<\lambda$.
+\end{lemma}
+\begin{proof}
+  \begin{enumerate}[label=(\roman*),listparindent=\parindent,parsep=0pt]
+    \item Let $\alpha<\lambda$. We perform a proof by transfinite induction on $\beta$ for $\alpha\leq\beta<\lambda$ that $\iota_{\alpha,\beta}$ is injective. For the zero case, clearly $\iota_{\alpha,\alpha}=\id_\alpha$ is injective. Supposing $\iota_{\alpha,\beta}$ is injective for some $\alpha<\beta+1<\lambda$, we have $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ is a composition of injections, and is therefore clearly injective itself. Finally, suppose $\gamma$ is a limit ordinal with $\alpha\leq\gamma<\lambda$ such that $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\gamma$. We claim $\iota_{\alpha,\gamma}$ is injective. Since $X_\gamma$ is colimit preserving and $\gamma$ is a limit ordinal, $X_\gamma$ is the colimit of the diagram $\{X_\beta\}_{\beta<\gamma}$ via the maps $\iota_{\beta,\gamma}$, so that in particular by \autoref{explicit_description_of_colimit_in_set} and the fact that the forgetful functor $\Top\to\Set$ preserves colimits, given $a,b\in X_\alpha$ with $\iota_{\alpha,\gamma}(a)=\iota_{\alpha,\gamma}(b)$, there exists some $\beta<\gamma$ with $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$, and $\iota_{\alpha,\beta}$ is injective for all $\beta<\gamma$, so it must have been true $a=b$ in $X_\alpha$. 
+    \item We perform transfinite induction on $\beta$, viewing $\alpha$ and $U$ as fixed. The zero case has been taken care of: $V_\alpha=U$. For the sucessor case, given $\alpha<\beta+1<\lambda$, supposing $V_\beta$ has been defined with the desired properties, since $\iota_{\beta,\beta+1}$ is an inclusion, there exists $V_{\beta+1}\sseq X_{\beta+1}$ with $\iota_{\beta,\beta+1}^{-1}(V_{\beta+1})=V_\beta$. Then given $\alpha\leq\beta'\leq\beta$, we have
     \[\iota_{\beta',\beta}^{-1}(V_{\beta})=(\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta})^{-1}(V_{\beta+1})=\iota_{\alpha,\beta}^{-1}(\iota_{\beta,\beta+1}^{-1}(V_{\beta+1}))=\iota_{\alpha,\beta}^{-1}(V_\beta)=U,\]
     and given $\alpha\leq\beta'\leq\beta+1$, we have
     \[\iota_{\beta',\beta+1}^{-1}(V_{\beta+1})=(\iota_{\beta,\beta+1}\circ\iota_{\beta',\beta})^{-1}(V_{\beta+1})=\iota_{\beta',\beta}^{-1}(\iota_{\beta,\beta'}(V_{\beta+1}))=\iota_{\beta',\beta}^{-1}(V_\beta)=V_{\beta'}.\]
-    Finally, the limit case. Suppose $\gamma$ is a limit ordinal with $\alpha<\gamma\leq\lambda$, and suppose $V_\beta$ has been constructed with the desired properties for $\alpha\leq\beta<\gamma$. We wish to define $V_\gamma$. Since $X$ is colimit preserving and $\gamma$ is a limit ordinal, the maps $\iota_{\beta,\gamma}$ for $\beta<\gamma$ form a colimit cone for the diagram $\{X_\beta\}_{\beta<\gamma}$. Then by \autoref{colimit_of_directed_set_can_be_truncated}, the $\iota_{\beta,\gamma}$'s for $\alpha\leq\beta<\gamma$ form a colimit cone for the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$. Let $S=\{0,1\}$ be the Sierpinski space whose open sets are $\{\emptyset,\{1\},\{0,1\}\}$. For $\alpha\leq\beta<\gamma$, define a map $j_\beta:X_\beta\to S$ mapping everything in $V_\beta$ to $1$ and every other point to $0$. Each $j_\beta$ is clearly continuous, as $j_\beta^{-1}(1)=V_\beta$. Furthermore, we claim the $j_\beta$'s form a cone under the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, i.e., that given $\alpha\leq\beta'\leq\beta<\gamma$, the following diagram commutes
+    Finally, the limit case. Suppose $\gamma$ is a limit ordinal with $\alpha<\gamma\leq\lambda$, and suppose $V_\beta$ has been constructed with the desired properties for $\alpha\leq\beta<\gamma$. We wish to define $V_\gamma$. Since $X$ is colimit preserving and $\gamma$ is a limit ordinal, the maps $\iota_{\beta,\gamma}$ for $\beta<\gamma$ form a colimit cone for the diagram $\{X_\beta\}_{\beta<\gamma}$. Then by \autoref{colimit_of_directed_set_can_be_truncated}, the $\iota_{\beta,\gamma}$'s for $\alpha\leq\beta<\gamma$ form a colimit cone for the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$. Let $S=\{0,1\}$ be the Sierpinski space whose open sets are $\{\emptyset,\{1\},\{0,1\}\}$. For $\alpha\leq\beta<\gamma$, define a map $s_\beta:X_\beta\to S$ mapping everything in $V_\beta$ to $1$ and every other point to $0$. Each $s_\beta$ is clearly continuous, as $s_\beta^{-1}(1)=V_\beta$. Furthermore, we claim the $s_\beta$'s form a cone under the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, i.e., that given $\alpha\leq\beta'\leq\beta<\gamma$, the following diagram commutes
     \[\begin{tikzcd}
       {X_{\beta'} } && {X_\beta} \\
       & S
       \arrow["{\iota_{\beta',\beta}}", from=1-1, to=1-3]
-      \arrow["{j_\beta}", from=1-3, to=2-2]
-      \arrow["{j_{\beta'}}"', from=1-1, to=2-2]
+      \arrow["{s_\beta}", from=1-3, to=2-2]
+      \arrow["{s_{\beta'}}"', from=1-1, to=2-2]
     \end{tikzcd}\]
-    To see this, let $x\in X_{\beta'}$. If $x\in V_{\beta'}=\iota_{\beta',\beta}^{-1}(V_\beta)$, then $\iota_{\beta',\beta}(x)\in V_\beta$, so $j_\beta(\iota_{\beta',\beta}(x))=1=j_{\beta'}(x)$. Conversely, if $x\in X_{\beta'}\setminus V_{\beta'}$, then $x\notin \iota_{\beta',\beta}^{-1}(V_\beta)$, so $\iota_{\beta',\beta}(x)\notin V_{\beta}$, meaning $j_\beta(\iota_{\beta',\beta}(x))=0=j_{\beta'}(0)$. Hence, the $j_\beta$'s do indeed form a cone under $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, so by universal property of the colimit there exists a unique map $\ell:X_\gamma\to S$ such that $j_\beta=\ell\circ\iota_{\beta,\gamma}$ for all $\alpha\leq\beta<\gamma$. Define $V_\gamma:=\ell^{-1}(1)$. It remains to show that for all $\alpha\leq\beta\leq\gamma$ that $\iota_{\beta,\gamma}^{-1}(V_\gamma)=V_\beta$. Indeed, we have
-    \[\iota_{\beta,\gamma}^{-1}(V_\gamma)=\iota_{\beta,\gamma}^{-1}(\ell^{-1}(1))=(\ell\circ\iota_{\beta,\gamma}^{-1})^{-1}(1)=j_\beta^{-1}(1)=V_\beta.\qedhere\]
-  \end{proof}
-\end{enumerate}
+    To see this, let $x\in X_{\beta'}$. If $x\in V_{\beta'}=\iota_{\beta',\beta}^{-1}(V_\beta)$, then $\iota_{\beta',\beta}(x)\in V_\beta$, so $s_\beta(\iota_{\beta',\beta}(x))=1=s_{\beta'}(x)$. Conversely, if $x\in X_{\beta'}\setminus V_{\beta'}$, then $x\notin \iota_{\beta',\beta}^{-1}(V_\beta)$, so $\iota_{\beta',\beta}(x)\notin V_{\beta}$, meaning $s_\beta(\iota_{\beta',\beta}(x))=0=s_{\beta'}(0)$. Hence, the $s_\beta$'s do indeed form a cone under $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, so by universal property of the colimit there exists a unique map $\ell:X_\gamma\to S$ such that $s_\beta=\ell\circ\iota_{\beta,\gamma}$ for all $\alpha\leq\beta<\gamma$. Define $V_\gamma:=\ell^{-1}(1)$, which is open as $\{1\}$ is open in $S$. It remains to show that for all $\alpha\leq\beta\leq\gamma$ that $\iota_{\beta,\gamma}^{-1}(V_\gamma)=V_\beta$. Indeed, we have
+    \[\iota_{\beta,\gamma}^{-1}(V_\gamma)=\iota_{\beta,\gamma}^{-1}(\ell^{-1}(1))=(\ell\circ\iota_{\beta,\gamma})^{-1}(1)=s_\beta^{-1}(1)=V_\beta.\]
+    \item\color{red}TODO.
+  \end{enumerate}
 
-\begin{corollary}\label{inclusions_closed_under_transfinite_composition}
-  Let $\lambda$ be an ordinal $X$ be a $\lambda$-sequence of inclusions in $\Top$. Then for all $\alpha<\lambda$, the map $X_\alpha\to\colim X$ is an inclusion.
-\end{corollary}
+  In particular, if $X$ is a $\lambda$-sequence of inclusions, then for $\alpha\leq\beta<\lambda$, we have shown that $\iota_{\alpha,\beta}$ is injective, and given $U\sseq X_\alpha$ open, there exists $V_\beta\sseq X_\beta$ open with $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$. Hence, $\iota_{\alpha,\beta}$ is an inclusion, as desired.
+\end{proof}
+
+\begin{lemma}\label{inclusions_closed_under_transfinite_composition}
+  % technically this result is a bit stronger than what the label implies, but I don't know what else to call it lol
+  Let $\lambda$ be an ordinal, and $X$ be a $\lambda$-sequence in $\Top$. For $\alpha\leq\beta<\lambda$, let $\iota_{\alpha,\beta}$ be the map $X_\alpha\to X_\beta$. Let $j:X\Rightarrow\ul{\colim X}$ be the colimit cone. Then:
+  \begin{enumerate}
+    \item If $X_\beta\to X_{\beta+1}$ is injective for all $\beta+1<\lambda$, then $j_\alpha:X_\alpha\to\colim X$ is injective for all $\alpha<\lambda$.
+    \item If for all $\beta+1<\lambda$ and $U\sseq X_\beta$ there exists $V\sseq X_{\beta+1}$ open such that $\iota_{\beta,\beta+1}^{-1}(V)=U$, then for all $\alpha<\lambda$ and $U\sseq X_\alpha$ open, there exists $V\sseq\colim X$ open such that $j_\alpha^{-1}(V)=U$.
+    \item If for all $\beta+1<\lambda$, $\iota_{\beta,\beta+1}:X_\beta\to X_{\beta+1}$ is a closed $T_1$ inclusion, then for all $\alpha<\lambda$, the map $j_\alpha:X_\alpha\to\colim X$ is a closed $T_1$ inclusion.
+  \end{enumerate} 
+  In particular, (i) and (ii) imply that if $X$ is a $\lambda$-sequence of inclusions, then $X_\alpha\to\colim X$ is an inclusion for all $\alpha<\lambda$.
+\end{lemma}
 \begin{proof}
-  Given a $\lambda$-sequence $X$ of inclusions where $\lambda$ is an $|X|$-filtered ordinal, we wish to show the natural map of sets $\colim_{\beta<\lambda}\Top(X,X_\beta)\to\Top(A,\colim X)$ is a bijection. We know by \autoref{explicit_description_of_colimit_in_set} that an element of $\colim_{\beta<\lambda}\Top(X,X_\beta)$ may be written as an equivalence class $[f]$ represented by some map $f:X\to X_\beta$ for some 
+  \begin{enumerate}[label=(\roman*),listparindent=\parindent,parsep=0pt]
+    \item Suppose we are given $\alpha<\lambda$ and $a,b\in X_\alpha$ with $j_\alpha(a)=j_\alpha(b)$. Then by the fact that the forgetful functor $\Top\to\Set$ preserves colimits and \autoref{explicit_description_of_colimit_in_set}, there exists $\beta\geq\alpha$ such that $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$. But $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\lambda$ by \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}(i), so it must have been true $a=b$ in the first place. 
+    \item Suppose we are given $\alpha<\lambda$ and an open set $U\sseq X_\alpha$. We wish to show there exists $V\sseq\colim X$ open with $j_\alpha^{-1}(V)=U$. By \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}(ii), for each $\alpha\leq\beta<\lambda$, there exists $V_\beta\sseq X_\beta$ open with $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$. Now, by \autoref{colimit_of_directed_set_can_be_truncated}, $X_\lambda$ is a colimit for the ``subdiagram'' $\{X_\beta\}_{\alpha\leq\beta<\lambda}$. Now, let $S=\{0,1\}$ be the Sierpinski space, whose open sets are $\{\emptyset,\{1\},\{0,1\}\}$. Then for $\alpha\leq\beta<\lambda$, define $s_\beta:X_\beta\to S$ mapping $V_\beta$ to $1$ and every point in $X_\beta\setminus V_\beta$ to $0$. As in the proof of \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}(ii), by the universal property of the colimit, the $s_\beta$'s induce a (continuous) map $\ell:\colim X\to S$ such that $s_\beta=\ell\circ j_\beta$ for all $\alpha\leq\beta<\lambda$. Then define $V:=\ell^{-1}(1)$, which is open as $\{1\}$ is open in $S$. Then in particular,
+    \[j_\alpha^{-1}(V)=j_\alpha^{-1}(\ell^{-1}(1))=(\ell\circ j_\alpha)^{-1}(1)=s_\alpha^{-1}(1)=V_\alpha=U,\]
+    \item\color{red}TODO.
+  \end{enumerate}
 
-  \color{red}FINISH.
+  In particular, if $X$ is a $\lambda$-sequence of inclusions, then we have shown that for all $\alpha<\lambda$, $j_\alpha:X_\alpha\to\colim X$ is injective, and for all $U\sseq X_\alpha$ open, there exists $V\sseq\colim X$ open with $j_\alpha^{-1}(V)=U$. Thus, $j_\alpha$ is an inclusion.
 \end{proof}
 
 \begin{lemma}[Hovey 2.4.1]\label{2.4.1}
   Every topological space is small relative to the inclusions.
 \end{lemma}
 \begin{proof}
-  We claim that every topological space $X$ is $|X|$-small. Suppose $X$ is a $\lambda$-sequence of inclusions in $\Top$ where $\lambda$ is an $|X|$-filtered ordinal. We know that $X$ is $|X|$-small as a set (\autoref{2.1.5}), so there exists a bijection 
+  We claim that every topological space $A$ is $|A|$-small relative to the inclusions. We use the characterization of smallness afforded by \autoref{nicer_description_of_smallness_conditions}. Let $\lambda$ be an $|A|$-filtered ordinal, and let $X:\lambda\to\Top$ be a $\lambda$-sequence so that $X_\beta\to X_{\beta+1}$ is an inclusion for all $\beta+1<\lambda$. Recall that the forgetful functor $\Top\to\Set$ is forgetful, so elements of $\colim X$ are equivalence classes of elements $a\in X_\alpha$ for $\alpha<\lambda$, where $a\in X_\alpha$ and $b\in X_\beta$ represent the same equivalence class iff there exists $\alpha,\beta\leq\gamma<\lambda$ so that $a$ and $b$ are sent to the same element by the maps $X_\alpha\to X_\gamma$ and $X_\beta\to X_\gamma$, respectively.
+
+  First, suppose $f:A\to X_\alpha$ and $g:A\to X_\beta$ are continuous maps such that the compositions $A\xrightarrow fX_\alpha\to\colim X$ and $A\xrightarrow gX_\beta\to \colim X$ are equal. Then the same proof given in \autoref{2.1.5} works to show that $f$ and $g$ are equal in some stage of the colimit, as desired.
+
+  Conversely, suppose we are given a (continuous) map $f:A\to\colim X$. As in the proof of \autoref{2.1.5}, we may find some $\beta<\lambda$ and a map of sets $\wt f:A\to X_\beta$ such that the composition $A\xrightarrow{\wt f}X_\beta\xrightarrow j\colim X$ is equal to $f$ (note we have given the canonical map $X_\beta\to\colim X$ the name $j$). It remains to show that $\wt f$ is continuous. Let $U\sseq X_\beta$ be open. Since $j$ is an inclusion (\autoref{inclusions_closed_under_transfinite_composition}), there exists $V\sseq\colim X_\beta$ open such that $j^{-1}(V)=U$. Then ${\wt f}^{-1}(U)=\wt f^{-1}(j^{-1}(V))=(j\circ\wt f)^{-1}(V)=f^{-1}(V)$, and $f$ is continuous, so $\wt f^{-1}(U)=f^{-1}(V)$ is open. Thus $\wt f$ is continuous, as desired.
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.2]\label{2.4.2}
   Compact topological spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions.
 \end{proposition}
 \begin{proof}
-  \color{red}TODO.
+  We use the characterization of smallness afforded by \autoref{nicer_description_of_smallness_conditions}. Let $\lambda$ be a limit ordinal, and let $X:\lambda\to\Top$ be a $\lambda$-sequence so that $X_\beta\to X_{\beta+1}$ is a closed $T_1$ inclusion for all $\beta+1<\lambda$. Recall that the forgetful functor $\Top\to\Set$ is forgetful, so elements of $\colim X$ are equivalence classes of elements $a\in X_\alpha$ for $\alpha<\lambda$, where $a\in X_\alpha$ and $b\in X_\beta$ represent the same equivalence class iff there exists $\alpha,\beta\leq\gamma<\lambda$ so that $a$ and $b$ are sent to the same element by the maps $X_\alpha\to X_\gamma$ and $X_\beta\to X_\gamma$, respectively.
+
+  We show condition (ii) of \autoref{nicer_description_of_smallness_conditions} first. Suppose for the sake of a contradiction that $f:A\to\colim X$ is a continuous map that does \textit{not} factor through any $X_\beta$ for $\beta<\lambda$. For each $a\in A$, the element $f(a)\in\colim X$ may be represented by the equivalence class of an element $x_a\in X_{\gamma_a}$ for some $\gamma_a<\lambda$. We construct a sequence $\{a_n\}_{n=0}^\infty\sseq A$. Pick $a_0$ to be any point in $A$. Supposing $a_n$ has been chosen, pick $a_{n+1}$ such that $\gamma_{a_{n+1}}\geq\gamma_{a_n}$, and $x_{a_{n+1}}\in X_{\gamma_{a_{n+1}}}\setminus\iota_{\gamma_{a_n},\gamma_{a_{n+1}}}(X_{\gamma_{a_n}})$. If no such $a_{n+1}$ exists, then for all $a\in A$ with $\gamma_a\geq\gamma_{a_n}$, $x_a\in\iota_{\gamma_{a_n},\gamma_a}(X_{\gamma_{a_n}})$, so $f$ factors through $X_{\gamma_{a_n}}$, a contradiction. 
+  %Let $\gamma:=\sup_{n=0}^\infty\gamma_{a_n}$. Then we claim $\gamma$ is a limit ordinal. First of all, $\gamma\neq0$, as $\gamma\geq\gamma_{a_1}$, and we constructed the sequence so that $\gamma_{a_1}>\gamma_{a_0}\geq0$. Second of all, it is not a successor ordinal: suppose for the sake of a contradiction $\gamma=\beta+1$ for some ordinal $\beta$, so that $\beta+1\geq\gamma_{a_n}$ for all $n$. Then in particular, $\gamma_{a_n}<\gamma_{a_{n+1}}\leq\beta+1$, for all $n$, so $\gamma_{a_n}\leq\beta$ for all $n$. But then we reach a contradiction of the fact that $\gamma$ is the supremum of the $\gamma_{a_n}$'s, as $\gamma_{a_n}\leq\beta<\gamma=\sup_{n=0}^\infty\gamma_{a_n}$ for all $n$. Hence, since $\gamma\leq\lambda$ is a limit ordinal and $X$ is colimit preserving, $X_\gamma$ is the colimit of the $X_\alpha$'s for $\alpha<\gamma$. Let $j:\{X_\alpha\}_{\alpha<\gamma}\Rightarrow\ul{X_\gamma}$ be the colimit cone. 
+  Let $j:X\Rightarrow\ul{\colim X}$ be a colimit cone. Then define $S:=\{j_{\gamma_{a_n}}(x_{a_n}):n=1,2,\ldots\}$ (note $j_{\gamma_{a_0}}(x_{a_0})\notin S$). We claim that $S$ has the discrete topology as a subset of $X_\lambda$. 
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.5 \& 2.4.6]\label{2.4.5-6}
@@ -792,7 +821,8 @@ Given $\alpha\leq\beta<\gamma$, let $\iota_{\alpha,\beta}$ denote the map $X_\al
 
 \textbf{Questions/Comments:}\begin{enumerate}
   \item It bother me that the only explanation Hovey gives for what I proved in \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion} is that it ``follows by transfinite induction'' (pg.\ 49 in ``proof'' of Lemma 2.4.1). Also, my original construction of $V$ did NOT work.
-  \item 
+  \item In Hovey's proof of \autoref{2.4.1} (spaces are small relative inclusions), he asserts that the result ``given a $\lambda$-sequence $X$ of inclusions, $X_\alpha\to\colim X$ is an inclusion'' (my \autoref{inclusions_closed_under_transfinite_composition}) should follow from ``given a $\lambda$-sequence $X$ of inclusions, all of the maps $X_\alpha\to X_\beta$ are inclusions for $\alpha\leq\beta<\lambda$'' (my \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}). Is there a way to do it cleaner than I did? (I basically had to repeat the argument of \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion} in \autoref{inclusions_closed_under_transfinite_composition}.)
+  \item I need help with \autoref{2.4.2}
 \end{enumerate}
 
 \end{document}
