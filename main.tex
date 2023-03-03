@@ -231,7 +231,7 @@
   Let $\gamma$ be a cardinal. An ordinal $\alpha$ is \textit{$\gamma$-filtered} if it is a limit ordinal and, if $A\sseq\alpha$ and $|A|\leq\gamma$, then $\sup A<\alpha$.
 \end{definition}
 
-Given a cardinal $\gamma$, a $\gamma$-filtered category is one such that any diagram $\cD\to\cC$ has a cocone where $\cD$ has $<\gamma$ arrows. A catgory is just ``filtered'' if it is $\omega$-filtered, i.e., if every finite diagram in $\cC$ admits a cocone. Note that an ordinal $\alpha$ is $\gamma$-filtered precisely when it is $\gamma$-filtered as a category, and in particular every ordinal is $\omega$-filtered.
+Given a cardinal $\gamma$, a $\gamma$-filtered category $\cC$ is one such that any diagram $\cD\to\cC$ has a cocone when $\cD$ has $<\gamma$ arrows. A catgory is just ``filtered'' if it is $\omega$-filtered, i.e., if every finite diagram in $\cC$ admits a cocone. Note that an ordinal $\alpha$ is $\gamma$-filtered precisely when it is $\gamma$-filtered as a category, and in particular every ordinal is $\omega$-filtered.
 
 \begin{definition}[Hovey Definition 2.1.3]
   Suppose $\cC$ is a comcomplete category, $\cD\sseq\Mor\cC$ is some collection of morphisms of $\cC$, $A$ is an object of $\cC$, and $\kappa$ is a cardinal. We say that $A$ is \textit{$\kappa$-small relative to $\cD$} if, for all $\kappa$-filtered ordinals $\lambda$ and all $\lambda$-sequences
@@ -241,15 +241,19 @@ Given a cardinal $\gamma$, a $\gamma$-filtered category is one such that any dia
   is an isomorphism. We say that $A$ is \textit{small relative to $\cD$} if it is $\kappa$-small relative to $\cD$ for some $\kappa$. We say that $A$ is \textit{small} if it is small relative to $\cC$ itself.
 \end{definition}
 
+\begin{remark}\label{explicit_description_of_colimit_in_set}
 Recall that given a small category $\cD$ and a functor $F:\cD\to\Set$, we may explicitly construct the colimit of $F$ as the set
 \[\colim F:=\(\coprod_{d\in \cD}F(d)\)/\sim,\]
 where the equivalence relation $\sim$ is \textbf{generated} by
 \[((x\in F(d))\sim(x'\in F(d')))\quad\text{ if }\quad(\exists(f:d\to d')\text{ with }Ff(x)=x').\]
 In particular, if $\cD$ is a filtered category then the resulting relation can be described as follows:
-\begin{equation}\label{eq1}
+\begin{equation*}
   ((x\in F(d))\sim(x'\in F(d')))\quad\text{ iff }\quad(\exists\ d'',\,(f:d\to d''),\,(g:d'\to d'')\text{ with }Ff(x)=Fg(x')).
-\end{equation}
-Given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps the equivalence class of $x\in F(d)$ to the element $\eta_d(x)\in X$. We will use this characterization of the colimit in the following example.
+\end{equation*}
+Given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps the equivalence class of $x\in F(d)$ to the element $\eta_d(x)\in X$. 
+\end{remark}
+
+We will use the characterization of the colimit afforded by \autoref{explicit_description_of_colimit_in_set} in the following example.
 
 \begin{example}[Hovey 2.1.5]\label{2.1.5}
   Every set is small. Indeed, if $A$ is a set we claim that $A$ is $|A|$-small. To see this, suppose $\lambda$ is an $|A|$-filtered ordinal, and $X$ is a $\lambda$-sequence of sets. Given $\alpha<\beta<\lambda$, let $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ denote the induced morphism. We will write $X_\lambda:=\colim_{\beta<\lambda}X_\beta$, and let $\iota:X\Rightarrow X_\lambda$ be the colimit cone, so that given $\beta<\lambda$, $\iota_\beta:X_\beta\to X_\lambda$ is the leg of the colimit cone at $X_\beta$. By composing with the functor $\cC(A,-):\Set\to\Set$, we get another $\lambda$-sequence $\{\cC(X_\beta,A)\}_{\beta<\lambda}$. The cone $\iota$ under $X$ induces a cone $\iota_*$ under $\cC(X_\beta,A)$ with nadir $\cC(A,X_\lambda)$. Let $\eta:\cC(X_\beta,A)\Rightarrow\underline{\colim_{\beta<\lambda}\cC(X_\beta,A)}$ be the colimit cone, and let $\ell:\colim_{\beta<\lambda}\cC(A,X_\lambda)\to\cC(A,X_\lambda)$ be the unique morphism of cones so that the following diagram commutes
@@ -283,10 +287,17 @@ Given a cone $\eta:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F
   Then since $\ell\circ\eta=\iota_*$, we have
   \[\ell([f])=\ell([g])\implies\iota_\alpha\circ f= (\iota_\alpha)_*(f)=\ell(\eta_\alpha(f))=\ell(\eta_\beta(g))=(\iota_\beta)_*(g)=\iota_\beta\circ g.\]
   %Now, WLOG assume $\alpha\leq\beta$. 
-  For each $a\in A$, since $\iota_\alpha(f(a))=\iota_\beta(g(a))$, by \autoref{eq1} there exists $\gamma_a$ with $\alpha,\beta\leq\gamma_a$ such that $\iota_{\alpha,\gamma_a}(f(a))=\iota_{\beta,\gamma_a}(g(a))$. Then let $\gamma:=\sup_{a\in A}\gamma_a$. Since $|\{\gamma_a\}_{a\in A}|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Now, in order to show $[f]=[g]$, by \autoref{eq1} it suffices to show that $(\iota_{\alpha,\gamma})_*(f)=(\iota_{\beta,\gamma})_*(g)$. Indeed, given $a\in A$, we have
+  For each $a\in A$, since $\iota_\alpha(f(a))=\iota_\beta(g(a))$, by \autoref{explicit_description_of_colimit_in_set} there exists $\gamma_a$ with $\alpha,\beta\leq\gamma_a$ such that $\iota_{\alpha,\gamma_a}(f(a))=\iota_{\beta,\gamma_a}(g(a))$. Then let $\gamma:=\sup_{a\in A}\gamma_a$. Since $|\{\gamma_a\}_{a\in A}|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Now, in order to show $[f]=[g]$, by \autoref{explicit_description_of_colimit_in_set} it suffices to show that $(\iota_{\alpha,\gamma})_*(f)=(\iota_{\beta,\gamma})_*(g)$. Indeed, given $a\in A$, we have
   \[(\iota_{\alpha,\gamma})_*(f)(a)=\iota_{\alpha,\gamma}(f(a))=\iota_{\gamma_a,\gamma}\circ\iota_{\alpha,\gamma_a}(f(a))=\iota_{\gamma_a,\gamma}\circ\iota_{\beta,\gamma_a}(g(a))=\iota_{\beta,\gamma}(g(a))=(\iota_{\beta,\gamma})_*(g)(a),\]
-  precisely the desired result..
+  precisely the desired result.
 \end{example}
+
+\begin{lemma}\label{colimit_of_directed_set_can_be_truncated}
+  Let $\cJ$ be a directed set (so $\cJ$ is a nonempty set with a relation $\leq$ such that $\leq$ is reflexive, transitive, and given $x,y\in\cJ$, there exists $z\in\cJ$ with $x\leq z$ and $y\leq z$). Then given any object $x\in\cJ$, define $\cJ_x$ to be the subcategory of $\cJ$ containing precisely those elements $y\in\cJ$ with $y\geq x$. Then given a functor $F:\cJ\to\cC$ and an element $x\in\cJ$, if $\eta$ is a colimit cone for $F$, then $\eta$ restricts to a colimit cone for $F|_{\cJ_x}$ for all $x\in\cJ$.
+\end{lemma}
+\begin{proof}[Proof Sketch]
+  Let $\eta:F\Rightarrow\ul X$ be a colimit cone for $F$, then it clearly restricts to a cone under $F|_{\cJ_x}$. In order to show that $\eta$ restricts to a colimit cone, it suffices to show that any cone under $F|_{\cJ_x}$ extends uniquely to a cone under $F$. This can be easily checked.
+\end{proof}
 
 \begin{definition}[Hovey Definition 2.1.7]
   Let $I$ be a class of maps in a category $\cC$.\begin{enumerate}
@@ -303,7 +314,7 @@ The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but no
   Given classes $A$ and $B$ of maps in a category $\cC$ with $A\sseq B$, we have $A\sseq {\p(A\p)}$, $A\sseq (\p A)\p$, $(\p(A\p))\p=A\p$, $\p((\p A)\p)={\p A}$, $A\p\spseq B\p$, $\p A\spseq {\p B}$, ${\p(A\p)}\sseq {\p(B\p)}$, and $(\p A)\p\sseq (\p B)\p$.
 \end{lemma}
 \begin{proof}
-  \color{red}TODO.
+  Each of these amount to unravelling definitions and are entirely straightforward.
 \end{proof}
 
 \begin{definition}[Hovey Definition 2.1.9]
@@ -420,19 +431,71 @@ The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but no
 
 \section{Topological Spaces}
 
-An injective map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if $U$ is open in $X$ if and only if there is a $V$ open in $Y$ such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
+A map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if it is continuous, injective, and for all $U\sseq X$ open, there is some $V\sseq Y$ open such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
 
 The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ will denote the unit sphere in $\bR^n$, so that we have the boundary inclusions $S^{n-1}\into D^n$. In particular, for $n=0$ we let $D^0=\{0\}$ and $S^{-1}=\emptyset$.
 
-Recall: If $F:\cJ\to\Top$ is a functor, where $\cJ$ is a small category, the limit of $F$ is obtained by taking the limit in the category of sets, and then topologizing it with the \textit{initial topology}, where if $\eta:\underline{\lim F}\Rightarrow F$ is the limit cone, then the open sets in $\lim F$ are precisely the sets of the form $\eta_j^{-1}(U)$ where $j\in\cJ$ and $U\sseq F_j$ is open. Similarly, the colimit of $F$ is obtained by taking the colimit $\colim F$ in the category of sets, and declaring a set $U\sseq\colim F$ to be open if and only if $\vare_j^{-1}(U)$ is open in $F_j$ for all $j\in\cJ$, where $\vare:F\Rightarrow\underline{\colim F}$ is the colimit cone.
+Recall: If $F:\cJ\to\Top$ is a functor, where $\cJ$ is a small category, the limit of $F$ is obtained by taking the limit in the category of sets, and then topologizing it with the \textit{initial topology}, where if $\eta:\underline{\lim F}\Rightarrow F$ is the limit cone, then the topology on $\lim F$ is that with subbasis given by sets of the form $\eta_j^{-1}(U)$ where $j\in\cJ$ and $U\sseq F_j$ is open. Similarly, the colimit of $F$ is obtained by taking the colimit $\colim F$ in the category of sets and endowing it with the \textit{final topology}, where a set $U\sseq\colim F$ is open if and only if $\vare_j^{-1}(U)$ is open in $F_j$ for all $j\in\cJ$, where $\vare:F\Rightarrow\underline{\colim F}$ is the colimit cone.
 
-Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if for every subset $A\sseq X$, $A$ is closed in $X$ if and only if $A\cap K$ is closed in $K$ for all compact subspaces $K\sseq X$.
+% Source: https://ncatlab.org/nlab/show/locally+compact+topological+space, Munkres
+Given a space $X$, we construct a functor $(-)^X:\Top\to\Top$ as follows: Given a space $Y$, define $Y^X$ to be the space whose underlying set is the set $\Top(X,Y)$ of continuous maps $X\to Y$, and the topology on $Y^X$ is the \textit{compact-open topology}, i.e., the topology with subbasis given by the sets of the form 
+\[S(K,U):=\{f\in\Top(X,Y):f(K)\sseq U\}\]
+for $K\sseq X$ compact and $U\sseq Z$ open. Given a continuous map $f:Y\to Z$, define the induced map $f_*:Y^X\to Z^X$ by $f_*(g):=f\circ g$. Unravelling definitions, we have that given $f:Y\to Z$ continuous, $f_*^{-1}(S(K,U))=S(K,f^{-1}(U))$ for all $K\sseq X$ compact and $U\sseq Z$ open, so that $f_*$ is continuous. Furthermore, $(-)^X$ is clearly functorial, by associativity and unitality of function composition.
 
-\begin{proposition}\label{compactly_generated_hausdorff_spaces_are_exponentiable}
-  If $X$ is a compactly generated Hausdorff space, then the functor $-\times X:\Top\to\Top$ has a right adjoint (so that in particular, $-\times X$ preserves colimits).
+Given a topological space $X$, we say that $X$ is \textit{locally compact} if for all points $x\in X$ and open neighborhoods $U$ of $x$, there exists an open set $V\sseq X$ with $x\in V$, $\ol V\sseq U$, and $\ol V$ compact. We claim that $(-)^X$ is right adjoint to $-\times X$ when $X$ is locally compact and Hausdorff. 
+
+%First, we will prove the following Lemma:
+%
+%% sources: https://proofwiki.org/wiki/Equivalence_of_Definitions_of_Locally_Compact_Hausdorff_Space, https://math.stackexchange.com/a/1329871/930175
+%\begin{lemma}
+  %Let $X$ be a locally compact Hausdorff space. Then given a point $x\in X$ and an open set $U\sseq X$ containing $x$, there exists an open set $V\sseq X$ with $x\in V\sseq\ol V\sseq U$ with $\ol V$ compact.
+%\end{lemma}
+%\begin{proof}
+  %Since $X$ is locally compact, there exists an open set $W\sseq X$ and a compact set $K\sseq X$ such that $x\in W\sseq K$. Then $U\cap K$ is open in $K$ by definition of the subspace topology, so that $K\setminus U$ is closed in $K$. Note furthermore that $K$ is Hausdorff, as given $a,b\in K$ not equal, since $X$ is Hausdorff there exist disjoint open neighborhoods $U_a,U_b\sseq X$ of $a$ and $b$, respectively, and $U_a\cap K$ and $U_b\cap K$ are disjoint open neighborhoods of $a$ and $b$ in $K$, as desired. Let $y\in U\cap K$. Then for each $z\in K\setminus U$, there exist disjoint open subsets $U_z,V_y\sseq K$ with $z\in U_z$ and $y\in V_y$. Let $\cF:=\{U_z:z\in K\setminus U\}$.
+%\end{proof}
+
+\begin{proposition}\label{locally_compact_hausdorff_spaces_are_exponentiable}
+  If $X$ is a locally compact Hausdorff space, then functor $-\times X$ is left adjoint to $(-)^X$ (so that in particular $-\times X$ preserves colimits).
 \end{proposition}
 \begin{proof}
-  \color{red}TODO.
+  We start by constructing the counit and unit of the adjunction. Given a space $Z$, define the counit $\vare_Z:X\times Z^X\to Z$ to be the evaluation function, taking a pair $(x,f)\mapsto f(x)$. First, we claim $\vare_Z$ is continuous. Suppose we are given an open set $V\sseq Z$ and a point $(x,f)\in \vare_Z^{-1}(U)$ (so $f(x)\in V$). Since $f$ is continuous and $X$ is locally compact, there exists an open set $U\sseq X$ containing $x$ such that $x\in U\sseq\ol U\sseq f^{-1}(V)$ with $\ol U$ compact. Then consider the open set $U\times S(\ol U,V)$ in $X\times Y^X$. First of all, $(x,f)\in U\times S(\ol U,V)$, as $x\in U$ and $\ol U\sseq f^{-1}(V)$, so that $f(\ol U)\sseq V$ meaning $f\in S(\ol U,V)$. Furthermore, given $(y,g)\in U\times S(\ol U,V)$, we have $\vare_Z(y,g)=g(y)\in g(U)\sseq g(\ol U)\sseq V$, so $U\times S(\ol U,V)$ is an open neighborhood of $x$ contained in $\vare_Z^{-1}(V)$, as desired. Hence, $\vare_Z$ is continuous. It remains to show naturality. Given a map $f:Z\to W$, we wish to show the following diagram commutes:
+  \[\begin{tikzcd}
+    {X\times Z^X} & Z \\
+    {X\times W^X} & W
+    \arrow["{\vare_Z}", from=1-1, to=1-2]
+    \arrow["{\id_X\times f_*}"', from=1-1, to=2-1]
+    \arrow["{\vare_W}", from=2-1, to=2-2]
+    \arrow["f", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  Indeed, chasing an element $(x,g)$ around the diagram yields:
+  \[\begin{tikzcd}
+    {(x,g)} & {g(x)} \\
+    {(x,f\circ g)} & {f(g(x))}
+    \arrow[maps to, from=1-1, to=1-2]
+    \arrow[maps to, from=1-2, to=2-2]
+    \arrow[maps to, from=1-1, to=2-1]
+    \arrow[maps to, from=2-1, to=2-2]
+  \end{tikzcd}\]
+  so it does indeed commute.
+
+  Now we wish to define the unit $\eta_Y:Y\to(Y\times X)^X$. Given $y\in Y$, define $\eta_Y(y)\in (Y\times X)^X$ by $\eta_Y(y)(x):=(y,x)$. First of all, for it to be true that $\eta_Y(y)\in(X\times Y)^X$, it must be true that $\eta_Y(y)$ is continuous. Indeed, this is clear as $\eta_Y$ is obtained as the product map $y\times\id_X:X\to Y\times X$, where $y$ represents the constant function on $y$ (which is obviously continuous). Furthermore, $\eta_Y$ itself is continuous: given $K\sseq X$ compact and $U\sseq Y\times X$ open, we wish to show that $\eta_Y^{-1}(S(K,U))$ is open in $Y$. It suffices to show that given $y\in\eta_Y^{-1}(S(K,U))$, there exists an open neighborhood $W$ of $y$ that is mapped by $\eta_Y$ into $S(K,U)$. Since $y\in\eta_Y^{-1}(S(K,U))$, $\eta_Y(y)(K)=\{y\}\times K\sseq U$. Then $U\cap (Y\times K)$ is an open set in the subspace $Y\times K$ containing the slice $\{y\}\times K$. By definition of the product topology, for each $k\in K$, there exist open sets $W_k\sseq Y$ and $V_k\sseq K$ such that $(y,k)\in W_k\times V_k\sseq U\cap(Y\times K)$. Then the $V_k$'s form an open cover of $K$, which is compact, so that there exist $k_1,\ldots,k_n\in K$ with $V_{k_1}\cup\cdots\cup V_{k_n}=K$. Hence if we define $W:=W_{k_1}\cap\cdots\cap W_{k_n}$, then $\{y\}\times K\sseq W\times K\sseq U\cap(Y\times K)$, and $W$ is open in $Y$ as it is a finite intersection of open sets. Then for all $w\in W$, $\eta_Y(w)(K)=\{w\}\times K\sseq W\times K\sseq U$. Hence, indeed $\eta_Y$ is continuous. It remains to show naturality. Given a map $f:Y\to W$, we wish to show the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJZIl0sWzAsMSwiVyJdLFsxLDEsIihXXFx0aW1lcyBYKV5YIl0sWzEsMCwiKFlcXHRpbWVzICBYKV5YIl0sWzAsMSwiZiIsMl0sWzEsMiwiXFxldGFfVyJdLFswLDMsIlxcZXRhX1kiXSxbMywyLCIoZlxcdGltZXNcXGlkX1gpXyoiXV0=
+  \[\begin{tikzcd}
+    Y & {(Y\times  X)^X} \\
+    W & {(W\times X)^X}
+    \arrow["f"', from=1-1, to=2-1]
+    \arrow["{\eta_W}", from=2-1, to=2-2]
+    \arrow["{\eta_Y}", from=1-1, to=1-2]
+    \arrow["{(f\times\id_X)_*}", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  Indeed, chasing an element $y$ around the top of the diagram yields the function obtained as the composition $x\mapsto (y,x)\mapsto f\times\id_X(y,x)=(f(y),x)$, while chasing around the bottom of the diagram more directly yields the function $x\mapsto (f(y),x)$.
+
+
+  Now that we have constructed the unit and counit, it remains to verify the counit-unit equations, i.e., that for each $Y\in\Top$ that $\vare_{Y\times X}\circ(\eta_Y\times\id_X)=\id_{Y\times X}$ and $(\vare_Y)_*\circ\eta_{Y^X}=\id_{Y^X}$. First of all, given $(y,x)\in Y\times X$, we have
+  \[(\vare_{Y\times X}\circ (\eta_Y\times\id_X))(y,x)=\vare_{X\times Y}(\eta_Y(y),x)=\eta_Y(y)(x)=(y,x).\]
+  On the other hand, given $f\in Y^X$, we have
+  \[(\vare_Y)_*(\eta_{Y^X}(f))=(\vare_Y)_*([x\mapsto (f,x)])=[x\mapsto (f,x)\mapsto\vare_Y(f,x)=f(x)]=f.\]
+  Hence, indeed $\vare$ and $\eta$ form the counit and unit for the adjoint pair $(-\times X,(-)^X)$.
 \end{proof}
 
 \begin{definition}
@@ -467,13 +530,51 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
   We will show that every object of $\Top$ is fibrant in \autoref{2.4.14}. 
 \end{proof}
 
+\pagebreak
+\begin{lemma}\label{lambda_sequence_of_inclusions_makes_everything_an_inclusion}
+  Let $\lambda$ be an ordinal, and $X$ a $\lambda$-sequence of inclusions in $\Top$. Then the map $X_\alpha\to X_\beta$ is an inclusion for all $\alpha\leq\beta<\gamma$.
+\end{lemma}
+Given $\alpha\leq\beta<\gamma$, let $\iota_{\alpha,\beta}$ denote the map $X_\alpha\to X_\beta$. In what follows, given a continuous map $f:A\to B$ of topological spaces, let $(\ast)$ be the property ``for all $U\sseq A$ open, there exists $V\sseq B$ open with $f^{-1}(V)=U$'' (so an inclusion is an injective continuous map satisfying $(\ast)$). Hence to prove the above Lemma, suffices to prove the following two statements separately:
+\begin{enumerate}[label=(\arabic*),listparindent=\parindent,parsep=5pt]
+  \item If $\iota_{\beta,\beta+1}$ is injective for all $\beta+1<\lambda$, then $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\lambda$.
+  \begin{proof}
+    Let $\alpha<\lambda$. We perform a proof by transfinite induction on $\beta$ for $\alpha\leq\beta<\lambda$ that $\iota_{\alpha,\beta}$ is injective. For the zero case, clearly $\iota_{\alpha,\alpha}=\id_\alpha$ is injective. Supposing $\iota_{\alpha,\beta}$ is injective for some $\alpha<\beta+1<\lambda$, we have $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ is a composition of injections, and is therefore clearly injective itself. Finally, suppose $\gamma$ is a limit ordinal with $\alpha\leq\gamma<\lambda$ such that $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\gamma$. We claim $\iota_{\alpha,\gamma}$ is injective. Since $X_\gamma$ is colimit preserving and $\gamma$ is a limit ordinal, $X_\gamma$ is the colimit of the diagram $\{X_\beta\}_{\beta<\gamma}$ via the maps $\iota_{\beta,\gamma}$, so that in particular by \autoref{explicit_description_of_colimit_in_set} and the discussion at the beginning of this section, given $a,b\in X_\alpha$ with $\iota_{\alpha,\gamma}(a)=\iota_{\alpha,\gamma}(b)$, there exists some $\beta<\gamma$ with $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$, and $\iota_{\alpha,\beta}$ is injective for all $\beta<\gamma$, so it must have been true $a=b$ in $X_\alpha$. 
+  \end{proof}
+  \item If $\iota_{\beta,\beta+1}$ satisfies $(\ast)$ for all $\beta+1<\lambda$, then $\iota_{\alpha,\beta}$ satisfies $(\ast)$ for $\alpha\leq\beta<\lambda$.
+  \begin{proof}
+   We will prove the following slightly stronger statement: for each $\alpha<\lambda$ and $U\sseq X_\alpha$ open, there exist open sets $V_\beta\sseq X_\beta$ for $\alpha\leq\beta<\lambda$ with $V_\alpha=U$ such that for all $\alpha\leq\beta'\leq\beta$, $\iota_{\beta',\beta}^{-1}(V_{\beta})=V_{\beta'}$ (so that in particular for all $\alpha\leq\beta<\lambda$, $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$). We perform transfinite induction on $\beta$, viewing $\alpha$ and $U$ as fixed.
+
+    The zero case has been taken care of: $V_\alpha=U$. For the sucessor case, given $\alpha<\beta+1<\lambda$, supposing $V_\beta$ has been defined with the desired properties, since $\iota_{\beta,\beta+1}$ is an inclusion, there exists $V_{\beta+1}\sseq X_{\beta+1}$ with $\iota_{\beta,\beta+1}^{-1}(V_{\beta+1})=V_\beta$. Then given $\alpha\leq\beta'\leq\beta$, we have
+    \[\iota_{\beta',\beta}^{-1}(V_{\beta})=(\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta})^{-1}(V_{\beta+1})=\iota_{\alpha,\beta}^{-1}(\iota_{\beta,\beta+1}^{-1}(V_{\beta+1}))=\iota_{\alpha,\beta}^{-1}(V_\beta)=U,\]
+    and given $\alpha\leq\beta'\leq\beta+1$, we have
+    \[\iota_{\beta',\beta+1}^{-1}(V_{\beta+1})=(\iota_{\beta,\beta+1}\circ\iota_{\beta',\beta})^{-1}(V_{\beta+1})=\iota_{\beta',\beta}^{-1}(\iota_{\beta,\beta'}(V_{\beta+1}))=\iota_{\beta',\beta}^{-1}(V_\beta)=V_{\beta'}.\]
+    Finally, the limit case. Suppose $\gamma$ is a limit ordinal with $\alpha<\gamma\leq\lambda$, and suppose $V_\beta$ has been constructed with the desired properties for $\alpha\leq\beta<\gamma$. We wish to define $V_\gamma$. Since $X$ is colimit preserving and $\gamma$ is a limit ordinal, the maps $\iota_{\beta,\gamma}$ for $\beta<\gamma$ form a colimit cone for the diagram $\{X_\beta\}_{\beta<\gamma}$. Then by \autoref{colimit_of_directed_set_can_be_truncated}, the $\iota_{\beta,\gamma}$'s for $\alpha\leq\beta<\gamma$ form a colimit cone for the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$. Let $S=\{0,1\}$ be the Sierpinski space whose open sets are $\{\emptyset,\{1\},\{0,1\}\}$. For $\alpha\leq\beta<\gamma$, define a map $j_\beta:X_\beta\to S$ mapping everything in $V_\beta$ to $1$ and every other point to $0$. Each $j_\beta$ is clearly continuous, as $j_\beta^{-1}(1)=V_\beta$. Furthermore, we claim the $j_\beta$'s form a cone under the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, i.e., that given $\alpha\leq\beta'\leq\beta<\gamma$, the following diagram commutes
+    \[\begin{tikzcd}
+      {X_{\beta'} } && {X_\beta} \\
+      & S
+      \arrow["{\iota_{\beta',\beta}}", from=1-1, to=1-3]
+      \arrow["{j_\beta}", from=1-3, to=2-2]
+      \arrow["{j_{\beta'}}"', from=1-1, to=2-2]
+    \end{tikzcd}\]
+    To see this, let $x\in X_{\beta'}$. If $x\in V_{\beta'}=\iota_{\beta',\beta}^{-1}(V_\beta)$, then $\iota_{\beta',\beta}(x)\in V_\beta$, so $j_\beta(\iota_{\beta',\beta}(x))=1=j_{\beta'}(x)$. Conversely, if $x\in X_{\beta'}\setminus V_{\beta'}$, then $x\notin \iota_{\beta',\beta}^{-1}(V_\beta)$, so $\iota_{\beta',\beta}(x)\notin V_{\beta}$, meaning $j_\beta(\iota_{\beta',\beta}(x))=0=j_{\beta'}(0)$. Hence, the $j_\beta$'s do indeed form a cone under $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, so by universal property of the colimit there exists a unique map $\ell:X_\gamma\to S$ such that $j_\beta=\ell\circ\iota_{\beta,\gamma}$ for all $\alpha\leq\beta<\gamma$. Define $V_\gamma:=\ell^{-1}(1)$. It remains to show that for all $\alpha\leq\beta\leq\gamma$ that $\iota_{\beta,\gamma}^{-1}(V_\gamma)=V_\beta$. Indeed, we have
+    \[\iota_{\beta,\gamma}^{-1}(V_\gamma)=\iota_{\beta,\gamma}^{-1}(\ell^{-1}(1))=(\ell\circ\iota_{\beta,\gamma}^{-1})^{-1}(1)=j_\beta^{-1}(1)=V_\beta.\qedhere\]
+  \end{proof}
+\end{enumerate}
+
+\begin{corollary}\label{inclusions_closed_under_transfinite_composition}
+  Let $\lambda$ be an ordinal $X$ be a $\lambda$-sequence of inclusions in $\Top$. Then for all $\alpha<\lambda$, the map $X_\alpha\to\colim X$ is an inclusion.
+\end{corollary}
+\begin{proof}
+  Given a $\lambda$-sequence $X$ of inclusions where $\lambda$ is an $|X|$-filtered ordinal, we wish to show the natural map of sets $\colim_{\beta<\lambda}\Top(X,X_\beta)\to\Top(A,\colim X)$ is a bijection. We know by \autoref{explicit_description_of_colimit_in_set} that an element of $\colim_{\beta<\lambda}\Top(X,X_\beta)$ may be written as an equivalence class $[f]$ represented by some map $f:X\to X_\beta$ for some 
+
+  \color{red}FINISH.
+\end{proof}
+
 \begin{lemma}[Hovey 2.4.1]\label{2.4.1}
   Every topological space is small relative to the inclusions.
 \end{lemma}
 \begin{proof}
-  As with the case of sets, we claim that every topological space $X$ is $|X|$-small relative to the inclusions. Indeed, suppose $X$ is a $\lambda$-sequence of inclusions in $\Top$. First, we claim that each map $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ is an inclusion for $\alpha\leq\beta<\lambda$. We do so by presuming $\alpha<\lambda$ fixed and performing transfinite induction on $\beta$. First of all, in the case $\beta=\alpha$, $\iota_{\alpha,\alpha}$ is the identity and therefore clearly an inclusion. Now, suppose that $\iota_{\alpha,\beta}$ is an inclusion, then we wish to show that $\iota_{\alpha,\beta+1}$ is an inclusion. Since $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ the composition of inclusions, it too is clearly an inclusion. Finally, suppose that $\gamma$ is a limit ordinal, and that the map $\iota_{\alpha,\beta}$ is an inclusion for all $\alpha\leq\beta<\gamma$. We wish to show that the map $\iota_{\alpha,\gamma}$ is an inclusion. First, we claim this map is an injection. Since $\gamma$ is a limit ordinal and $X$ is colimit-preserving, $X_\gamma$ is the colimit of the diagram $X$ restricted to those $X_\beta$ such that $\beta<\gamma$, so that in particular by \autoref{eq1} and the discussion at the beginning of this section, given $a,b\in X_\alpha$, $\iota_{\alpha,\gamma}(a)=\iota_{\alpha,\gamma}(b)$ iff $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$ for some $\alpha\leq\beta<\gamma$. But we know the map $\iota_{\alpha,\beta}$ is an inclusion, so that if $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$, then it must have been true $a=b$ in $X_\alpha$. Hence, $\iota_{\alpha,\gamma}$ is injective. Finally, we wish to show that $U\sseq X_\alpha$ is open if and only if there is some $V\sseq X_\gamma$ open such that $\iota_{\alpha,\gamma}^{-1}(V)=U$. The backwards direction is clear as $\iota_{\alpha,\gamma}$ is continuous. Now suppose, $U\sseq X_\alpha$ is open. Then since $\iota_{\alpha,\beta}$ is an inclusion for all $\alpha\leq\beta<\gamma$, for $\alpha\leq\beta$ there exists $V_\beta\sseq X_\beta$ open such that $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$. Now, define
-  \[V:=\bigcup_{\alpha\leq\beta<\gamma}\iota_{\beta,\gamma}(V_\beta).\]
-  First of all, we claim that $\iota_{\beta,\gamma}^{-1}(V)=V_\beta$ for all $\beta<\gamma$. 
+  We claim that every topological space $X$ is $|X|$-small. Suppose $X$ is a $\lambda$-sequence of inclusions in $\Top$ where $\lambda$ is an $|X|$-filtered ordinal. We know that $X$ is $|X|$-small as a set (\autoref{2.1.5}), so there exists a bijection 
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.2]\label{2.4.2}
@@ -540,7 +641,7 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
 \begin{proof}
   First, in order to show ${\p(J\p)}\sseq{\p( I'\p )}$, It suffices to show that $J\sseq I'\cell$, as by \autoref{2.1.10} we would have $J\sseq{\p( I'\p )}$, and
   \[J\sseq {\p( I'\p )}\implies{\p(J\p)}\sseq{\p((\p( I'\p ))\p)}={\p( I'\p )},\]
-  where the implication and equality both follow from \autoref{useful_LP_properties} which asserts that
+  where the implication and equality both follow from \autoref{useful_LP_properties} which gives that
   \[A\sseq B\implies {\p(A\p)}\sseq{\p(B\p)}\quad\text{ and }\quad(\p({A}\p))\p=A\p.\]
   Now, to show $J\sseq I'\cell$, first consider the composition $j_n:D^n\into S^n\into D^{n+1}$, where the first map is the pushout
   \[\begin{tikzcd}
@@ -590,7 +691,7 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
     \end{tikzcd}\]
     where $i\in\cS$. Then we wish to show $j$ in $\cS$. First, injectivity. Suppose for the sake of a contradiction there existed nonequal $c,c'\in C$ such that $j(c)=j(c')$. Define $X:=\{1,2,3\}$ (with the indiscrete topology, if you like), $h:C\to X$ by $c\mapsto 1$, $c'\mapsto2$, and $C\setminus\{c,c'\}\mapsto 3$, and $k:B\to X$ by $i(f^{-1}(c))\mapsto 1$, $i(f^{-1}(c'))\mapsto 2$, and $i(f^{-1}(C\setminus\{c,c'\}))\mapsto 3$. Then it is straightforward to see that $h\circ f=k\circ i$. Thus, there must exist a (unique) function $\ell:D\to X$ such that $\ell\circ j=h$ and $\ell\circ g=k$. But then we would have $h(c)=\ell(j(c))=\ell(j(c'))=h(c')$ since $j(c)=j(c')$, a contradiction of the fact that $h(c)\neq h(c')$. Hence, $j$ must be injective. Now, we look to construct $H$ and $r$. Let $K:B\times I\to B$ and $r':B\to A$ be maps satisfying the conditions for $i$ to be an inclusion of a deformation retract.
 
-    We wish to define a homotopy $H:D\times I\to D$. Then $I$ is a compactly generated Hausdorff space (in particular, it is compact and Hausdorff), so that the functor $-\times I:\Top\to\Top$ preserves colimits (\autoref{compactly_generated_hausdorff_spaces_are_exponentiable}), meaning the following is a pushout diagram:
+    We wish to define a homotopy $H:D\times I\to D$. Then $I$ is a locally compact Hausdorff space (in particular, it is compact and Hausdorff), so that the functor $-\times I:\Top\to\Top$ preserves colimits (\autoref{locally_compact_hausdorff_spaces_are_exponentiable}), meaning the following is a pushout diagram:
     % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFx0aW1lcyBJICJdLFsxLDAsIkNcXHRpbWVzIEkiXSxbMSwxLCJEXFx0aW1lcyBJIl0sWzAsMSwiQlxcdGltZXMgSSJdLFswLDEsImZcXHRpbWVzXFxpZF9JIl0sWzEsMiwialxcdGltZXNcXGlkX0kiXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyLWludmVyc2UifX1dLFswLDMsImlcXHRpbWVzXFxpZF9JIiwyXSxbMywyLCJnXFx0aW1lc1xcaWRfSSIsMl1d
     \[\begin{tikzcd}
       {A\times I } & {C\times I} \\
@@ -650,9 +751,9 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
 \begin{proof}
   First, by \autoref{2.4.9} we know $\p(J\p)\sseq\p(I'\p)$, and this implies $I'\p\sseq J\p$, as by \autoref{useful_LP_properties} we have
   \[\p(J\p)\sseq\p(I'\p)\implies J\p=(\p(J\p))\p\spseq(\p(I'\p))\p=I'\p.\]
-  Thus, it suffices to show that $I'\p\sseq\cW$. Now, suppose $p:X\to Y$ is in $I'\p$, and $x\in X$. We wish to show that the map $\pi_n(p,x):\pi_n(X,x)\to\pi_n(Y,p(x))$ is an isomorphism for all $n$. 
+  Thus, it suffices to show that $I'\p\sseq\cW$. Now, suppose $p:(X,x_0)\to (Y,p(x_0))$ is in $I'\p$. We wish to show that the map $\pi_n(p,x_0):\pi_n(X,x_0)\to\pi_n(Y,p(x_0))$ is an isomorphism for all $n$.
   
-  First we show that $\pi_n(p,x)$ is surjective. Let $g:(S^n,\ast)\to(Y,p(x))$ be a map. Then we have the following commutative diagram
+  First we show that $\pi_n(p,x_0)$ is surjective. Let $g:(S^n,\ast)\to(Y,p(x_0))$ be a map. Then we have the following commutative diagram
   \[\begin{tikzcd}
     \ast & X \\
     {S^n} & Y
@@ -661,11 +762,18 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
     \arrow[from=1-1, to=1-2]
     \arrow["p", from=1-2, to=2-2]
   \end{tikzcd}\]
-  where the top arrow picks out $x$. Note that the map $\ast\to S^n$ may be realized as a pushout of the diagram $D^n\leftarrow S^{n-1}\rightarrow\ast$, so that $\ast\to S^n$ belongs to $I'\cell$, and therefore $\p(I'\p)$ by \autoref{2.1.10}. Then by \autoref{useful_LP_properties}, $(\p(I'\p))\p=I'\p$, and $p\in I'\p$, so that $p$ has the right lifting property with respect to every element of $\p(I'\p)$, and in particular, the map $\ast\to S^n$. Thus, the above diagram has a lift $f:(S^n,\ast)\to (X,x)$ such that $p\circ f=g$, so that $\pi_n(p,x)([f])=[p\circ f]=[g]$, as desired.
+  where the top arrow picks out $x_0$. Note that the map $\ast\to S^n$ may be realized as a pushout of the diagram $D^n\leftarrow S^{n-1}\rightarrow\ast$, so that $\ast\to S^n$ belongs to $I'\cell$, and therefore $\p(I'\p)$ by \autoref{2.1.10}, and $p\in I'\p$, so $\ast\to S^n$ has the left lifting property against $p$. Thus, the above diagram has a lift $f:(S^n,\ast)\to (X,x_0)$ such that $p\circ f=g$, so that $\pi_n(p,x_0)([f])=[p\circ f]=[g]$, as desired.
 
-  Finally, we show that $\pi_n(p,x)$ is injective. Suppose we have two maps $f,g:(S^n,\ast)\to(X,x)$ such that $p\circ f$ and $p\circ g$ represent the same element of $\pi_n(Y,p(x))$. Then there is a homotopy $H:S^n\times I\to Y$ such that $H(x,0)=p(f(x))$, $H(x,1)=p(g(x))$, and $H(\ast,t)=p(x)$ for all $t$. We construct the following pushouts:
-
-  \color{red}FINISH.
+  Finally, we show that $\pi_n(p,x_0)$ is injective. Suppose we have two maps $f,g:(S^n,\ast)\to(X,x_0)$ such that $p\circ f$ and $p\circ g$ represent the same element of $\pi_n(Y,p(x_0))$. Then there is a homotopy $H:S^n\times I\to Y$ such that for all $s\in S^n$ and $t\in I$, $H(s,0)=p(f(s))$, $H(s,1)=p(g(s))$, and $H(\ast,t)=p(x_0)$. By the universal property of the quotient, $H$ induces a map $\ol H:S^n\wedge I_+:=(S^n\times I)/(\ast\times I)$ sending the equivalence class $[s,t]\mapsto H(s,t)$. Hence, the following diagram commutes:
+  \[\begin{tikzcd}
+    {S^n\vee S^n} & X \\
+    {S^n\wedge I_+} & Y
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow["{\ol H}", from=2-1, to=2-2]
+    \arrow["{f\vee g}", from=1-1, to=1-2]
+    \arrow["p"', from=1-2, to=2-2]
+  \end{tikzcd}\]
+  where the left arrow is an element of $I'\cell$, as it may be obtained by attaching an $n+1$ cell to $S^n\vee S^n$ (when $n=0$, the attachning map is obvious; when $n>0$, the attaching map is the quotient map $S^n\onto S^n\vee S^n$ obtained by collapsing the equator). Thus, by similar reasoning to above there exists a lift $\ol K: S^n\wedge I_+\to X$. Then if we define $K$ to be the composition $S^n\times I\onto S^n\wedge I_+\xrightarrow{\ol K} X$, this gives us the desired homotopy between $f$ and $g$: given $s\in S^n$ and $t\in I$, we have $K(s,0)=\ol K([s,0])=f(s)$, $K(s,1)=\ol K([s,1])=g(s)$, and $K(\ast,t)=\ol K([\ast,t])$
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.12]\label{2.4.12}
@@ -682,10 +790,9 @@ Given a space $X\in\Top$, we say that $X$ is compactly generated or a k-space if
   \color{red}TODO.
 \end{proof}
 
-\textbf{Questions:}\begin{enumerate}
-  %\item Lemma 2.3 help pls (limit ordinal case in transfinite induction).
-  %\item I would like to go over the proof that compactly generated Hausdorff spaces are exponentiable.
-  \item How to construct the map $S^n\vee S^n\to S^n\wedge I_+$ as abstractly as possible?
+\textbf{Questions/Comments:}\begin{enumerate}
+  \item It bother me that the only explanation Hovey gives for what I proved in \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion} is that it ``follows by transfinite induction'' (pg.\ 49 in ``proof'' of Lemma 2.4.1). Also, my original construction of $V$ did NOT work.
+  \item 
 \end{enumerate}
 
 \end{document}
