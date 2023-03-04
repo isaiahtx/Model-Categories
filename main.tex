@@ -672,7 +672,7 @@ This result, by \autoref{condition_for_family_of_arrows_to_be_closed_under_trans
     
     Now, consider the retract diagram, and suppose $f$ is an inclusion. We wish to show $g$ is an inclusion. We know $g$ is injective by (i). It remains to show that given $U\sseq A$ open, there exists $V\sseq C$ open with $g^{-1}(V)=U$. Let $U'=\beta^{-1}(U)$, then since $\beta$ is continuous $U'$ is open in $B$, and $f$ is an inclusion, so there exists $V'\sseq D$ open with $f^{-1}(V')=U'$. Then let $V:=\gamma^{-1}(V')$, which is open as $\gamma$ is continuous. Then 
     \[g^{-1}(V)=g^{-1}(\gamma^{-1}(V'))=(\gamma\circ g)^{-1}(V')=(f\circ\alpha)^{-1}(V')=\alpha^{-1}(f^{-1}(V'))=\alpha^{-1}(U').\]
-    Hence, it suffices to show $\alpha^{-1}(U')=U$ in order to show $g$ is an inclusion. Note $\beta(\beta^{-1}(U'))=U$, as $\beta$ is surjective. First of all, given $a\in\alpha^{-1}(U')$, so $\alpha(a)\in U'$, we have 
+    \color{red}(SECOND EQUATION INCORRECT) Hence, it suffices to show $\alpha^{-1}(U')=U$ in order to show $g$ is an inclusion. Note $\beta(\beta^{-1}(U'))=U$, as $\beta$ is surjective. First of all, given $a\in\alpha^{-1}(U')$, so $\alpha(a)\in U'$, we have 
     \[a=\beta(\alpha(a))\in\beta(U')=\beta(\beta^{-1}(U))= U,\]
     as desired. Conversely, given $a\in A\setminus\alpha^{-1}(U')$, we have
     \[a=\beta(\alpha(a))\notin\beta(U')=\beta(\beta^{-1}(U'))=U.\]
