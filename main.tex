@@ -234,7 +234,7 @@ Of particular importance to us will be collections of arrows which are \textit{c
 \begin{proof}[Proof Sketch]
   Let $\alpha<\lambda$, and fix a colimit cone $j:X\Rightarrow\ul{\colim X}$. Define $S:=\{\beta:\alpha\leq\beta\leq\lambda\}\sseq\lambda+1$. Define a map $\phi:S\to\Ord$ via transfinite recursion. Let $\phi(\alpha)=0$. Supposing $\phi(\beta)$ has been defined, let $\phi(\beta+1)=\phi(\beta)+1$. Finally, supposing $\alpha<\gamma\leq\lambda$ is a limit ordinal and $\phi(\beta)$ has been defined for $\alpha\leq\beta<\gamma$, define $\phi(\gamma)=\sup_{\alpha\leq\beta<\gamma}\phi(\beta)$. It is straightforward to verify that $\phi$ is order preserving, sends limit ordinals to limit ordinals, and satisfies $\alpha+\phi(\beta)=\beta$ for all $\alpha\leq\beta\leq\lambda$.
   
-  Now, construct a $\phi(\lambda)$-sequence $Y:\phi(\lambda)\to\cC$ by $Y_\beta:=X_{\alpha+\beta}$, and given $\beta\leq\beta'<\phi(\lambda)$, define the map $Y_\beta\to Y_{\beta'}$ to be the arrow $X_{\alpha+\beta}\to X_{\alpha+\beta'}$ for $X$. Checking that $Y$ is functorial and colimit-preserving follows directly from the fact that $X$ is functorial and colimit-preserving. Then it can be seen that the $j_{\alpha+\beta}$'s for $\beta<\phi(\lambda)$ restrict to a colimit cone under $Y$. Since $Y$ is a $\phi(\lambda)$-sequence in $\cD$ and $\cD$ is closed under transfinite compositions, it follows that $j_\alpha\in\cD$, as desired.
+  Now, construct a $\phi(\lambda)$-sequence $Y:\phi(\lambda)\to\cC$ by $Y_\beta:=X_{\alpha+\beta}$, and given $\beta\leq\beta'<\phi(\lambda)$, define the map $Y_\beta\to Y_{\beta'}$ to be the arrow $X_{\alpha+\beta}\to X_{\alpha+\beta'}$ for $X$. Checking that $Y$ is functorial and colimit-preserving follows directly from the fact that $X$ is functorial and colimit-preserving. Then it can be seen that the $j_{\alpha+\beta}$'s for $0\leq\beta<\phi(\lambda)$ restrict to a colimit cone under $Y$. Since $Y$ is a $\phi(\lambda)$-sequence in $\cD$ and $\cD$ is closed under transfinite compositions, it follows that $j_\alpha\in\cD$, as desired.
 \end{proof}
 
 \begin{definition}[Hovey Definition 2.1.2]
@@ -342,7 +342,7 @@ The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but no
 \begin{lemma}\label{I-cell_closed_under_composition_with_isomorphisms}
   Let $\cC$ be a category and $I$ a class of morphisms in $\cC$. Then $I\cell$ is closed under composition with isomorphisms.
 \end{lemma}
-\begin{proof}
+\begin{proof}[Proof Sketch]
   Suppose that $f:B\to C$ is an element of $I\cell$, and $h:A\to B$ and $g:C\to D$ are isomorphisms in $\cC$. We wish to show $f\circ h$ and $g\circ f$ are also elements of $I\cell$. Since $f\in I\cell$, there exists an ordinal $\lambda$, a $\lambda$-sequence $X$ with $X_0=B$, and a colimit cone $\eta:X\Rightarrow\underline C$, such that $\eta_0=f$. 
   
   First of all, construct a new cone $\eta':X\Rightarrow\underline D$ under $X$ where $\eta'_\beta:=g\circ\eta_\beta$. It is straightforward to verify that $\eta'$ is a colimit cone for $X$ since $\eta$ is a colimit cone and $g$ is an isomorphism. Thus, $g\circ f=g\circ\eta_0=\eta_0'\in I\cell$, as $\eta_0'$ is the composition of a sequence of pushouts of elements of $I$.
@@ -353,7 +353,7 @@ The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but no
     \arrow["h", from=1-1, to=1-2]
     \arrow[from=1-2, to=1-3]
   \end{tikzcd}\]
-  and the composition $X'_\alpha\to X'_\beta$ to simply be the same map $X_\alpha\to X_\beta$ for $0<\alpha\leq \beta<\lambda$. It is straightforward to verify that defines a $\lambda$-sequence, and that we may define a colimit cone $\eta':X'\Rightarrow\underline C$ by $\eta'_0=\eta_0\circ h=f\circ h$, and $\eta'_\beta=\eta_\beta$ for $0<\beta<\lambda$. Furthermore, clearly for all $1<\beta+1<\lambda$, we have the arrow $X_\beta'\to X_{\beta+1}'$ is a pushout of a map in $I$. Thus, in order to show $f\circ h\in I\cell$, it remains to show that the arrow $A=X_0'\to X_1'=X_1$ is a pushout of a map in $I$. Indeed, we know since $B=X_0\to X_1$ is a pushout of a map $k:P\to Q$ in $I$, and it can be easily verified the diagram on the right is a pushout diagram:
+  and the composition $X'_\alpha\to X'_\beta$ to simply be the same map $X_\alpha\to X_\beta$ for $0<\alpha\leq \beta<\lambda$. It is straightforward to verify that defines a $\lambda$-sequence, and that we may define a colimit cone $\eta':X'\Rightarrow\underline C$ by $\eta'_0=\eta_0\circ h=f\circ h$, and $\eta'_\beta=\eta_\beta$ for $0<\beta<\lambda$. Furthermore, clearly for all $1<\beta+1<\lambda$, we have the arrow $X_\beta'\to X_{\beta+1}'$ is a pushout of a map in $I$. Thus, in order to show $f\circ h\in I\cell$, it remains to show that the arrow $X_0'=A\to X_1=X_1'$ is a pushout of a map in $I$. Indeed, we know $B=X_0\to X_1$ is a pushout of a map $k:P\to Q$ in $I$, and it can be easily verified the diagram on the right is a pushout diagram as the left diagram is a pushout diagram and $h$ is an isomorphism
   \[\begin{tikzcd}[row sep=small,column sep=small]
     P && {X_0} && P & {X_0} & {X_0'} \\
     &&& \leadsto &&& {X_0} \\
@@ -373,12 +373,22 @@ The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but no
   \end{tikzcd}\qedhere\]
 \end{proof}
 
-\begin{lemma}[Hovey 2.1.10]\label{2.1.10}
-  Suppose $I$ is a class of maps in a cocomplete category $\cC$. Then $I\cell\sseq{\p(I\p)}$.
+\begin{definition}\label{saturated}
+  Let $\cC$ be a category and $I$ a collection of morphisms in $\cC$. Then if $I$ is closed under transfinite composition, pushouts, and retracts then we say $I$ is \textit{saturated}.
+\end{definition}
+
+\begin{lemma}
+  Suppose $I$ is a class of maps in a cocomplete category $\cC$. Then $\p I$ is saturated. 
 \end{lemma}
 \begin{proof}
   \color{red}TODO.
 \end{proof}
+
+This yields the following Corollary:
+
+\begin{corollary}[Hovey 2.1.10]\label{2.1.10}
+  Given a cocomplete category $\cC$ and a class of maps $I$ in $\cC$, $I\cell\sseq{\p(I\p)}$.
+\end{corollary}
 
 \begin{theorem}[Small Object Argument, Hovey 2.1.14]\label{2.1.14}
   Suppose $\cC$ is a cocomplete categroy, and $I$ is a set of maps in $\cC$. Suppose the domains of the maps of $I$ are small relative to $I\cell$. Then there is a functorial factorization $(\gamma,\delta)$ on $\cC$ such that for all morphisms $f\in\cC$, the map $\gamma(f)$ is in $I\cell$ and the map $\delta(f)$ is in $I\inj$.
@@ -432,10 +442,6 @@ The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but no
 \begin{proof}
   \color{red}TODO.
 \end{proof}
-
-\begin{definition}\label{saturated}
-  Let $\cC$ be a category and $I$ a collection of morphisms in $\cC$. Then if $I$ is closed under transfinite composition, pushouts, and retracts then we say $I$ is \textit{saturated}.
-\end{definition}
 
 \section{Topological Spaces}
 
@@ -689,10 +695,12 @@ This result, by \autoref{condition_for_family_of_arrows_to_be_closed_under_trans
 \end{proof}
 
 \begin{lemma}[Hovey 2.4.8]\label{2.4.8}
-  $\cW\cap\cT$ is closed under transfinite compositions.
+  $\cW\cap\cT$ is closed under transfinite compositions, where $\cT$ denotes the class of closed $T_1$ inclusions.
 \end{lemma}
 \begin{proof}
-  \color{red}TODO.
+  Let $\lambda$ be an ordinal, and let $X:\lambda\to\Top$ be a $\lambda$-sequence such that for all $\beta+1<\lambda$, the map $X_{\beta}\to X_{\beta+1}$ belongs to $\cW\cap\cT$. Let $j:X\to\ul{X_\lambda}$ be a colimit cone for $X$. By \autoref{inclusions_closed_under_transfinite_composition}, we know that $j_0:X\to X_\lambda$ is a closed $T_1$ inclusion, so it remains to show that $\pi_n(j_0,x_0):\pi_n(X_0,x_0)\to\pi_n(X_\lambda,j_0(x_0))$ is an isomorphism for all $n\geq0$ and $x_0\in X_0$.
+
+  First we show surjectivity. Suppose we are given $x_0\in X_0$ and a continuous map $f:(S^n,\ast)\to(X_\lambda,j_0(x_0))$. Since $S^n$ is compact, by \autoref{}
 \end{proof}
 
 \begin{proposition}\label{domains_of_I'/J_small_rel_I'-cell/J-cell}
@@ -870,25 +878,103 @@ This result, by \autoref{condition_for_family_of_arrows_to_be_closed_under_trans
     \arrow["{f\vee g}", from=1-1, to=1-2]
     \arrow["p"', from=1-2, to=2-2]
   \end{tikzcd}\]
-  where the left arrow is an element of $I'\cell$, as it may be obtained by attaching an $n+1$ cell to $S^n\vee S^n$ (when $n=0$, the attachning map is obvious; when $n>0$, the attaching map is the quotient map $S^n\onto S^n\vee S^n$ obtained by collapsing the equator). Thus, by similar reasoning to above there exists a lift $\ol K: S^n\wedge I_+\to X$. Then if we define $K$ to be the composition $S^n\times I\onto S^n\wedge I_+\xrightarrow{\ol K} X$, this gives us the desired homotopy between $f$ and $g$: given $s\in S^n$ and $t\in I$, we have $K(s,0)=\ol K([s,0])=f(s)$, $K(s,1)=\ol K([s,1])=g(s)$, and $K(\ast,t)=\ol K([\ast,t])$
+  where the left arrow is an element of $I'\cell$, as it may be obtained by attaching an $n+1$ cell to $S^n\vee S^n$ (when $n=0$, the attachning map is obvious; when $n>0$, the attaching map is the quotient map $S^n\onto S^n\vee S^n$ obtained by collapsing the equator). Thus, by similar reasoning to above there exists a lift $\ol K: S^n\wedge I_+\to X$. Then if we define $K$ to be the composition $S^n\times I\onto S^n\wedge I_+\xrightarrow{\ol K} X$, this gives us the desired homotopy between $f$ and $g$: given $s\in S^n$ and $t\in I$, we have $K(s,0)=\ol K([s,0])=f(s)$, $K(s,1)=\ol K([s,1])=g(s)$, and $K(\ast,t)=\ol K([\ast,t])=\ol K([\ast,0])=(\ast)=x_0$.
+\end{proof}
+
+In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^B\to P(i,p):=X^A\times_{Y^A}Y^B$ denote the map obtained by the universal property of the fiber product (pullback) via the maps $i^\ast\circ p_\ast:X^B\to Y^A$ and $p_\ast\circ i^\ast:X^B\to Y^A$.
+
+\begin{lemma}[Hovey 2.4.11]\label{2.4.11}
+  Suppose $p:X\to Y$ is a map. Then $p\in I'\p$ if and only if the map $Q(i,p):X^B\to P(i,p):=X^A\times_{Y^A} Y^B$ is surjective for all maps $i:A\to B$ in $I'$. In particular, if $Q(i,p)\in\cW\cap J\p$ for all $i\in I'$, then $p\in I'\p$.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.13]\label{2.4.13}
+  Suppose $p:X\to Y$ belongs to $J\p$ and $i:S^{n-1}\into D^n$ belongs to $I'$. Then the map $Q(i,p)$ belongs to $J\p$.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{corollary}[Hovey 2.4.14]\label{2.4.14}
+  Every topological space is fibrant, i.e., given a space $X$, the unique map $X\to\ast$ is an element of $J\p$. In particular, the map $Y^{D^n}\to Y^{S^{n-1}}$ belongs to $J\p$ for all $n\geq0$.
+\end{corollary}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.15]\label{2.4.15}
+  If $p:X\to Y$ is a weak equivalence (belongs to $\cW$), then $p^{D^n}:X^{D^n}\to Y^{D^n}$ is also a weak equivalence.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.16]\label{2.4.16}
+  Suppose $p:X\to Y$ belongs to $J\p$, and $x\in X$. Let $F:= p^{-1}(p(x))$, and $i:F\into X$ denote the inclusion. Then there is a long exact sequences
+  % https://q.uiver.app/?q=WzAsOCxbMCwxLCJcXHBpX24oRix4KSJdLFsxLDEsIlxccGlfbihYLHgpIl0sWzIsMSwiXFxwaV9uKFkscCh4KSkiXSxbMCwyLCJcXHBpX3tuLTF9KEYseCkiXSxbMSwwLCJcXGNkb3RzIl0sWzIsMCwiXFxwaV97bisxfShZLHAoeCkpIl0sWzEsMiwiXFxjZG90cyJdLFsyLDIsIlxccGlfMChZLHAoeCkpIl0sWzAsMSwiXFxwaV9uKGkseCkiLDJdLFsxLDIsIlxccGlfbihwLHgpIl0sWzIsMywiZF9cXGFzdCJdLFs0LDVdLFs1LDAsImRfXFxhc3QiLDJdLFszLDYsIlxccGlfe24tMX0oaSx4KSIsMl0sWzYsNywiXFxwaV8wKHAseCkiLDJdXQ==
+  \[\begin{tikzcd}
+    & \cdots & {\pi_{n+1}(Y,p(x))} \\
+    {\pi_n(F,x)} & {\pi_n(X,x)} & {\pi_n(Y,p(x))} \\
+    {\pi_{n-1}(F,x)} & \cdots & {\pi_0(Y,p(x))}
+    \arrow["{\pi_n(i,x)}"', from=2-1, to=2-2]
+    \arrow["{\pi_n(p,x)}", from=2-2, to=2-3]
+    \arrow["{d_\ast}", from=2-3, to=3-1]
+    \arrow[from=1-2, to=1-3]
+    \arrow["{d_\ast}"', from=1-3, to=2-1]
+    \arrow["{\pi_{n-1}(i,x)}"', from=3-1, to=3-2]
+    \arrow["{\pi_0(p,x)}"', from=3-2, to=3-3]
+  \end{tikzcd}\]
+  which is natural with respect to commutative squares
+  \[\begin{tikzcd}[column sep=small,row sep=small]
+    X & {X'} \\
+    Y & {Y'}
+    \arrow["{p'}", from=1-2, to=2-2]
+    \arrow[from=1-1, to=1-2]
+    \arrow["p"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  where $p,p'\in J\p$. Here $d_\ast$ is a group homomorphism $\pi_n(Y,p(x))\to\pi_{n-1}(F,x)$ when $n>1$.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.17]\label{2.4.17}
+  Suppose $p:X\to Y$ is a weak equivalence. Then $p^{S^n}:X^{S^n}\to Y^{S^n}$ is a weak equivalence for all $n\geq-1$, where $S^{-1}=\emptyset$.
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
+\begin{proposition}[Hobey 2.4.18]\label{2.4.18}
+  Suppose we have a pullback square
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJXIl0sWzAsMSwiWiJdLFsxLDEsIlkiXSxbMSwwLCJYIl0sWzAsMSwicSIsMl0sWzEsMiwiZyJdLFswLDMsImYiXSxbMywyLCJwIl0sWzAsMiwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lci1pbnZlcnNlIn19XV0=
+  \[\begin{tikzcd}
+    W & X \\
+    Z & Y
+    \arrow["q"', from=1-1, to=2-1]
+    \arrow["g", from=2-1, to=2-2]
+    \arrow["f", from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+  \end{tikzcd}\]
+  in $\Top$, where $p\in J\p$ and $g$ is a weak equivalence. Then $f$ is a weak equivalence.
+\end{proposition}
+\begin{proof}
+  \color{red}TODO.
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.12]\label{2.4.12}
   $\cW\cap J\p\sseq I'\p $
 \end{proposition}
 \begin{proof}
-  \color{red}TODO.
-\end{proof}
-
-\begin{corollary}[Hovey 2.4.14]\label{2.4.14}
-  Every topological space is fibrant, i.e., given a space $X$, the unique map $X\to\ast$ is an element of $J\p$.
-\end{corollary}
-\begin{proof}
-  \color{red}TODO.
+  Let $p:X\to Y$ belong to $\cW\cap J\p$. By \autoref{2.4.11}, it suffices to show the map $Q(i,p)$ is a trivial fibration.\color{red}FINISH.
 \end{proof}
 
 \textbf{Questions/Comments:}\begin{enumerate}
-  \item I am getting down and dirty fiddling with the details, but I feel I don't have much big-picture understanding. In particular, 
+  \item I am getting down and dirty fiddling with the details, but I feel I don't have much big-picture understanding.\
 \end{enumerate}
 
 \end{document}
