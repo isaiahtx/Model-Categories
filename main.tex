@@ -981,7 +981,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 \end{proof}
 
 \begin{lemma}[Hovey 2.4.16]\label{2.4.16}
-  Suppose $p:X\to Y$ belongs to $J\p$, and $x\in X$. Let $F:= p^{-1}(p(x))$, and $i:F\into X$ denote the inclusion. Then there is a long exact sequences
+  Suppose $p:X\to Y$ belongs to $J\p$, and $x\in X$. Let $F:=p^{-1}(p(x))$, and $i:F\into X$ denote the inclusion. Then there is a long exact sequences
   % https://q.uiver.app/?q=WzAsOCxbMCwxLCJcXHBpX24oRix4KSJdLFsxLDEsIlxccGlfbihYLHgpIl0sWzIsMSwiXFxwaV9uKFkscCh4KSkiXSxbMCwyLCJcXHBpX3tuLTF9KEYseCkiXSxbMSwwLCJcXGNkb3RzIl0sWzIsMCwiXFxwaV97bisxfShZLHAoeCkpIl0sWzEsMiwiXFxjZG90cyJdLFsyLDIsIlxccGlfMChZLHAoeCkpIl0sWzAsMSwiXFxwaV9uKGkseCkiLDJdLFsxLDIsIlxccGlfbihwLHgpIl0sWzIsMywiZF9cXGFzdCJdLFs0LDVdLFs1LDAsImRfXFxhc3QiLDJdLFszLDYsIlxccGlfe24tMX0oaSx4KSIsMl0sWzYsNywiXFxwaV8wKHAseCkiLDJdXQ==
   \[\begin{tikzcd}
     & \cdots & {\pi_{n+1}(Y,p(x))} \\
@@ -989,9 +989,9 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
     {\pi_{n-1}(F,x)} & \cdots & {\pi_0(Y,p(x))}
     \arrow["{\pi_n(i,x)}"', from=2-1, to=2-2]
     \arrow["{\pi_n(p,x)}", from=2-2, to=2-3]
-    \arrow["{d_\ast}", from=2-3, to=3-1]
+    \arrow["{d_{n+1}}", from=2-3, to=3-1]
     \arrow[from=1-2, to=1-3]
-    \arrow["{d_\ast}"', from=1-3, to=2-1]
+    \arrow["{d_n}"', from=1-3, to=2-1]
     \arrow["{\pi_{n-1}(i,x)}"', from=3-1, to=3-2]
     \arrow["{\pi_0(p,x)}"', from=3-2, to=3-3]
   \end{tikzcd}\]
@@ -1004,10 +1004,22 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
     \arrow["p"', from=1-1, to=2-1]
     \arrow[from=2-1, to=2-2]
   \end{tikzcd}\]
-  where $p,p'\in J\p$. Here $d_\ast$ is a group homomorphism $\pi_n(Y,p(x))\to\pi_{n-1}(F,x)$ when $n>1$.
+  where $p,p'\in J\p$. Here $d_n$ is a group homomorphism $\pi_n(Y,p(x))\to\pi_{n-1}(F,x)$ when $n>1$.
 \end{lemma}
 \begin{proof}
-  \color{red}TODO.
+  First, fix $n\geq0$. We define $d_{n+1}:\pi_{n+1}(Y,p(x))\to \pi_n(F,x)$. To start with, fix a homeomorphism $k_n:D^{n+1}\cong D^n\times I$, and write $\partial k_n:\partial(D^{n+1})=S^n\cong\partial(D^n\times I)$ for the restriction of $k_n$ to $\partial(D^{n+1})=S^n$. We may represent an element of $\pi_{n+1}(Y,p(x))$ by a map $f:(D^{n+1},S^n)\to(Y,p(x))$. Then we may construct the following lifting problem
+  % https://q.uiver.app/?q=WzAsNCxbMCwxLCJEXm5cXHRpbWVzIEkiXSxbMSwxLCJZIl0sWzEsMCwiWCJdLFswLDAsIkRebiJdLFswLDEsImYiLDJdLFsyLDEsInAiXSxbMywyLCJkXFxtYXBzdG8geCJdLFszLDAsImRcXG1hcHN0byAoZCwwKSIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV1d
+  \[\begin{tikzcd}
+    {D^n} & X \\
+    {D^n\times I} & Y
+    \arrow["f\circ k_n^{-1}", from=2-1, to=2-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["{d\mapsto x}", from=1-1, to=1-2]
+    \arrow["{d\mapsto (d,0)}"', hook, from=1-1, to=2-1]
+  \end{tikzcd}\]
+  Since $p\in J\p$, this diagram has a lift $D^n\times I\to X$. Let $\ell$ denote the restriction of this lift to $\partial(D^n\times I)$. Note that the image of $\ell$ is contained in $F$, as given $z\in\partial(D^n\times I)$, we have $p(\ell(z))=f(k_n^{-1}(z))$ Then define $d_{n+1}f:=\ell|_{\partial(D^n\times I)}\circ \partial k_n$. First, note that $d_{n+1}f:S^n\to F$
+
+  \color{red}FINISH
 \end{proof}
 
 \begin{lemma}[Hovey 2.4.17]\label{2.4.17}
