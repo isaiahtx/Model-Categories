@@ -446,6 +446,270 @@ This yields the following Corollary:
   \color{red}TODO.
 \end{proof}
 
+We establish some notation for the following results. Given an adjunction $F:\cC\rightleftarrows\cD:G$, we will use ``$(-)^\sharp$'' and ``$(-)^\flat$'' to decorate a pair of adjoint arrows $f^\sharp:F(C)\to D$ and $f^\flat:C\to G(D)$. Ocasionally we will write $g^\sharp$ or $g^\flat$ to denote the transpose of a morphism $g:C\to G(D)$ or $g:F(C)\to D$ not already written in this form. 
+
+Given a complete and cocomplete category $\cC$ and arrows $i:A\to B$, $j:C\to D$, $p:X\to Y$, where $C$ and $D$ are exponentiable,\footnote{Explicitly, the functors $-\times C$ and $-\times D$ admit right adjoints $(-)^C$ and $(-)^D$, respectively.} define $Q(j,p)$ to be the fiber product $(j^\ast,p_\ast)$ which fits into the following fiber diagram:
+\[\begin{tikzcd}
+	{X^D} \\
+	& {X^C\times_{Y^C}Y^D} & {Y^D} \\
+	& {X^C} & {Y^C}
+	\arrow["{Q(j,p)}", dashed, from=1-1, to=2-2]
+	\arrow["{p_\ast}", curve={height=-12pt}, from=1-1, to=2-3]
+	\arrow["{j^\ast}"', curve={height=12pt}, from=1-1, to=3-2]
+	\arrow[from=2-2, to=3-2]
+	\arrow["{p_\ast}", from=3-2, to=3-3]
+	\arrow[from=2-2, to=2-3]
+	\arrow["{j^\ast}", from=2-3, to=3-3]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=2-2, to=3-3]
+\end{tikzcd}\]
+where given an object $Z$, the pullback map $j^\ast:Z^D\to Z^C$ is obtained as the adjoint of the composition
+\[Z^D\times C\xrightarrow{\id\times j}Z^D\times D\xrightarrow{\vare_Z}Z,\]
+where $\vare$ is the counit of the adjunction $-\times D\dashv (-)^D$.
+
+Similarly, write $i\wedge j:=(i\times\id_D,\id_B\times j)$ to be the arrow which fits into the following pushout diagram:
+% https://q.uiver.app/?q=WzAsNSxbMSwxLCJBXFx0aW1lcyBEXFxjb3Byb2Rfe0FcXHRpbWVzIEN9QlxcdGltZXMgQyJdLFswLDEsIkFcXHRpbWVzIEQiXSxbMCwwLCJBXFx0aW1lcyBDIl0sWzEsMCwiQlxcdGltZXMgQyJdLFsyLDIsIkJcXHRpbWVzIEQiXSxbMiwzLCJpXFx0aW1lc1xcaWRfQyJdLFszLDBdLFsyLDEsIlxcaWRfQVxcdGltZXMgaiIsMl0sWzEsMF0sWzAsNCwiaVxcd2VkZ2UgaiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDQsIlxcaWRfQlxcdGltZXMgaiIsMCx7ImN1cnZlIjotMn1dLFsxLDQsImlcXHRpbWVzXFxpZF9EIiwyLHsiY3VydmUiOjJ9XSxbMCwyLCIiLDIseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+\[\begin{tikzcd}
+	{A\times C} & {B\times C} \\
+	{A\times D} & {A\times D\coprod_{A\times C}B\times C} \\
+	&& {B\times D}
+	\arrow["{i\times\id_C}", from=1-1, to=1-2]
+	\arrow[from=1-2, to=2-2]
+	\arrow["{\id_A\times j}"', from=1-1, to=2-1]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{i\wedge j}", dashed, from=2-2, to=3-3]
+	\arrow["{\id_B\times j}", curve={height=-12pt}, from=1-2, to=3-3]
+	\arrow["{i\times\id_D}"', curve={height=12pt}, from=2-1, to=3-3]
+	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+\end{tikzcd}\]
+
+\begin{proposition}\label{adjointness_argument}
+  Let $\cC$ be a complete and cocomplete category, and suppose we are given  arrows $i:A\to B$, $j:C\to D$, and $p:X\to Y$ with $C$ and $D$ exponentiable objects in $\cC$. Then there is a bijective correspondence between lifting problems of the form
+  \begin{equation}\label{Aeq1}
+    \begin{tikzcd}
+      {A\times D\coprod_{A\times C}B\times C} & X \\
+      {B\times D} & Y
+      \arrow[from=1-1, to=1-2]
+      \arrow["p", from=1-2, to=2-2]
+      \arrow["{i\wedge j}"', from=1-1, to=2-1]
+      \arrow[from=2-1, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  and lifting problems of the form
+  \begin{equation}\label{Aeq2}
+    \begin{tikzcd}
+      A & {X^D} \\
+      B & {X^C\times_{Y^C}Y^D.}
+      \arrow["i"', from=1-1, to=2-1]
+      \arrow[from=2-1, to=2-2]
+      \arrow[from=1-1, to=1-2]
+      \arrow["{Q(j,p)}", from=1-2, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  Moreover, this bijection extends to a bijection between the solutions of (\ref{Aeq1}) and the solutions of (\ref{Aeq2}).
+\end{proposition}
+
+Before we prove this proposition, we first recall two results
+
+\begin{lemma}\label{Riehl_4.1.3}
+  Given a pair of adjoint functors $F:\cC\rightleftarrows\cD:G$ ($F$ is the left adjoint), for any morphisms with domains and codomains as displayed below
+  % https://q.uiver.app/?q=WzAsOSxbMCwwLCJGKEMpIl0sWzIsMCwiRCJdLFsyLDIsIkQnIl0sWzAsMiwiRihDJykiXSxbMywxLCJcXGxlZnRyaWdodHNxdWlnYXJyb3ciXSxbNCwwLCJDIl0sWzYsMCwiRyhEKSJdLFs2LDIsIkcoRCcpIl0sWzQsMiwiQyciXSxbMCwxLCJmXlxcc2hhcnAiXSxbMSwyLCJrIl0sWzAsMywiRmgiLDJdLFszLDIsImdeXFxzaGFycCIsMl0sWzUsNiwiZl5cXGZsYXQiXSxbNiw3LCJHayJdLFs1LDgsImgiLDJdLFs4LDcsImdeXFxmbGF0IiwyXV0=
+  \[\begin{tikzcd}[row sep=small,column sep=small]
+    {F(C)} && D && C && {G(D)} \\
+    &&& \leftrightsquigarrow \\
+    {F(C')} && {D'} && {C'} && {G(D')}
+    \arrow["{f^\sharp}", from=1-1, to=1-3]
+    \arrow["k", from=1-3, to=3-3]
+    \arrow["Fh"', from=1-1, to=3-1]
+    \arrow["{g^\sharp}"', from=3-1, to=3-3]
+    \arrow["{f^\flat}", from=1-5, to=1-7]
+    \arrow["Gk", from=1-7, to=3-7]
+    \arrow["h"', from=1-5, to=3-5]
+    \arrow["{g^\flat}"', from=3-5, to=3-7]
+  \end{tikzcd}\]
+  the left-hand square commutes in $\cD$ iff the right-hand transposed square commutes in $\cC$.
+\end{lemma}
+\begin{proof}
+  This is Lemma 4.1.3 from Riehl. {\color{red}TODO: ADD REFERENCE}
+\end{proof}
+
+\begin{lemma}\label{useful_adjointness_lemma}
+  Let $\cC$ be a complete and cocomplete category, and suppose we are given morphisms $j:C\to D$ and $k^\sharp:Z\times D\to W$ in $\cC$ with $C$ and $D$ exponentiable. Then the following two diagrams commute
+  % https://q.uiver.app/?q=WzAsOCxbMCwwLCJaXFx0aW1lcyBDIl0sWzEsMCwiWlxcdGltZXMgRCJdLFsxLDEsIlciXSxbMCwxLCJXXkRcXHRpbWVzIEMiXSxbNCwwLCJaIl0sWzUsMSwiV15DIl0sWzQsMSwiKFpcXHRpbWVzIEQpXkMiXSxbNSwwLCJXXkQiXSxbMCwxLCJcXGlkXFx0aW1lcyBqIl0sWzEsMiwiayJdLFswLDMsImteXFxmbGF0XFx0aW1lc1xcaWQiLDJdLFszLDIsIihqXlxcYXN0KV5cXHNoYXJwIl0sWzQsNiwiKFxcaWRfWlxcdGltZXMgaileXFxmbGF0IiwyXSxbNiw1LCJrX1xcYXN0Il0sWzQsNywia15cXGZsYXQiXSxbNyw1LCJqXlxcYXN0Il1d
+  \[\begin{tikzcd}
+    {Z\times C} & {Z\times D} &&& Z & {W^D} \\
+    {W^D\times C} & W &&& {(Z\times D)^C} & {W^C}
+    \arrow["{\id\times j}", from=1-1, to=1-2]
+    \arrow["k^\sharp", from=1-2, to=2-2]
+    \arrow["{k^\flat\times\id}"', from=1-1, to=2-1]
+    \arrow["{(j^\ast)^\sharp}", from=2-1, to=2-2]
+    \arrow["{(\id_Z\times j)^\flat}"', from=1-5, to=2-5]
+    \arrow["{(k^\sharp)_\ast}", from=2-5, to=2-6]
+    \arrow["{k^\flat}", from=1-5, to=1-6]
+    \arrow["{j^\ast}", from=1-6, to=2-6]
+  \end{tikzcd}\]
+  \end{lemma}
+\begin{proof}
+  By \autoref{Riehl_4.1.3} it suffices to show that either diagram commutes in order to show they both commute. We will show the left diagram commutes. Recall that by how the pullback $j^\ast$ is defined, that $(j^\ast)^\sharp=\vare_W\circ(\id_{W^D\times j})$. Thus, it suffices to show the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNSxbMCwwLCJaXFx0aW1lcyBDIl0sWzIsMCwiWlxcdGltZXMgRCJdLFsyLDEsIlciXSxbMCwxLCJXXkRcXHRpbWVzIEMiXSxbMSwxLCJXXkRcXHRpbWVzIEQiXSxbMCwxLCJcXGlkXFx0aW1lcyBqIl0sWzEsMiwiayJdLFswLDMsImteXFxmbGF0XFx0aW1lc1xcaWQiLDJdLFszLDQsIlxcaWRcXHRpbWVzIGoiXSxbNCwyLCJcXHZhcmVfRCJdXQ==
+  \begin{equation}\label{Beq1}\begin{tikzcd}
+    {Z\times C} && {Z\times D} \\
+    {W^D\times C} & {W^D\times D} & W
+    \arrow["{\id\times j}", from=1-1, to=1-3]
+    \arrow["k^\sharp", from=1-3, to=2-3]
+    \arrow["{k^\flat\times\id}"', from=1-1, to=2-1]
+    \arrow["{\id\times j}", from=2-1, to=2-2]
+    \arrow["{\vare_D}", from=2-2, to=2-3]
+  \end{tikzcd}\end{equation}
+  It is straightforward to see by the universal property of the product that $(\id_{W^D}\times j)\circ(k^\flat\times\id_C)=(k^\flat\times\id_D)\circ(\id_Z\times j)$. Then by \autoref{Riehl_4.1.3} applied to the following diagram
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJaIl0sWzEsMCwiV15EIl0sWzEsMSwiV15EIl0sWzAsMSwiV15EIl0sWzAsMSwia15cXGZsYXQiXSxbMSwyLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDMsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMywia15cXGZsYXQiLDJdXQ==
+  \[\begin{tikzcd}
+    Z & {W^D} \\
+    {W^D} & {W^D}
+    \arrow["{k^\flat}", from=1-1, to=1-2]
+    \arrow[Rightarrow, no head, from=1-2, to=2-2]
+    \arrow[Rightarrow, no head, from=2-2, to=2-1]
+    \arrow["{k^\flat}"', from=1-1, to=2-1]
+  \end{tikzcd}\]
+  we get that $\vare_D\circ(k^\flat\times\id_D)=(\id_{W^D})^\flat\circ(k^\flat\times\id_D)=\id_W\circ k^\sharp=k^\sharp$. To summarize, we get that
+  \[\vare_D\circ(\id_{W^D}\times j)\circ(k^\flat\times\id_C)=\vare_D\circ(k^\flat\times\id_D)\circ(\id_Z\times j)=k^\sharp\circ(\id_Z\times j),\]
+  so diagram (\ref{Beq1}) commutes, as desired.
+\end{proof}
+
+Now we prove the proposition.
+
+\begin{proof}
+  Unravelling definitions, a lifting problem of the form (\ref{Aeq1}) amounts to the data of maps $f^\sharp:A\times D\to X$, $g^\sharp:B\times C\to X$, and $h^\sharp:B\times D\to Y$ such that the following three diagrams commute:
+  \begin{equation}\label{deq1}\begin{tikzcd}
+    {A\times C} & {B\times C} && {A\times D} & X && {B\times C} & X \\
+    {A\times D} & X && {B\times D} & Y && {B\times D} & Y
+    \arrow["{f^\sharp}", from=1-4, to=1-5]
+    \arrow["p", from=1-5, to=2-5]
+    \arrow["{i\times\id_D}"', from=1-4, to=2-4]
+    \arrow["{h^\sharp}", from=2-4, to=2-5]
+    \arrow["{\id_B\times j}"', from=1-7, to=2-7]
+    \arrow["{h^\sharp}", from=2-7, to=2-8]
+    \arrow["{g^\sharp}", from=1-7, to=1-8]
+    \arrow["p", from=1-8, to=2-8]
+    \arrow["{i\times\id_C}", from=1-1, to=1-2]
+    \arrow["{\id_A\times j}"', from=1-1, to=2-1]
+    \arrow["{f^\sharp}", from=2-1, to=2-2]
+    \arrow["g^\sharp", from=1-2, to=2-2]
+  \end{tikzcd}\end{equation}
+  (The left diagram is the data of a morphism $A\times D\coprod_{A\times C}B\times C\to X$ and the other two diagrams assert commutativity of the lifting problem). We label these diagrams (\ref{deq1}A), (\ref{deq1}B), and (\ref{deq1}C), respectively. In terms of these data, a solution to the lifting problem is a single arrow $\ell^\sharp:B\times D\to X$ which serves as a lift for both the diagrams (\ref{deq1}B) and (\ref{deq1}C).
+
+  Conversely, a lifting problem of the form (\ref{Aeq2}) is the data of maps $f^\flat:A\to X^D$, $g^\flat:B\to X^C$, and $h^\flat:B\to Y^D$ such that the following three diagrams commute:
+  \begin{equation}\label{deq2}\begin{tikzcd}
+    B & {X^C} && A & {X^D} && A & {X^D} \\
+    {Y^D} & {Y^C} && B & {Y^D} && B & {X^C}
+    \arrow["{g^\flat}", from=1-1, to=1-2]
+    \arrow["{p_\ast}", from=1-2, to=2-2]
+    \arrow["{h^\flat}"', from=1-1, to=2-1]
+    \arrow["{j^\ast}", from=2-1, to=2-2]
+    \arrow["{f^\flat}", from=1-7, to=1-8]
+    \arrow["{j^\ast}", from=1-8, to=2-8]
+    \arrow["i"', from=1-7, to=2-7]
+    \arrow["{g^\flat}", from=2-7, to=2-8]
+    \arrow["{f^\flat}", from=1-4, to=1-5]
+    \arrow["{p_\ast}", from=1-5, to=2-5]
+    \arrow["i"', from=1-4, to=2-4]
+    \arrow["{h^\flat}", from=2-4, to=2-5]
+  \end{tikzcd}\end{equation}
+  (The left diagram is the data of a morphism $B\to X^C\times_{Y^C}Y^D$ and the other two diagrams asser commutativity of the lifting problem). We label these diagrams (\ref{deq2}A), (\ref{deq2}B), and (\ref{deq2}C), respectively. In terms of these data, a solution to the lifting problem is a single arrow $\ell^\flat:B\to X^D$ which serves as a lift for both the diagrams (\ref{deq2}B) and (\ref{deq2}C).
+
+  Thus, in order to show the desired statement it suffices to show given arrows $f^\sharp:A\times D\to X$, $g^\sharp:B\times C\to X$, $h^\sharp:B\times D\to Y$, and $\ell^\sharp:B\times D\to X$, that:
+  \begin{itemize}
+    \item (\ref{deq1}B) commutes iff (\ref{deq2}B) commutes,
+    \item (\ref{deq1}A) commutes iff (\ref{deq2}C) commutes,
+    \item (\ref{deq1}C) commutes iff (\ref{deq2}A) commutes,
+    \item $\ell^\sharp$ is a lift of (\ref{deq1}B) iff $\ell^\flat$ is a lift of  (\ref{deq2}B), and
+    \item Assuming $\ell^\sharp$ is a lift of $(\ref{deq1}B)$ and $\ell^\flat$ is a lift of $(\ref{deq2}B)$, $\ell^\sharp$ is a lift of (\ref{deq1}C) iff $\ell^\flat$ is a lift of (\ref{deq2}C).
+  \end{itemize}
+
+  To start with, note that (\ref{deq1}B) commutes iff (\ref{deq2}B) commutes, by \autoref{Riehl_4.1.3}. 
+  
+  Next, we claim that (\ref{deq1}A) commutes iff (\ref{deq2}C) commutes. By \autoref{Riehl_4.1.3}, (\ref{deq1}A) commutes iff the following diagram commutes
+  \[\begin{tikzcd}
+    A & B \\
+    {(A\times D)^C} & {X^C}
+    \arrow["{(\id_A\times j)^\flat}"', from=1-1, to=2-1]
+    \arrow["{(f^\sharp)_\ast}", from=2-1, to=2-2]
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["{g^\flat}", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  By \autoref{useful_adjointness_lemma} (the second diagram), $(f^\sharp)_\ast\circ(\id_A\times j)^\flat=j^\ast\circ f^\flat$, so this diagram commutes iff the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzEsMSwiWF5DIl0sWzEsMCwiQiJdLFswLDEsIlheRCJdLFswLDIsImkiXSxbMiwxLCJnXlxcZmxhdCJdLFswLDMsImZeXFxmbGF0IiwyXSxbMywxLCJqXlxcYXN0Il1d
+  \[\begin{tikzcd}
+    A & B \\
+    {X^D} & {X^C}
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["{g^\flat}", from=1-2, to=2-2]
+    \arrow["{f^\flat}"', from=1-1, to=2-1]
+    \arrow["{j^\ast}", from=2-1, to=2-2]
+  \end{tikzcd}\]
+  This is precisely (\ref{deq2}C) (but flipped), as desired.
+
+  Next, we claim that (\ref{deq1}C) commutes iff (\ref{deq2}A) commutes. By \autoref{Riehl_4.1.3}, (\ref{deq2}A) commutes iff the following diagram commutes
+  \[\begin{tikzcd}
+    {B\times C} & X \\
+    {Y^D\times C} & Y
+    \arrow["{h^\flat\times\id}"', from=1-1, to=2-1]
+    \arrow["{(j^\ast)^\sharp}", from=2-1, to=2-2]
+    \arrow["g^\sharp", from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  By \autoref{useful_adjointness_lemma} (the first diagram), $(j^\ast)^\sharp\circ( h^\flat\times\id_C)=h^\sharp\circ(\id_B\times j)$, so this diagram commutes iff the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJCXFx0aW1lcyBDIl0sWzEsMCwiWCJdLFsxLDEsIlkiXSxbMCwxLCJCXFx0aW1lcyBEIl0sWzAsMSwiZ15cXHNoYXJwIl0sWzEsMiwicCJdLFswLDMsIlxcaWRfQlxcdGltZXMgaiIsMl0sWzMsMiwiaF5cXHNoYXJwIl1d
+  \[\begin{tikzcd}
+    {B\times C} & X \\
+    {B\times D} & Y
+    \arrow["{g^\sharp}", from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["{\id_B\times j}"', from=1-1, to=2-1]
+    \arrow["{h^\sharp}", from=2-1, to=2-2]
+  \end{tikzcd}\]
+  This is precisely (\ref{deq1}C), as desired.
+
+  Now, we claim that $\ell$ is a lift for (\ref{deq1}B) iff it is a lift for (\ref{deq2}B). Indeed, by \autoref{Riehl_4.1.3}, $f^\sharp=\ell^\sharp\circ(i\times\id_D)$ iff $f^\flat=\ell^\flat\circ i$ and $p\circ\ell^\sharp=h^\sharp$ iff $p_\ast\circ\ell^\flat=h^\flat$:
+  % https://q.uiver.app/?q=WzAsMTgsWzksMCwiQlxcdGltZXMgRCJdLFs5LDIsIkJcXHRpbWVzIEQiXSxbMTEsMiwiWSJdLFsxMSwwLCJYIl0sWzEyLDEsIlxcbGVmdHJpZ2h0c3F1aWdhcnJvdyJdLFsxMywwLCJCIl0sWzEzLDIsIkIiXSxbMTUsMiwiWV5EIl0sWzE1LDAsIlheRCJdLFs0LDAsIkEiXSxbNiwwLCJYXkQiXSxbNiwyLCJYXkQiXSxbNCwyLCJCIl0sWzAsMiwiQlxcdGltZXMgRCJdLFswLDAsIkFcXHRpbWVzIEQiXSxbMiwyLCJYIl0sWzIsMCwiWCJdLFszLDEsIlxcbGVmdHJpZ2h0c3F1aWdhcnJvdyJdLFswLDEsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMiwiaF5cXHNoYXJwIl0sWzAsMywiXFxlbGxeXFxzaGFycCJdLFszLDIsInAiXSxbNSw2LCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs2LDcsImheXFxmbGF0Il0sWzUsOCwiXFxlbGxeXFxmbGF0Il0sWzgsNywicF9cXGFzdCJdLFs5LDEwLCJmXlxcZmxhdCJdLFsxMCwxMSwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbOSwxMiwiaSIsMl0sWzEyLDExLCJcXGVsbF5cXGZsYXQiXSxbMTQsMTMsImlcXHRpbWVzXFxpZF9EIiwyXSxbMTMsMTUsIlxcZWxsXlxcc2hhcnAiXSxbMTQsMTYsImZeXFxzaGFycCJdLFsxNiwxNSwiIiwyLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+  \[\begin{tikzcd}[column sep=small,row sep=small]
+    {A\times D} && X && A && {X^D} &&& {B\times D} && X && B && {X^D} \\
+    &&& \leftrightsquigarrow &&&&&&&&& \leftrightsquigarrow \\
+    {B\times D} && X && B && {X^D} &&& {B\times D} && Y && B && {Y^D}
+    \arrow[Rightarrow, no head, from=1-10, to=3-10]
+    \arrow["{h^\sharp}", from=3-10, to=3-12]
+    \arrow["{\ell^\sharp}", from=1-10, to=1-12]
+    \arrow["p", from=1-12, to=3-12]
+    \arrow[Rightarrow, no head, from=1-14, to=3-14]
+    \arrow["{h^\flat}", from=3-14, to=3-16]
+    \arrow["{\ell^\flat}", from=1-14, to=1-16]
+    \arrow["{p_\ast}", from=1-16, to=3-16]
+    \arrow["{f^\flat}", from=1-5, to=1-7]
+    \arrow[Rightarrow, no head, from=1-7, to=3-7]
+    \arrow["i"', from=1-5, to=3-5]
+    \arrow["{\ell^\flat}", from=3-5, to=3-7]
+    \arrow["{i\times\id_D}"', from=1-1, to=3-1]
+    \arrow["{\ell^\sharp}", from=3-1, to=3-3]
+    \arrow["{f^\sharp}", from=1-1, to=1-3]
+    \arrow[Rightarrow, no head, from=1-3, to=3-3]
+  \end{tikzcd}\]
+  In other words, $\ell^\sharp$ makes the top (resp.\ bottom) triangle of (\ref{deq1}B) commute iff $\ell^\flat$ makes the top (resp.\ bottom) triangle of (\ref{deq2}B) commute, as desired.
+
+  Finally, it remains to show that if $\ell^\sharp$ and $\ell^\flat$ determine lifts of (\ref{deq1}B) and (\ref{deq2}B), respectively, then $\ell^\sharp$ is a lift for (\ref{deq1}C) iff it is a lift for (\ref{deq2}C). First of all, since $\ell^\sharp$ and $\ell^\flat$ define lifts of (\ref{deq1}B) and (\ref{deq2}B), we already have $p\circ\ell^\sharp=h^\sharp$ and $\ell^\flat\circ i=f^\flat$, so it is sufficient (and necessary) to show that $\ell^\sharp\circ(\id_B\times j)=g^\sharp$ iff $j^\ast\circ\ell^\flat=g^\flat$. Note by \autoref{useful_adjointness_lemma} (second diagram), $j^\ast\circ\ell^\flat=(\ell^\sharp)_\ast\circ(\id_Z\times j)^\flat$, so it suffices to show that $\ell^\sharp\circ(\id_B\times j)=g^\sharp$ iff $(\ell^\sharp)_\ast\circ(\id_Z\times j)^\flat=g^\flat$. Indeed, this follows by \autoref{Riehl_4.1.3}:
+  \[\begin{tikzcd}[column sep=small,row sep=small]
+    {B\times C} && {B\times C} && B && B \\
+    &&& \leftrightsquigarrow \\
+    {B\times D} && X && {(B\times D)^C} && {X^C}
+    \arrow["{\id_B\times j}"', from=1-1, to=3-1]
+    \arrow[Rightarrow, no head, from=1-1, to=1-3]
+    \arrow["{g^\sharp}", from=1-3, to=3-3]
+    \arrow["{\ell^\sharp}", from=3-1, to=3-3]
+    \arrow[Rightarrow, no head, from=1-5, to=1-7]
+    \arrow["{g^\flat}", from=1-7, to=3-7]
+    \arrow["{(\id_B\times j)^\flat}"', from=1-5, to=3-5]
+    \arrow["{(\ell^\sharp)_\ast}", from=3-5, to=3-7]
+  \end{tikzcd}\qedhere\]
+\end{proof}
+
 \section{Topological Spaces}
 
 A map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if it is continuous, injective, and for all $U\sseq X$ open, there is some $V\sseq Y$ open such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
@@ -689,7 +953,7 @@ This result, by \autoref{condition_for_family_of_arrows_to_be_closed_under_trans
     \[j^{-1}(h^{-1}(W))=(h\circ j)^{-1}(W)=(i\circ f)^{-1}(W)= f^{-1}(i^{-1}(W))= f^{-1}(g^{-1}(U))=(g\circ f)^{-1}(U)=U,\]
     and $h^{-1}(W)$ is open as $h$ is continuous and $W$ is open, so we are done, as if we set $V:=h^{-1}(W)$, then we have shown $V$ is open in $C$ and $j^{-1}(V)=U$, as desired.
 
-    \item First, consider the pushout diagram, and suppose $i$ is a closed $T_1$ inclusion. We wish to show $j$ is a closed $T_1$ inclusion. We know $j$ is an inclusion by (ii). It remains to show $j$ is closed, and every point of $D\setminus j(C)$ is closed in $D$. First, we show closedness. Let $V\sseq C$ be a closed set, we want to show $j(C)$ is closed in $D$. By definition of the colimit topology on $D$ (which is the final topology on $D$ induced by $j$ and $g$ by the discussion at the beginning of this chapter), in order to show $j(V)$ is closed in $D$ it suffices to show that $j^{-1}(j(V))$ is closed in $C$ and $g^{-1}(j(V))$ is closed in $B$. Since $j$ is injective by (i), $j^{-1}(j(V))=V$, which we have defined to be closed in $A$. Now, to show $g^{-1}(j(V))$ is closed, since $i$ is a closed map and $f$ is continuous, it suffices to show $i(f^{-1}(V))=g^{-1}(j(V))$. First of all, let $b\in i(f^{-1}(V))$, then $b=i(a)$ for some $a\in A$ with $f(a)\in V$. Then $g(b)=g(i(a))=j(f(a))\in j(V)$, so $b\in g^{-1}(j(V))$. Conversely, let $b\in g^{-1}(j(V))$, so $g(b)=j(c)$ for some $c\in V$. Then by the explicit description of the colimit in $\Set$ and the fact that the forgetful functor $\Top\to\Set$ preserves colimits, there exists $a\in A$ such that $f(a)=c$ and $i(a)=b$. Then in particular, $f(a)=c\in V$, so $a\in f^{-1}(V)$, so $b\in i(f^{-1}(V))$ as desired. Hence, $j$ is indeed a closed map. It remains to show that for all $d\in D\setminus j(C)$, $d$ is a closed point in $D$. Given $d\in D\setminus j(C)$, by the explicit characterization of the colimit topology, it suffices to show that $j^{-1}(d)$ and $g^{-1}(d)$ are closed in $C$ and $B$, respectively. First of all, $j^{-1}(d)=\emptyset$, which is closed. Now, since $d$ is not in the image of $j$, $d$ is not in the image of $g\circ i=j\circ f$, so $g^{-1}(d)\sseq B\setminus i(A)$. Thus since $i$ is a closed $T_1$ inclusion, in order to show $g^{-1}(d)$ is closed, it suffices to show that $g^{-1}(d)$ is a singleton. Suppose for the sake of a contradiction there existed distinct points $x,y\in B$ with $g(x)=g(y)=d$. Define $h:C\to\{1,2,3\}$ to map every point to $3$. Define $k:B\to\{1,2,3\}$ to map $x\mapsto 1$, $y\mapsto 2$, and every other point in $B$ maps to $3$. Endue $\{1,2,3\}$ with the indiscrete topology so that $h$ and $k$ are continuous. Note $h\circ f=k\circ i$: given $a\in A$, since $x,y\in g^{-1}(d)\sseq B\setminus i(A)$, $i(a)$ does not equal $x$ or $y$, thus $k(i(a))=3=h(f(a))$. Hence by the definition of the colimit, there exists a map $\ell:D\to X$ such that $\ell\circ g=k$ and $\ell\circ j=h$. Then we reach a contradiction, as $k(x)\neq k(y)$ but $\ell(g(x))=\ell(g(y))=\ell(d)$. Hence, $g^{-1}(d)\notin i(A)$ must have been a singleton in the first place, meaning $g^{-1}(d)$ is closed in $B$ as desired.
+    \item First, consider the pushout diagram, and suppose $i$ is a closed $T_1$ inclusion. We wish to show $j$ is a closed $T_1$ inclusion. We know $j$ is an inclusion by (ii). It remains to show $j$ is closed, and every point of $D\setminus j(C)$ is closed in $D$. First, we show closedness. Let $V\sseq C$ be a closed set, we want to show $j(C)$ is closed in $D$. By definition of the colimit topology on $D$ (which is the final topology on $D$ induced by $j$ and $g$ by the discussion at the beginning of this chapter), in order to show $j(V)$ is closed in $D$ it suffices to show that $j^{-1}(j(V))$ is closed in $C$ and $g^{-1}(j(V))$ is closed in $B$. Since $j$ is injective by (i), $j^{-1}(j(V))=V$, which we have defined to be closed in $A$. Now, to show $g^{-1}(j(V))$ is closed, since $i$ is a closed map and $f$ is continuous, it suffices to show $i(f^{-1}(V))=g^{-1}(j(V))$. First of all, let $b\in i(f^{-1}(V))$, then $b=i(a)$ for some $a\in A$ with $f(a)\in V$. Then $g(b)=g(i(a))=j(f(a))\in j(V)$, so $b\in g^{-1}(j(V))$. Conversely, let $b\in g^{-1}(j(V))$, so $g(b)=j(c)$ for some $c\in V$. Then by the explicit description of the colimit in $\Set$ and the fact that the forgetful functor $\Top\to\Set$ preserves colimits, there exists $a\in A$ such that $f(a)=c$ and $i(a)=b$. Then in particular, $f(a)=c\in V$, so $a\in f^{-1}(V)$, so $b\in i(f^{-1}(V))$ as desired. Hence, $j$ is indeed a closed map. It remains to show that for all $d\in D\setminus j(C)$, $d$ is a closed point in $D$. Given $d\in D\setminus j(C)$, by the explicit characterization of the colimit topology, it suffices to show that $j^{-1}(d)$ and $g^{-1}(d)$ are closed in $C$ and $B$, respectively. First of all, $j^{-1}(d)=\emptyset$, which is closed. Now, since $d$ is not in the image of $j$, $d$ is not in the image of $g\circ i=j\circ f$, so $g^{-1}(d)\sseq B\setminus i(A)$. Thus since $i$ is a closed $T_1$ inclusion, in order to show $g^{-1}(d)$ is closed, it suffices to show that $g^{-1}(d)$ is a singleton. Suppose for the sake of a contradiction there existed distinct points $x,y\in B$ with $g(x)=g(y)=d$. Define $h:C\to\{1,2,3\}$ to map every point to $3$. Define $k:B\to\{1,2,3\}$ to map $x\mapsto 1$, $y\mapsto 2$, and every other point in $B$ maps to $3$. Endow $\{1,2,3\}$ with the indiscrete topology so that $h$ and $k$ are continuous. Note $h\circ f=k\circ i$: given $a\in A$, since $x,y\in g^{-1}(d)\sseq B\setminus i(A)$, $i(a)$ does not equal $x$ or $y$, thus $k(i(a))=3=h(f(a))$. Hence by the definition of the colimit, there exists a map $\ell:D\to X$ such that $\ell\circ g=k$ and $\ell\circ j=h$. Then we reach a contradiction, as $k(x)\neq k(y)$ but $\ell(g(x))=\ell(g(y))=\ell(d)$. Hence, $g^{-1}(d)\notin i(A)$ must have been a singleton in the first place, meaning $g^{-1}(d)$ is closed in $B$ as desired.
     
     Now, consider the retract diagram, and suppose $i$ is a closed $T_1$ inclusion. We wish to show $j$ is a closed $T_1$ inclusion. We know $j$ is an inclusion by (ii). It remains to show $j$ is closed, and every point of $C\setminus j(A)$ is closed in $C$. First, we show closedness. Let $V\sseq A$ be closed. First, we claim $j(V)=h^{-1}(i(g^{-1}(V)))$. Given $c\in j(V)$, $c=j(a)$ for some $a\in V$, in which we have $h(c)=h(j(a))=i(f(a))$, and $g(f(a))=a\in V$, so $f(a)\in g^{-1}(V)$, meaning $h(c)\in i(g^{-1}(V))$, so $c\in h^{-1}(i(g^{-1}(V)))$. Conversely, given $c\in h^{-1}(i(g^{-1}(V)))$, so $h(c)=i(b)$ for some $b\in B$ with $g(b)\in V$. Then
     \[c=k(h(c))=k(i(b))=j(g(b))\in j(V),\]
@@ -845,7 +1109,7 @@ This result, by \autoref{condition_for_family_of_arrows_to_be_closed_under_trans
       \arrow["r", dashed, from=2-2, to=3-3]
       \arrow[curve={height=-20pt}, Rightarrow, no head, from=1-2, to=3-3]
     \end{tikzcd}\]
-    Now we claim that our constructions $H$ and $r$ endue $j$ with the structure of an inclusion of a deformation retract, as desired. First $c\in C$, we wish to show $H(j(c),t)=j(c)$ for all $t$. Indeed, we have 
+    Now we claim that our constructions $H$ and $r$ endow $j$ with the structure of an inclusion of a deformation retract, as desired. First $c\in C$, we wish to show $H(j(c),t)=j(c)$ for all $t$. Indeed, we have 
     \[H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c).\]
     Given $d\in D$, we want to show $H(d,0)=d$. By the explicit description of the colimit in $\Top$, we know that every element of $D$ is in the image of either $j$ or $g$. If $d=j(c)$ for some $c$, then we have just shown $H(d,0)=H(j(c),0)=j(c)=d$, as desired. On the other hand, if $d=g(b)$ for some $b\in B$ we have 
     \[H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d.\] 
@@ -893,7 +1157,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   Suppose $p:X\to Y$ is a map. Then $p\in I'\p$ if and only if the map $Q(i,p):X^B\to P(i,p):=X^A\times_{Y^A} Y^B$ is surjective for all maps $i:A\to B$ in $I'$. In particular, if $Q(i,p)\in\cW\cap J\p$ for all $i\in I'$, then $p\in I'\p$.
 \end{lemma}
 \begin{proof}
-  First of all, suppose $p\in I'\p$, and let $i:A\to B$ in $I'$. We wish to show $Q(i,p)$ is surjective. We know the forgetful functor $\Top\to\Set$ preserves limits, so by the explicit description of limits in $\Set$ and \autoref{explicit_description_of_(co)limit_in_set}, the set $P(i,p)$ is given by pairs of maps $(A\xrightarrow{\alpha}X,B\xrightarrow{\beta}Y)$ such that $p\circ\alpha=\beta\circ i$, and the map $Q(i,p):X^B\to P(i,p)$ sends an arrow $\ell:B\to X$ to the pair $(\ell\circ i,p\circ \ell)$. Now to see $Q(i,p)$ is surjective, suppose there exists $(\alpha,\beta)\in P(i,p)$, so the following diagram commutes:
+  First of all, suppose $p\in I'\p$, and let $i:A\to B$ in $I'$. We wish to show $Q(i,p)$ is surjective. We know the forgetful functor $\Top\to\Set$ preserves limits, so by the explicit description of limits in $\Set$ and \autoref{explicit_description_of_(co)limit_in_set}, the set $P(i,p)$ is given by pairs of maps $(A\xrightarrow{\alpha}X,B\xrightarrow{\beta}Y)$ such that $p\circ\alpha=\beta\circ i$, and the map $Q(i,p):X^B\to P(i,p)$ sends an arrow $\ell:B\to X$ to the pair $(\ell\circ i,p\circ \ell)$. Now to see $Q(i,p)$ is surjective, suppose there exists $(\alpha,\beta)\in P(i,p)$ so that the following diagram commutes:
   \[\begin{tikzcd}
     A & X \\
     B & Y
@@ -922,7 +1186,16 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   Suppose $p:X\to Y$ belongs to $J\p$ and $i:S^{n-1}\into D^n$ belongs to $I'$. Then the map $Q(i,p)$ belongs to $J\p$.
 \end{lemma}
 \begin{proof}
-  \color{red}TODO.
+  Suppose we are given a map $j:D^m\into D^m\times I$ belonging to $J$ and a lifting problem of the following form
+  \[\begin{tikzcd}
+    {D^m} & {X^{D^n}} \\
+    {D^m\times I} & {P(i,p)=X^{S^{n-1}}\times_{Y^{S^{n-1}}}X^{D^{n}}}
+    \arrow["j"', hook, from=1-1, to=2-1]
+    \arrow["{(g,h)}", from=2-1, to=2-2]
+    \arrow["f", from=1-1, to=1-2]
+    \arrow["{Q(i,p)}"', from=1-2, to=2-2]
+  \end{tikzcd}\]
+  
 \end{proof}
 
 \begin{corollary}[Hovey 2.4.14]\label{2.4.14}
@@ -975,9 +1248,17 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   \[j_Z^{-1}(S(K,U))=\{z\in Z:j_Z(z)(K)\sseq U\}=\{z\in Z:z\in U\}=U,\]
   which is open as desired. Hence, $j_Z$ is well-defined and continuous. Now, it remains to show that it is a homotopy equivalence. Define the map $q_Z:Z^{D^n}\to Z$ to be evaluation at $0$ (where by $0$ we mean the origin in $D^n$), so that $q_Z(f:D^n\to Z):=f(0)$. To see this is continuous, note that given $U\sseq Z$ open, that
   \[q_Z^{-1}(U):=\{f\in\Top(D^n,Z):f(0)\in U\}=S(\{0\},U),\]
-  which is open in $Z^{D^n}$, as desired. Now, the composite $q_Z\circ j_Z$ is the identity, and the composite $j_Z\circ q_Z$ is homotopic to the identity by the homotopy $H:Z^{D^n}\times I\to Z^{D^n}$ defined by $H(f,t)(x)=f(tx)$. \color{red} It remains to show $H$ is continuous. Let $K\sseq D^n$ compact and $U\sseq Z$ open, then we wish to show that the set
-  \[H^{-1}(S(K,U))=\{(f,t):f(tK)\sseq U\}\]
-  is open in $Z^{D^n}\times I$.
+  which is open in $Z^{D^n}$, as desired. Now, the composite $q_Z\circ j_Z$ is the identity, and the composite $j_Z\circ q_Z$ is homotopic to the identity by the homotopy $H:Z^{D^n}\times I\to Z^{D^n}$ defined by $H(f,t)(x)=f(tx)$. It remains to show $H$ is continuous. To do so, it suffices to show that $H^\sharp:Z^{D^n}\times I\times D^n\to Z$ mapping $(f,t,x)\mapsto f(tx)$ is continuous, as $D^n$ is locally compact Hausdorff and $H$ is the adjoint of $H^\sharp$ (\autoref{locally_compact_hausdorff_spaces_are_exponentiable}). Note that $H^\sharp$ factors as
+  % https://q.uiver.app/?q=WzAsNixbMCwwLCJaXntEXm59XFx0aW1lcyBJXFx0aW1lcyBEXm4iXSxbMSwwLCJaXntEXm59XFx0aW1lcyBEXm4iXSxbMiwwLCJaIl0sWzAsMSwiKGYsdCx4KSJdLFsxLDEsIihmLHR4KSJdLFsyLDEsImYodHgpIl0sWzAsMV0sWzEsMl0sWzMsNF0sWzQsNV1d
+  \[\begin{tikzcd}
+    {Z^{D^n}\times I\times D^n} & {Z^{D^n}\times D^n} & Z \\
+    {(f,t,x)} & {(f,tx)} & {f(tx)},
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-3]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=2-2, to=2-3]
+  \end{tikzcd}\]
+  and this composition is continuous as the first arrow is the product of $\id_{Z^{D^n}}$ with the multiplication map $I\times D^n\to D^n$ sending $(t,x)\mapsto tx$, and the second arrow is simply the evaluation map, which is also continuous (see the proof of \autoref{locally_compact_hausdorff_spaces_are_exponentiable}).
 \end{proof}
 
 \begin{lemma}[Hovey 2.4.16]\label{2.4.16}
@@ -1065,22 +1346,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 \end{proof}
 
 \textbf{Questions/Comments:}\begin{enumerate}
-  \item Hovey says the first part of \autoref{2.4.11} follows by an ``adjointness argument.'' I was able to show it holds just by unravelling definitions. What is the adjointness argument?
-  \item Relatedly, when proving \autoref{2.4.13}, Hovey aserts that it suffices to show the map
-  \[(D^m\times S^{n-1}\times I)\amalg_{D^m\times S^{n-1}\times\{0\}}(D^m\times D^n\times \{0\})\to D^m\times D^n\times I\]
-  is in $\p(J\p)$, and this follows by ``the same adjointness argument.'' I am struggling to see this.
-  \item Hovey's proof that every topological space is fibrant (\autoref{2.4.14}) is as follows: Every map of $J$ is the inclusion of a retract. Hence every map of the form $Y\to\ast$ has the RLP w.r.t.\ $J$, so is a fibration. I don't understand this proof, and instead I just proved it by directly constructing a lift of the diagram
-  \[\begin{tikzcd}
-    {D^n} & X \\
-    {D^n\times I} & \ast
-    \arrow["j"', from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-    \arrow["f", from=1-1, to=1-2]
-    \arrow[from=1-2, to=2-2]
-  \end{tikzcd}\]
-  How does Hovey's proof work?
-  \item How do I show $H$ is continuous in the end of the proof of \autoref{2.4.15}?
-  \item In Hovey, he states the existence of the homotopy long exact sequence associated to a fibration $p:X\to Y$ (\autoref{2.4.16}). In particular, no conditions are placed on $X$ and $Y$. Hatcher's proof of this theorem (Theorem 4.41, pg.\ 276) requires that $Y$ be path-connected. Is this hypothesis actually necessary?
+  \item I pretty much did nothing this week except finish the proof of \autoref{2.4.15} and prove the adjointness argument (\autoref{adjointness_argument}, it took me several hours sadly and I ended up rewriting it a couple of times, but I like it as I think it does a good job of verifying all the necessary details and not being extremely long or tedious\footnote{It's not long or tedious by the standards of this document, which isn't really saying much at all.}), so I don't really have any questions
 \end{enumerate}
 
 \end{document}
