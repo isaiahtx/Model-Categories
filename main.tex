@@ -710,6 +710,32 @@ Now we prove the proposition.
   \end{tikzcd}\qedhere\]
 \end{proof}
 
+\begin{lemma}\label{pushout-pullback-correspondence}
+  Let $\cC$ be a complete and cocomplete category, and suppose we are given exponentiable objects $A,B,C,D\in\cC$ which fit into a pushout diagram like so:
+  \[\begin{tikzcd}
+    A & B \\
+    C & D
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  Then the following is a pullback diagram
+  \[\begin{tikzcd}
+    {Z^D} & {Z^B} \\
+    {Z^C} & {Z^A}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+  \end{tikzcd}\]
+\end{lemma}
+\begin{proof}
+  \color{red}TODO.
+\end{proof}
+
 \section{Topological Spaces}
 
 A map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if it is continuous, injective, and for all $U\sseq X$ open, there is some $V\sseq Y$ open such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
@@ -1189,7 +1215,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   Suppose we are given a map $j:D^m\times\{0\}\into D^m\times I$ belonging to $J$ and a lifting problem of the following form
   \[\begin{tikzcd}
     {D^m} & {X^{D^n}} \\ 
-    {D^m\times I} & {P(i,p)=X^{S^{n-1}}\times_{Y^{S^{n-1}}}X^{D^{n}}}
+    {D^m\times I} & {P(i,p)=X^{S^{n-1}}\times_{Y^{S^{n-1}}}Y^{D^{n}}}
     \arrow["j"', hook, from=1-1, to=2-1]
     \arrow[from=2-1, to=2-2]
     \arrow[from=1-1, to=1-2]
@@ -1223,7 +1249,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
     \arrow["f", from=1-1, to=1-2]
     \arrow[from=1-2, to=2-2]
   \end{tikzcd}\]
-  Then it is straightforward that the composition $f\circ \pi_1$, where $\pi_1:D^n\times I\to D^n$ is the canonical projection, is a lift for the diagram. Hence, $X$ is indeed fibrant as desired. Now, suppose we are given a map $i:S^{n-1}\into D^n$ belonging to $I'$. It is straightforward to check that the following is a pullback diagram:
+  Then it is straightforward to see that the composition $f\circ \pi_1$, where $\pi_1:D^n\times I\to D^n$ is the canonical projection, is a lift for the diagram. Hence, $X$ is indeed fibrant as desired. Now, suppose we are given a map $i:S^{n-1}\into D^n$ belonging to $I'$. It is straightforward to check that the following is a pullback diagram:
   % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYXntTXntuLTF9fSJdLFsxLDAsIlxcYXN0XntEXm59Il0sWzEsMSwiXFxhc3Ree1Nee24tMX19Il0sWzAsMSwiWF57U157bi0xfX0iXSxbMCwxXSxbMSwyXSxbMCwzLCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDJdLFswLDIsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
   \[\begin{tikzcd}
     {X^{S^{n-1}}} & {\ast^{D^n}} \\
@@ -1320,10 +1346,31 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 \begin{proof}
   We give a proof by induction on $n$. In the case $n=-1$, since $S^{-1}=\emptyset$, $X^{S^{-1}}=Y^{S^{-1}}=\ast$, as $S^{-1}$ is initial in $\Top$, and $\ast$ is terminal, so that the map $p^{S^{-1}}:\ast\to\ast$ is a homeomorphism and in particular a weak-equivalence.
 
-  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence, we wish to show $p^{S^n}$ is likewise.
+  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence, we wish to show $p^{S^n}$ is likewise. Consider the following pushout diagram
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    \ast & {S^n}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\]
+  Since $S^{n-1}$, $D^n$, $S^n$, and $\ast$ are all clearly LCH, by \autoref{pushout-pullback-correspondence} we get that the following diagram is a pullback square for all spaces $Z$
+  \[\begin{tikzcd}
+    {Z^{S^n}} & {Z^{D^n}} \\
+    {Z} & {Z^{S^{n-1}}}
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  (It is straightforward to see by how the compact-open topology is defined that $Z^\ast\cong Z$). We know by \autoref{2.4.14} that the map on the right belongs to $J\p$, so that the arrow on the left is as well (it is straightfoward to see that since $J\p$ is characterized by a right lifting property, it is closed under taking pullbacks). The map $p$ induces a map between this pullback square with $Z=X$ and this pullback square with $Z=Y$.
 \end{proof}
 
-\begin{proposition}[Hobey 2.4.18]\label{2.4.18}
+\begin{proposition}[Hovey 2.4.18]\label{2.4.18}
   Suppose we have a pullback square
   % https://q.uiver.app/?q=WzAsNCxbMCwwLCJXIl0sWzAsMSwiWiJdLFsxLDEsIlkiXSxbMSwwLCJYIl0sWzAsMSwicSIsMl0sWzEsMiwiZyJdLFswLDMsImYiXSxbMywyLCJwIl0sWzAsMiwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lci1pbnZlcnNlIn19XV0=
   \[\begin{tikzcd}
@@ -1338,7 +1385,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   in $\Top$, where $p\in J\p$ and $g$ is a weak equivalence. Then $f$ is a weak equivalence.
 \end{proposition}
 \begin{proof}
-  \color{red}TODO.
+  \autoref{pushout-pullback-correspondence}
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.12]\label{2.4.12}
