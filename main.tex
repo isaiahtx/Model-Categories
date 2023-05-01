@@ -1186,16 +1186,27 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   Suppose $p:X\to Y$ belongs to $J\p$ and $i:S^{n-1}\into D^n$ belongs to $I'$. Then the map $Q(i,p)$ belongs to $J\p$.
 \end{lemma}
 \begin{proof}
-  Suppose we are given a map $j:D^m\into D^m\times I$ belonging to $J$ and a lifting problem of the following form
+  Suppose we are given a map $j:D^m\times\{0\}\into D^m\times I$ belonging to $J$ and a lifting problem of the following form
   \[\begin{tikzcd}
-    {D^m} & {X^{D^n}} \\
+    {D^m} & {X^{D^n}} \\ 
     {D^m\times I} & {P(i,p)=X^{S^{n-1}}\times_{Y^{S^{n-1}}}X^{D^{n}}}
     \arrow["j"', hook, from=1-1, to=2-1]
-    \arrow["{(g,h)}", from=2-1, to=2-2]
-    \arrow["f", from=1-1, to=1-2]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=1-1, to=1-2]
     \arrow["{Q(i,p)}"', from=1-2, to=2-2]
   \end{tikzcd}\]
-  
+  In order to show that any such diagram has a lift, by \autoref{locally_compact_hausdorff_spaces_are_exponentiable} and \autoref{adjointness_argument}, since $S^{n-1}$ and $D^n$ are locally compact Hausdorff, it suffices to show that any lifting problem of the following form has a solution:
+  \[\begin{tikzcd}
+    {D^m\times\{0\}\times D^n\coprod_{D^m\times\{0\}\times S^{n-1}}D^m\times I\times S^{n-1}} & X \\
+    {D^m\times I\times D^n} & Y
+    \arrow[from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["{(i\times\id_{D^n},\id_{D^m\times I}\times i)}"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  For ease of notation, write $f$ for the map on the left. Since $p\in J\p$, in order to show that the diagram has a lift, it suffices to show that $f\in\p(J\p)$. Note that since $\p(J\p)$ is characterized by a lifting property, it is closed under composition with isomorphisms (homeomorphisms). Furthermore, since $J\sseq\p(J\p)$, it suffices to show that $f$ is homeomorphic to the second map in the factorization $D^{m+n}\cong D^{m+n}\times\{0\}\into D^{m+n}\times I\in J$. Note that $f=\id_{D^m}\times g$, where 
+  \[g:\{0\}\times D^n\coprod_{\{0\}\times S^{n-1}}I\times S^{n-1}=(\{0\}\times D^n)\cup (I\times S^{n-1})\into I\times D^n.\]
+  The space $(\{0\}\times D^n)\cup(I\times S^{n-1})$ may be obtained by removing one of the ends of the hollow cylinder $\partial(I\times D^n)$. By flattening the edges of this cylinder-with-a-missing-end, we get a disk homeomorphic to $D^n$. Thus $g$ is homeomorphic to the map $\{0\}\times D^n\into I\times D^n$, so that $f=\id_{D^m}\times g$ is homeomorphic to the inclusion $D^{m+n}\times\{0\}\into D^{m+n}\times I$ as desired.
 \end{proof}
 
 \begin{corollary}[Hovey 2.4.14]\label{2.4.14}
@@ -1307,7 +1318,9 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   Suppose $p:X\to Y$ is a weak equivalence. Then $p^{S^n}:X^{S^n}\to Y^{S^n}$ is a weak equivalence for all $n\geq-1$, where $S^{-1}=\emptyset$.
 \end{lemma}
 \begin{proof}
-  \color{red}TODO.
+  We give a proof by induction on $n$. In the case $n=-1$, since $S^{-1}=\emptyset$, $X^{S^{-1}}=Y^{S^{-1}}=\ast$, as $S^{-1}$ is initial in $\Top$, and $\ast$ is terminal, so that the map $p^{S^{-1}}:\ast\to\ast$ is a homeomorphism and in particular a weak-equivalence.
+
+  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence, we wish to show $p^{S^n}$ is likewise.
 \end{proof}
 
 \begin{proposition}[Hobey 2.4.18]\label{2.4.18}
@@ -1346,7 +1359,61 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 \end{proof}
 
 \textbf{Questions/Comments:}\begin{enumerate}
-  \item I pretty much did nothing this week except finish the proof of \autoref{2.4.15} and prove the adjointness argument (\autoref{adjointness_argument}, it took me several hours sadly and I ended up rewriting it a couple of times, but I like it as I think it does a good job of verifying all the necessary details and not being extremely long or tedious\footnote{It's not long or tedious by the standards of this document, which isn't really saying much at all.}), so I don't really have any questions
+  \item Hovey's proof of \autoref{2.4.17} starts by asserting that the pushout square
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJTXntuLTF9Il0sWzEsMCwiRF5uIl0sWzAsMSwiXFxhc3QiXSxbMSwxLCJTXm4iXSxbMCwxXSxbMCwyXSxbMiwzXSxbMSwzXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    \ast & {S^n}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\]
+  gives rise to a pullback square
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJaXntTXm59Il0sWzEsMCwiWl57RF5ufSJdLFsxLDEsIlpee1Nee24tMX19Il0sWzAsMSwiWl5cXGFzdCJdLFswLDFdLFsxLDJdLFswLDNdLFszLDJdLFswLDIsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+  \[\begin{tikzcd}
+    {Z^{S^n}} & {Z^{D^n}} \\
+    {Z^\ast} & {Z^{S^{n-1}}}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+  \end{tikzcd}\]
+  for \textbf{all} spaces $Z$. How do I show this? More generally, I would like to think there is a result which says something like: given a complete, cocomplete category $\cC$ and exponentiable objects $A,B,C,D\in\cC$ which fit into a pullback diagram like so:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzEsMCwiQiJdLFswLDEsIkMiXSxbMSwxLCJEIl0sWzAsMV0sWzAsMl0sWzIsM10sWzEsM10sWzMsMCwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+  \begin{equation}\label{neq1}\begin{tikzcd}
+    A & B \\
+    C & D
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\end{equation}
+  then for all objects $Z\in\cC$, we get a pullback diagram like so:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJaXkQiXSxbMSwwLCJaXkIiXSxbMSwxLCJaXkEiXSxbMCwxLCJaXkMiXSxbMCwxXSxbMSwyXSxbMCwzXSxbMywyXSxbMCwyLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+  \begin{equation}\label{neq2}\begin{tikzcd}
+    {Z^D} & {Z^B} \\
+    {Z^C} & {Z^A}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+  \end{tikzcd}\end{equation}
+  Now, clearly I can see that a cones over the diagram (\ref{neq2}) with nadir $X$ are in bijection with cones under the following diagram with nadir $Z$:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYXFx0aW1lcyBBIl0sWzEsMCwiWFxcdGltZXMgQiJdLFsxLDEsIlhcXHRpbWVzIEQiXSxbMCwxLCJYXFx0aW1lcyBDIl0sWzAsMV0sWzEsMl0sWzAsM10sWzMsMl1d
+  \begin{equation}\label{neq3}\begin{tikzcd}
+    {X\times A} & {X\times B} \\
+    {X\times C} & {X\times D}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\end{equation}
+  So it follows that diagram (\ref{neq2}) is a pullback diagram iff diagram (\ref{neq3}) is pushout diagram for all $X\in\cC$. Now, in the case $\cC=\Top$, in general the functor $X\times-$ does not preserve coproducts (although it does if $X$ is exponentiable, in particular, LCH). So presumably I'll have to use that $A$, $B$, $C$, and $D$ are themselves expoentiable in order to show that (\ref{neq3}) is a pushout diagram. How do I do this?
 \end{enumerate}
 
 \end{document}
