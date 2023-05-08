@@ -1425,7 +1425,31 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
   \end{tikzcd}\]
   Now per our induction hypothesis, the second and fifth vertical arrows are isomorphisms. The first and fourth vertical arrows are isomorphisms by \autoref{2.4.15}. Then it follows by the five-lemma that the middle arrow is an isomorphism (in the case $m=0,1$, this argument still works, a simple diagram chase yields that the five-lemma does hold in the more general setting of non-abelian groups or even pointed sets). Thus the restriction $p^{D^n}:F_X\to F_Y$ is indeed a weak equivalence, as desired.
 
-  Now consider the square
+  In what follows, fix a basepoint $\ast\in S^n$, and given a space $Z$ ket $k_Z:Z^{S^n}\to Z$ be the evaluation map sending $\alpha\mapsto\alpha(\ast)$. let $\wt{F_X}$ and $\wt{F_Y}$ be the fibers of $k_X:X^{S^n}\to X$ and $k_Y:Y^{S^n}\to Y$ containing $\alpha$ and $p\circ \alpha$, respectively. Similarly, let $j_Z:Z^{S^n}\to Z^{D^n}$ be the pullback map induced by $j:D^n\to S^n$. Consider the following square
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXHd0e0ZfWH0iXSxbMCwxLCJcXHd0e0ZfWX0iXSxbMSwxLCJGX1kiXSxbMSwwLCJGX1giXSxbMCwxLCJwXntTXm59IiwyXSxbMSwyLCJqX1kiXSxbMCwzLCJqX1giXSxbMywyLCJwXntEXm59Il1d
+  \begin{equation}\label{Jeq9}
+    \begin{tikzcd}
+      {\wt{F_X}} & {F_X} \\
+      {\wt{F_Y}} & {F_Y}
+      \arrow["{p^{S^n}}"', from=1-1, to=2-1]
+      \arrow["{j_Y}", from=2-1, to=2-2]
+      \arrow["{j_X}", from=1-1, to=1-2]
+      \arrow["{p^{D^n}}", from=1-2, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  First of all, it clearly commutes, as given $\beta\in\wt{F_X}$, so $\beta:S^n\to X$ is continuous and $\beta(\ast)=\alpha(\ast)$, we have $p^{D^n}(j_X(\beta))=p^{D^n}(\beta\circ j)=p\circ\beta\circ j=j_Y(p\circ\beta)=j_Y(p^{S^n}(\beta))$. Now we claim the restriction $j_X:\wt{F_X}\to F_X$ is a homeomorphism. Explicitly, 
+  \[\wt{F_X}=k_X^{-1}(k_X(\alpha))=\{\beta\in X^{S^n}:k_X(\beta)=k_X(\alpha)\}=\{\beta\in X^{S^n}:\beta(\ast)=\alpha(\ast)\},\] 
+  and 
+  \[F_X=i_X^{-1}(i_X(\alpha\circ j))=\{\gamma\in X^{D^n}:i_X(\gamma)=i_X(\alpha\circ j)\}=\{\gamma\in X^{D^n}:\gamma\circ i=\alpha\circ j\circ i\}.\]
+  Now we show $j_X:\wt{F_X}\to F_X$ is a homeomorphism by considering the cases $n=0$ and $n>0$ separately.
+  
+  In the case $n=0$, $\gamma\circ i=\alpha\circ j\circ i:S^{-1}\to X$ for all $\gamma\in X^{D^0}=X^\ast$, as $S^{-1}=\emptyset$ is initial in $\Top$. Thus $F_X=X^{D^0}=X^\ast$. On the other hand, an element of $\wt{F_X}$ is a function $\beta:\{0,1\}\to X$ such that $\beta(0)=\alpha(0)$, and the map $j_X:\wt{F_X}\to F_X$ sends $\beta\mapsto\beta\circ j$. Here $j$ is simply the map $\ast\to\{0,1\}$ sending $\ast\mapsto 1$. Thus under the isomorphism $X^{\ast}\cong X$, $j_X:\wt{F_X}\to F_X=X^\ast\cong X$ simply sends $\beta\mapsto\beta(1)$. Now, clearly this map is a continuous bijection, as an element of $\wt{F_X}$ is a function $\{0,1\}\to X$ which must send $0$ to $\alpha(0)$ and there are no restrictions on where $1$ is sent. To see this map is open, let $K\sseq S^0$ compact (so $K$ is any subset of $S^0$ as $S^0$ is a finite space) and let $U\sseq X$ be open. Then we would like to show $j_X(S(K,U)\cap\wt{F_X})$ is open in $X$. Note
+  \[j_X(S(K,U)\cap\wt{F_X})=\{j_X(\beta)\in\wt{F_X}:\beta(K)\sseq U\}=\{\beta(1):\beta\in X^{\{0,1\}},\ \beta(0)=\alpha(0),\ \beta(K)\sseq U\}.\]
+  First consider the case $K=\{0\}$. If $\alpha(0)\in U$, then $j_X(S(K,U)\cap\wt{F_X})=X$. Otherwise $j_X(S(K,U)\cap\wt{F_X})=\emptyset$. If $K=\{1\}$, then $j_X(S(K,U)\cap\wt{F_X})=U$. Finally, if $K=\{0,1\}$, then $j_X(S(K,U)\cap\wt{F_X})=U$ if $\alpha(0)\in U$ and $j_X(S(K,U)\cap\wt{F_X})=\emptyset$ otherwise. Hence, $j_X(S(K,U)\cap\wt{F_X})$ is indeed open. Thus in the case $n=0$, $j_X:\wt{F_X}\to F_X$ is a continuous open bijection, thus a homeomorphism.
+  
+  Now, suppose that $n>0$, we would like to show $j_X:\wt{F_X}\to F_X$ is a continuous open bijection. It is continuous by definition. Since $j$ is an epimorphism in this case, $j_X$ is clearly injective, as given $\beta,\beta'\in\wt{F_X}$, if $j_X(\beta)=j_X(\beta')$, then $\beta\circ j=\beta'\circ j\implies\beta=\beta'$, as desired. To see it is surjective, first note that $j\circ i:S^{n-1}\to D^n\to S^n$ sends everything to the basepoint $\ast$, by commutativity of (\ref{Jeq6}). Thus elements of $F_X$ are maps $\gamma:D^n\to X$ such that $\gamma\circ i:S^{n-1}\into D^n\to X$ sends everything to $\alpha(\ast)$, i.e., $\gamma$ restricts to the constant map at $\alpha(0)$ on the boundary $\partial D^n=S^{n-1}$. Thus since $j:D^n\to S^n\cong D^n/S^{n-1}$ is the quotient map (since $n>0$), by the universal property of the quotient, $\gamma:D^n\to X$ factors through $S^n$ as a composition $D^n\xrightarrow jS^n\xrightarrow\beta X$ for some map $\beta\in X^{S^n}$. Note that $\beta\in\wt{F_X}$, as given any $x\in S^{n-1}=\partial D^n$, $\beta(\ast)=\beta(j(x))=\gamma(x)=\alpha(\ast)$. Thus, we have found $\beta\in\wt{F_X}$ with $j_X(\beta)=\beta\circ j=\gamma$, as desired. It remains to show that $j_X$ is open. Let $K\sseq S^n$ be compact and $U\sseq X$ open. Then we would like to show that $j_X(S(K,U)\cap\wt{F_X})$ is open in $F_X$.
+ 
+  Now, given a space $Z$, let consider the square
   \[\begin{tikzcd}
     {X^{S^n}} & {Y^{S^n}} \\
     X & Y
