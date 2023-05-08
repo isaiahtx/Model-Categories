@@ -1395,8 +1395,36 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 %
   We give a proof by induction on $n$. In the case $n=-1$, since $S^{-1}=\emptyset$, $X^{S^{-1}}=Y^{S^{-1}}=\ast$, as $S^{-1}$ is initial in $\Top$, and $\ast$ is terminal, so that the map $p^{S^{-1}}:\ast\to\ast$ is a homeomorphism and in particular a weak-equivalence.
 
-  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence for some $n\geq0$, we wish to show $p^{S^n}$ is likewise. Pick a point $\alpha\in X^{S^n}$, let $F_X$ denote the fiber of $X^{D^n}\to X^{S^{n-1}}$ containing $\alpha\circ j$ and let $F_Y$ denote the corresponding fiber of $Y^{D^n}\to Y^{S^{n-1}}$ containing $p\circ\alpha\circ j$. Let $i_X$ and $i_Y$ denote the inclusions $F_X\into X^{D^n}$ and $F_Y\into Y^{D^n}$, respectively. Then we first claim that $F_X\to F_Y$ is a weak equivalence. Consider the square
-  
+  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence for some $n\geq0$, we wish to show $p^{S^n}$ is likewise. Let $i:S^{n-1}\to D^n$ and $j:D^n\to S^n$ be as in diagram (\ref{Jeq6}). Pick a point $\alpha\in X^{S^n}$, let $F_X$ denote the fiber of $i_X:X^{D^n}\to X^{S^{n-1}}$ containing $\alpha\circ j$ and let $F_Y$ denote the corresponding fiber of $i_Y:Y^{D^n}\to Y^{S^{n-1}}$ containing $p\circ\alpha\circ j$. Let $\iota_X$ and $\iota_Y$ denote the inclusions $F_X\into X^{D^n}$ and $F_Y\into Y^{D^n}$, respectively. Then we first claim that $F_X\to F_Y$ is a weak equivalence. Consider the square
+  \[\begin{tikzcd}
+    {X^{D^n}} & {Y^{D^n}} \\
+    {X^{S^{n-1}}} & {Y^{S^{n-1}}}
+    \arrow["{i_X}"', from=1-1, to=2-1]
+    \arrow["{p^{S^{n-1}}}", from=2-1, to=2-2]
+    \arrow["{p^{D^n}}", from=1-1, to=1-2]
+    \arrow["{i_Y}", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  It commutes, as given $f\in X^{D^n}$, $i_Y(p^{D^n}(f))=i_Y(p\circ f)=p\circ f\circ i=p\circ i_X(f)=p^{S^{n-1}}(i_X(f))$. Furthermore, $i_X$ and $i_Y$ belong to $J\p$ by \autoref{2.4.14}. Thus by \autoref{2.4.16}, for all $m\geq0$ the following diagram commutes and both rows are exact
+  % https://q.uiver.app/?q=WzAsMTAsWzEsMCwiXFxwaV97bSsxfShYXntTXntuLTF9fSxcXGFscGhhIGppKSJdLFsyLDAsIlxccGlfbShGX1gsXFxhbHBoYSBqKSJdLFszLDAsIlxccGlfbShYXntEXm59LFxcYWxwaGEgaikiXSxbNCwwLCJcXHBpX20oWF57U157bi0xfX0sXFxhbHBoYSBqaSkiXSxbMCwwLCJcXHBpX3ttKzF9KFhee0Rebn0sXFxhbHBoYSBqKSJdLFswLDEsIlxccGlfe20rMX0oWV57RF5ufSxwXFxhbHBoYSBqKSJdLFsxLDEsIlxccGlfe20rMX0oWV57U157bi0xfX0scFxcYWxwaGEgamkpIl0sWzIsMSwiXFxwaV9tKEZfWSxwXFxhbHBoYSBqKSJdLFszLDEsIlxccGlfbShZXntEXm59LHBcXGFscGhhIGopIl0sWzQsMSwiXFxwaV9tKFlee1Nee24tMX19LHBcXGFscGhhIGppKSJdLFswLDEsImRfbSJdLFsxLDIsIlxccGlfbShcXGlvdGFfWCxcXGFscGhhX2opIl0sWzIsMywiXFxwaV97bX0oaV9YLFxcYWxwaGEgaikiXSxbNCwwLCJcXHBpX3ttKzF9KGlfWCxcXGFscGhhIGopIl0sWzQsNSwiXFxwaV97bSsxfShwXntEXm59LFxcYWxwaGEgaikiXSxbMCw2LCJcXHBpX3ttKzF9KHBee1Nee24tMX19LFxcYWxwaGEgamkpIl0sWzUsNiwiXFxwaV97bSsxfShpX1ksXFxhbHBoYSBqKSIsMl0sWzYsNywiZF9tIiwyXSxbNyw4LCJcXHBpX20oXFxpb3RhX1ksXFxhbHBoYV9qKSIsMl0sWzgsOSwiXFxwaV97bX0oaV9ZLFxcYWxwaGEgaikiLDJdLFsxLDcsIlxccGlfbShwXntEXm59LFxcYWxwaGEgaikiXSxbMiw4LCJcXHBpX20ocF57RF5ufSxcXGFscGhhIGopIl0sWzMsOSwiXFxwaV9tKHBee1Nee24tMX19LFxcYWxwaGEgamkpIl1d
+  \[\begin{tikzcd}
+    {\pi_{m+1}(X^{D^n},\alpha j)} & {\pi_{m+1}(X^{S^{n-1}},\alpha ji)} & {\pi_m(F_X,\alpha j)} & {\pi_m(X^{D^n},\alpha j)} & {\pi_m(X^{S^{n-1}},\alpha ji)} \\
+    {\pi_{m+1}(Y^{D^n},p\alpha j)} & {\pi_{m+1}(Y^{S^{n-1}},p\alpha ji)} & {\pi_m(F_Y,p\alpha j)} & {\pi_m(Y^{D^n},p\alpha j)} & {\pi_m(Y^{S^{n-1}},p\alpha ji)}
+    \arrow["{d_m}", from=1-2, to=1-3]
+    \arrow["{\pi_m(\iota_X,\alpha_j)}", from=1-3, to=1-4]
+    \arrow["{\pi_{m}(i_X,\alpha j)}", from=1-4, to=1-5]
+    \arrow["{\pi_{m+1}(i_X,\alpha j)}", from=1-1, to=1-2]
+    \arrow["{\pi_{m+1}(p^{D^n},\alpha j)}", from=1-1, to=2-1]
+    \arrow["{\pi_{m+1}(p^{S^{n-1}},\alpha ji)}", from=1-2, to=2-2]
+    \arrow["{\pi_{m+1}(i_Y,\alpha j)}"', from=2-1, to=2-2]
+    \arrow["{d_m}"', from=2-2, to=2-3]
+    \arrow["{\pi_m(\iota_Y,\alpha_j)}"', from=2-3, to=2-4]
+    \arrow["{\pi_{m}(i_Y,\alpha j)}"', from=2-4, to=2-5]
+    \arrow["{\pi_m(p^{D^n},\alpha j)}", from=1-3, to=2-3]
+    \arrow["{\pi_m(p^{D^n},\alpha j)}", from=1-4, to=2-4]
+    \arrow["{\pi_m(p^{S^{n-1}},\alpha ji)}", from=1-5, to=2-5]
+  \end{tikzcd}\]
+  Now per our induction hypothesis, the second and fifth vertical arrows are isomorphisms. The first and fourth vertical arrows are isomorphisms by \autoref{2.4.15}. Then it follows by the five-lemma that the middle arrow is an isomorphism (in the case $m=0,1$, this argument still works, a simple diagram chase yields that the five-lemma does hold in the more general setting of non-abelian groups or even pointed sets). Thus the restriction $p^{D^n}:F_X\to F_Y$ is indeed a weak equivalence, as desired.
+
   Now consider the square
   \[\begin{tikzcd}
     {X^{S^n}} & {Y^{S^n}} \\
@@ -1464,6 +1492,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 
 \textbf{Questions/Comments:}\begin{enumerate}
   \item I am struggling to show that the map $\ell$ in diagram (\ref{Jeq8}) is continuous. My idea is as follows: $j:D^n\to S^n$ is a quotient map (it collapses $\partial D^n=S^{n-1}$ to a point). It follows relatively easily then that given a space $Z$, the pullback $j^\ast:Z^{S^n}\to Z^{D^n}$ is injective. Thus, given an open subset $U\sseq Z^{S^n}$, since $j^\ast\circ\ell=f$ and $j^\ast$ is injective, $\ell^{-1}(U)=f^{-1}(j^\ast(U))$. Thus in order to show $\ell$ is continuous, it suffices to show that $j^\ast$ is an open map. In order to show $j^\ast$ is open, it suffices to show that $j^\ast(S(K,U))$ is an open subset of $Z^{D^n}$ for all $U\sseq Z$ open and $K\sseq S^n$ compact. Clearly it can be seen that $j^\ast(S(K,U))\sseq S(j^{-1}(K),U)$, and that $j^{-1}(K)$ is a compact subset of $D^n$ since $j$ is a quotient map, but I cannot show that $S(j^{-1}(K),U)\sseq j^\ast(S(K,U))$, and I am not even sure this is true. Is this the wrong proof strategy?
+  \item In Hovey's proof of \autoref{2.4.17}, he shows that $F_X\to F_Y$ is a weak equivalence, and he shows $\pi_0(F_X)\to\pi_0(F_Y)$ is an isomorphism separately from showing $\pi_n(F_X)\to\pi_n(F_Y)$ is an isomorphism for $n>0$. I do not, am I doing something wrong?
 \end{enumerate}
 
 \end{document}
