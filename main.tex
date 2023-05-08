@@ -710,32 +710,6 @@ Now we prove the proposition.
   \end{tikzcd}\qedhere\]
 \end{proof}
 
-\begin{lemma}\label{pushout-pullback-correspondence}
-  Let $\cC$ be a complete and cocomplete category, and suppose we are given exponentiable objects $A,B,C,D\in\cC$ which fit into a pushout diagram like so:
-  \[\begin{tikzcd}
-    A & B \\
-    C & D
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-  \end{tikzcd}\]
-  Then the following is a pullback diagram
-  \[\begin{tikzcd}
-    {Z^D} & {Z^B} \\
-    {Z^C} & {Z^A}
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
-  \end{tikzcd}\]
-\end{lemma}
-\begin{proof}
-  \color{red}TODO.
-\end{proof}
-
 \section{Topological Spaces}
 
 A map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if it is continuous, injective, and for all $U\sseq X$ open, there is some $V\sseq Y$ open such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
@@ -1346,28 +1320,59 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 \begin{proof}
   We give a proof by induction on $n$. In the case $n=-1$, since $S^{-1}=\emptyset$, $X^{S^{-1}}=Y^{S^{-1}}=\ast$, as $S^{-1}$ is initial in $\Top$, and $\ast$ is terminal, so that the map $p^{S^{-1}}:\ast\to\ast$ is a homeomorphism and in particular a weak-equivalence.
 
-  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence, we wish to show $p^{S^n}$ is likewise. Consider the following pushout diagram
+  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence, we wish to show $p^{S^n}$ is likewise. Consider the following pushout diagram, which glues the boundary of $D^n$ to a point to obtain $S^n$:
+  \begin{equation}\label{Jeq6}
+    \begin{tikzcd}
+      {S^{n-1}} & {D^n} \\
+      \ast & {S^n}
+      \arrow["i", from=1-1, to=1-2]
+      \arrow["j", from=1-2, to=2-2]
+      \arrow["h", from=1-1, to=2-1]
+      \arrow["k", from=2-1, to=2-2]
+      \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \end{tikzcd}
+  \end{equation}
+  Then this induces the following commutative diagram
+  \begin{equation}\label{Jeq7}
+    \begin{tikzcd}
+    {Z^{S^n}} & {Z^{D^n}} \\
+    {Z^\ast} & {Z^{S^{n-1}}}
+    \arrow["i^\ast", from=1-2, to=2-2]
+    \arrow["j^\ast", from=1-1, to=1-2]
+    \arrow["k^\ast"', from=1-1, to=2-1]
+    \arrow["h^\ast", from=2-1, to=2-2]
+  \end{tikzcd}
+  \end{equation}
+  where each arrow is the pullback of the corresponding arrow in diagram (\ref{Jeq6}). We claim diagram (\ref{Jeq7}) is a pullback diagram. First of all it clearly commutes as (\ref{Jeq6}) does: given $f\in Z^{S^n}$, $i^\ast(j^\ast(f))=f\circ j\circ i=f\circ k\circ h=h^\ast(k^\ast(f))$. Now, given arrows $f:W\to Z^{D^n}$ and $g:W\to Z^\ast$ such that $i^\ast(f)=h^\ast(g)$ (so $f\circ i=g\circ h$), we would like to show there exists a unique map $\ell:W\to Z^{S^n}$ such that $j^\ast(\ell)=f$ and $k^\ast\circ\ell=g$. For each $w\in W$, we have a map $f(w):D^n\to Z$ and $g(w):\ast\to Z$ such that $f(w)\circ i=g(w)\circ h$ which make the following diagram commute
   \[\begin{tikzcd}
     {S^{n-1}} & {D^n} \\
-    \ast & {S^n}
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
+    \ast & {S^n} \\
+    && Z
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["j", from=1-2, to=2-2]
+    \arrow["h"', from=1-1, to=2-1]
+    \arrow["k", from=2-1, to=2-2]
     \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow["{\ell(w)}"', dashed, from=2-2, to=3-3]
+    \arrow["{f(w)}", curve={height=-12pt}, from=1-2, to=3-3]
+    \arrow["{g(w)}"', curve={height=12pt}, from=2-1, to=3-3]
   \end{tikzcd}\]
-  Since $S^{n-1}$, $D^n$, $S^n$, and $\ast$ are all clearly LCH, by \autoref{pushout-pullback-correspondence} we get that the following diagram is a pullback square for all spaces $Z$
-  \[\begin{tikzcd}
-    {Z^{S^n}} & {Z^{D^n}} \\
-    {Z} & {Z^{S^{n-1}}}
-    \arrow[from=1-2, to=2-2]
-    \arrow[from=2-1, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-  \end{tikzcd}\]
-  (It is straightforward to see by how the compact-open topology is defined that $Z^\ast\cong Z$). We know by \autoref{2.4.14} that the map on the right belongs to $J\p$, so that the arrow on the left is as well (it is straightfoward to see that since $J\p$ is characterized by a right lifting property, it is closed under taking pullbacks). The map $p$ induces a map between this pullback square with $Z=X$ and this pullback square with $Z=Y$.
+  Hence by the universal property of the pushout, there is a unique map $\ell(w):S^n\to Z$ such that $\ell(w)\circ j=f(w)$ and $\ell(w)\circ k=g(w)$. In this way, we have defined a function $\ell:W\to Z^{S^n}$, and furthermore it clearly makes the following diagram commute
+  \begin{equation}\label{Jeq8}
+    \begin{tikzcd}
+      W \\
+      & {Z^{S^n}} & {Z^{D^n}} \\
+      & {Z^\ast} & {Z^{S^{n-1}}}
+      \arrow["\ell", from=1-1, to=2-2]
+      \arrow["{j^\ast}", from=2-2, to=2-3]
+      \arrow["{i^\ast}", from=2-3, to=3-3]
+      \arrow["{k^\ast}"', from=2-2, to=3-2]
+      \arrow["{h^\ast}", from=3-2, to=3-3]
+      \arrow["f", curve={height=-12pt}, from=1-1, to=2-3]
+      \arrow["g"', curve={height=12pt}, from=1-1, to=3-2]
+    \end{tikzcd}
+  \end{equation}
+  Furthermore, it is not difficult to see that $\ell$ is the \textit{unique} function $W\to Z^{S^n}$ which makes this diagram commute, as necessarily given $w\in W$, we know $\ell(w):S^n\to Z$ is a continuous map satisfying $\ell(w)\circ j=f(w)$ and $\ell(w)\circ k=g(w)$, but since (\ref{Jeq6}) is a pushout diagram, $\ell(w)$ is the \textit{unique} such map, so $\ell$ must be defined as we defined it. It remains to show that $\ell$ is continuous. First of all, note that since $j:D^n\to S^n$ is a quotient map (it collapses the boundary of $D^n$ to a point), it follows that $j^\ast:Z^{S^n}\to Z^{D^n}$ is injective and open. To see injectivity, note that if $\alpha,\beta:S^n\to Z$ such that $j^\ast(\alpha)=j^\ast(\beta)$, then $\alpha\circ j=\beta\circ j$, and since $j$ is surjective it is an epimorphism, meaning this implies $\alpha=\beta$ as desired. To see $j^\ast$ is open, it suffices to show that given $K\sseq S^n$ compact and $U\sseq Z$ open that $j^\ast(S(K,U))$ is open in $Z^{D^n}$. We claim that $j^\ast(S(K,U))=S(j^{-1}(K),U)\sseq Z^{D^n}$, and that $j^{-1}(K)$ is compact in $D^n$. First of all, let $\alpha\in S(K,U)\sseq Z^{S^n}$, so $\alpha:S^n\to Z$ satisfies $\alpha(K)\sseq U$. Then we would like to show $j^\ast(\alpha)\in S(j^{-1}(K),U)\sseq Z^{D^n}$. Indeed, $j^\ast(\alpha)(j^{-1}(K))=\alpha(j(j^{-1}(K)))=\alpha(K)\sseq U$, as desired. Conversely, suppose $\beta\in S(j^{-1}(K),U)\sseq Z^{D^n}$, so that $\beta(j^{-1}(K))\sseq U$
 \end{proof}
 
 \begin{proposition}[Hovey 2.4.18]\label{2.4.18}
@@ -1406,61 +1411,7 @@ In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^
 \end{proof}
 
 \textbf{Questions/Comments:}\begin{enumerate}
-  \item Hovey's proof of \autoref{2.4.17} starts by asserting that the pushout square
-  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJTXntuLTF9Il0sWzEsMCwiRF5uIl0sWzAsMSwiXFxhc3QiXSxbMSwxLCJTXm4iXSxbMCwxXSxbMCwyXSxbMiwzXSxbMSwzXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
-  \[\begin{tikzcd}
-    {S^{n-1}} & {D^n} \\
-    \ast & {S^n}
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
-  \end{tikzcd}\]
-  gives rise to a pullback square
-  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJaXntTXm59Il0sWzEsMCwiWl57RF5ufSJdLFsxLDEsIlpee1Nee24tMX19Il0sWzAsMSwiWl5cXGFzdCJdLFswLDFdLFsxLDJdLFswLDNdLFszLDJdLFswLDIsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
-  \[\begin{tikzcd}
-    {Z^{S^n}} & {Z^{D^n}} \\
-    {Z^\ast} & {Z^{S^{n-1}}}
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
-  \end{tikzcd}\]
-  for \textbf{all} spaces $Z$. How do I show this? More generally, I would like to think there is a result which says something like: given a complete, cocomplete category $\cC$ and exponentiable objects $A,B,C,D\in\cC$ which fit into a pullback diagram like so:
-  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzEsMCwiQiJdLFswLDEsIkMiXSxbMSwxLCJEIl0sWzAsMV0sWzAsMl0sWzIsM10sWzEsM10sWzMsMCwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
-  \begin{equation}\label{neq1}\begin{tikzcd}
-    A & B \\
-    C & D
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
-  \end{tikzcd}\end{equation}
-  then for all objects $Z\in\cC$, we get a pullback diagram like so:
-  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJaXkQiXSxbMSwwLCJaXkIiXSxbMSwxLCJaXkEiXSxbMCwxLCJaXkMiXSxbMCwxXSxbMSwyXSxbMCwzXSxbMywyXSxbMCwyLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
-  \begin{equation}\label{neq2}\begin{tikzcd}
-    {Z^D} & {Z^B} \\
-    {Z^C} & {Z^A}
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
-  \end{tikzcd}\end{equation}
-  Now, clearly I can see that a cones over the diagram (\ref{neq2}) with nadir $X$ are in bijection with cones under the following diagram with nadir $Z$:
-  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYXFx0aW1lcyBBIl0sWzEsMCwiWFxcdGltZXMgQiJdLFsxLDEsIlhcXHRpbWVzIEQiXSxbMCwxLCJYXFx0aW1lcyBDIl0sWzAsMV0sWzEsMl0sWzAsM10sWzMsMl1d
-  \begin{equation}\label{neq3}\begin{tikzcd}
-    {X\times A} & {X\times B} \\
-    {X\times C} & {X\times D}
-    \arrow[from=1-1, to=1-2]
-    \arrow[from=1-2, to=2-2]
-    \arrow[from=1-1, to=2-1]
-    \arrow[from=2-1, to=2-2]
-  \end{tikzcd}\end{equation}
-  So it follows that diagram (\ref{neq2}) is a pullback diagram iff diagram (\ref{neq3}) is pushout diagram for all $X\in\cC$. Now, in the case $\cC=\Top$, in general the functor $X\times-$ does not preserve coproducts (although it does if $X$ is exponentiable, in particular, LCH). So presumably I'll have to use that $A$, $B$, $C$, and $D$ are themselves expoentiable in order to show that (\ref{neq3}) is a pushout diagram. How do I do this?
+  \item I am struggling to show that the map $\ell$ in diagram (\ref{Jeq8}) is continuous. My idea is as follows: $j:D^n\to S^n$ is a quotient map (it collapses $\partial D^n=S^{n-1}$ to a point). It follows relatively easily then that given a space $Z$, the pullback $j^\ast:Z^{S^n}\to Z^{D^n}$ is injective. Thus, given an open subset $U\sseq Z^{S^n}$, since $j^\ast\circ\ell=f$ and $j^\ast$ is injective, $\ell^{-1}(U)=f^{-1}(j^\ast(U))$. Thus in order to show $\ell$ is continuous, it suffices to show that $j^\ast$ is an open map. In order to show $j^\ast$ is open, it suffices to show that $j^\ast(S(K,U))$ is an open subset of $Z^{D^n}$ for all $U\sseq Z$ open and $K\sseq S^n$ compact. Clearly it can be seen that $j^\ast(S(K,U))\sseq S(j^{-1}(K),U)$, and that $j^{-1}(K)$ is a compact subset of $D^n$ since $j$ is a quotient map, but I cannot show that $S(j^{-1}(K),U)\sseq j^\ast(S(K,U))$, and I am not even sure this is true. Is this the wrong proof strategy?
 \end{enumerate}
 
 \end{document}
