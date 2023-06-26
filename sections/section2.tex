@@ -1,0 +1,942 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+A map $f:X\to Y$ in $\Top$ is an \textit{inclusion} if it is continuous, injective, and for all $U\sseq X$ open, there is some $V\sseq Y$ open such that $f^{-1}(V)=U$. If $f$ is a closed inclusion and every point in $Y\setminus f(X)$ is closed, then we call $f$ a \textit{closed $T_1$ inclusion}. We will let $\cT$ denote the class of closed $T_1$ inclusions in $\Top$.
+
+The symbol $D^n$ will denote the unit disk in $\bR^n$, and the symbol $S^{n-1}$ will denote the unit sphere in $\bR^n$, so that we have the boundary inclusions $S^{n-1}\into D^n$. In particular, for $n=0$ we let $D^0=\{0\}$ and $S^{-1}=\emptyset$.
+
+Recall: If $F:\cJ\to\Top$ is a functor, where $\cJ$ is a small category, the limit of $F$ is obtained by taking the limit in the category of sets, and then topologizing it with the \textit{initial topology}, where if $\eta:\underline{\lim F}\Rightarrow F$ is the limit cone, then the topology on $\lim F$ is that with subbasis given by sets of the form $\eta_j^{-1}(U)$ where $j\in\cJ$ and $U\sseq F_j$ is open. Similarly, the colimit of $F$ is obtained by taking the colimit $\colim F$ in the category of sets and endowing it with the \textit{final topology}, where a set $U\sseq\colim F$ is open if and only if $\vare_j^{-1}(U)$ is open in $F_j$ for all $j\in\cJ$, where $\vare:F\Rightarrow\underline{\colim F}$ is the colimit cone (equivalently, a set $C\sseq\colim F$ is closed if and only if $\vare_j^{-1}(C)$ is closed in $F_j$ for all $j\in\cJ$).
+
+% Source: https://ncatlab.org/nlab/show/locally+compact+topological+space, Munkres
+Given a space $X$, we construct a functor $(-)^X:\Top\to\Top$ as follows: Given a space $Y$, define $Y^X$ to be the space whose underlying set is the set $\Top(X,Y)$ of continuous maps $X\to Y$, and the topology on $Y^X$ is the \textit{compact-open topology}, i.e., the topology with subbasis given by the sets of the form 
+\[S(K,U):=\{f\in\Top(X,Y):f(K)\sseq U\}\]
+for $K\sseq X$ compact and $U\sseq Z$ open. Given a continuous map $f:Y\to Z$, define the induced map $f_*:Y^X\to Z^X$ by $f_*(g):=f\circ g$. Unravelling definitions, we have that given $f:Y\to Z$ continuous, $f_*^{-1}(S(K,U))=S(K,f^{-1}(U))$ for all $K\sseq X$ compact and $U\sseq Z$ open, so that $f_*$ is continuous. Furthermore, $(-)^X$ is clearly functorial, by associativity and unitality of function composition.
+
+Given a topological space $X$, we say that $X$ is \textit{locally compact} if for all points $x\in X$ and open neighborhoods $U$ of $x$, there exists an open set $V\sseq X$ with $x\in V$, $\ol V\sseq U$, and $\ol V$ compact. We claim that $(-)^X$ is right adjoint to $-\times X$ when $X$ is locally compact and Hausdorff. 
+
+%First, we will prove the following Lemma:
+%
+%% sources: https://proofwiki.org/wiki/Equivalence_of_Definitions_of_Locally_Compact_Hausdorff_Space, https://math.stackexchange.com/a/1329871/930175
+%\begin{lemma}
+  %Let $X$ be a locally compact Hausdorff space. Then given a point $x\in X$ and an open set $U\sseq X$ containing $x$, there exists an open set $V\sseq X$ with $x\in V\sseq\ol V\sseq U$ with $\ol V$ compact.
+%\end{lemma}
+%\begin{proof}
+  %Since $X$ is locally compact, there exists an open set $W\sseq X$ and a compact set $K\sseq X$ such that $x\in W\sseq K$. Then $U\cap K$ is open in $K$ by definition of the subspace topology, so that $K\setminus U$ is closed in $K$. Note furthermore that $K$ is Hausdorff, as given $a,b\in K$ not equal, since $X$ is Hausdorff there exist disjoint open neighborhoods $U_a,U_b\sseq X$ of $a$ and $b$, respectively, and $U_a\cap K$ and $U_b\cap K$ are disjoint open neighborhoods of $a$ and $b$ in $K$, as desired. Let $y\in U\cap K$. Then for each $z\in K\setminus U$, there exist disjoint open subsets $U_z,V_y\sseq K$ with $z\in U_z$ and $y\in V_y$. Let $\cF:=\{U_z:z\in K\setminus U\}$.
+%\end{proof}
+
+\begin{proposition}\label{locally_compact_hausdorff_spaces_are_exponentiable}
+  If $X$ is a locally compact Hausdorff space, then functor $-\times X$ is left adjoint to $(-)^X$ (so that in particular $-\times X$ preserves colimits).
+\end{proposition}
+\begin{proof}
+  We start by constructing the counit and unit of the adjunction. Given a space $Z$, define the counit $\vare_Z:X\times Z^X\to Z$ to be the evaluation function, taking a pair $(x,f)\mapsto f(x)$. First, we claim $\vare_Z$ is continuous. Suppose we are given an open set $V\sseq Z$ and a point $(x,f)\in \vare_Z^{-1}(V)$ (so $f(x)\in V$). Since $f$ is continuous and $X$ is locally compact, there exists an open set $U\sseq X$ containing $x$ such that $x\in U\sseq\ol U\sseq f^{-1}(V)$ with $\ol U$ compact. Then consider the open set $U\times S(\ol U,V)$ in $X\times Y^X$. First of all, $(x,f)\in U\times S(\ol U,V)$, as $x\in U$ and $\ol U\sseq f^{-1}(V)$, so that $f(\ol U)\sseq V$ meaning $f\in S(\ol U,V)$. Furthermore, given $(y,g)\in U\times S(\ol U,V)$, we have $\vare_Z(y,g)=g(y)\in g(U)\sseq g(\ol U)\sseq V$, so $U\times S(\ol U,V)$ is an open neighborhood of $x$ contained in $\vare_Z^{-1}(V)$, as desired. Hence, $\vare_Z$ is continuous. It remains to show naturality. Given a map $f:Z\to W$, we wish to show the following diagram commutes:
+  \[\begin{tikzcd}
+    {X\times Z^X} & Z \\
+    {X\times W^X} & W
+    \arrow["{\vare_Z}", from=1-1, to=1-2]
+    \arrow["{\id_X\times f_*}"', from=1-1, to=2-1]
+    \arrow["{\vare_W}", from=2-1, to=2-2]
+    \arrow["f", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  Indeed, chasing an element $(x,g)$ around the diagram yields:
+  \[\begin{tikzcd}
+    {(x,g)} & {g(x)} \\
+    {(x,f\circ g)} & {f(g(x))}
+    \arrow[maps to, from=1-1, to=1-2]
+    \arrow[maps to, from=1-2, to=2-2]
+    \arrow[maps to, from=1-1, to=2-1]
+    \arrow[maps to, from=2-1, to=2-2]
+  \end{tikzcd}\]
+  so it does indeed commute.
+
+  Now we wish to define the unit $\eta_Y:Y\to(Y\times X)^X$. Given $y\in Y$, define $\eta_Y(y)\in (Y\times X)^X$ by $\eta_Y(y)(x):=(y,x)$. First of all, for it to be true that $\eta_Y(y)\in(X\times Y)^X$, it must be true that $\eta_Y(y)$ is continuous. Indeed, this is clear as $\eta_Y$ is obtained as the product map $y\times\id_X:X\to Y\times X$, where $y$ represents the constant function on $y$ (which is obviously continuous). Furthermore, $\eta_Y$ itself is continuous: given $K\sseq X$ compact and $U\sseq Y\times X$ open, we wish to show that $\eta_Y^{-1}(S(K,U))$ is open in $Y$. It suffices to show that given $y\in\eta_Y^{-1}(S(K,U))$, there exists an open neighborhood $W$ of $y$ that is mapped by $\eta_Y$ into $S(K,U)$. Since $y\in\eta_Y^{-1}(S(K,U))$, $\eta_Y(y)(K)=\{y\}\times K\sseq U$. Then $U\cap (Y\times K)$ is an open set in the subspace $Y\times K$ containing the slice $\{y\}\times K$. By definition of the product topology, for each $k\in K$, there exist open sets $W_k\sseq Y$ and $V_k\sseq K$ such that $(y,k)\in W_k\times V_k\sseq U\cap(Y\times K)$. Then the $V_k$'s form an open cover of $K$, which is compact, so that there exist $k_1,\ldots,k_n\in K$ with $V_{k_1}\cup\cdots\cup V_{k_n}=K$. Hence if we define $W:=W_{k_1}\cap\cdots\cap W_{k_n}$, then $\{y\}\times K\sseq W\times K\sseq U\cap(Y\times K)$, and $W$ is open in $Y$ as it is a finite intersection of open sets. Then for all $w\in W$, $\eta_Y(w)(K)=\{w\}\times K\sseq W\times K\sseq U$. Hence, indeed $\eta_Y$ is continuous. It remains to show naturality. Given a map $f:Y\to W$, we wish to show the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJZIl0sWzAsMSwiVyJdLFsxLDEsIihXXFx0aW1lcyBYKV5YIl0sWzEsMCwiKFlcXHRpbWVzICBYKV5YIl0sWzAsMSwiZiIsMl0sWzEsMiwiXFxldGFfVyJdLFswLDMsIlxcZXRhX1kiXSxbMywyLCIoZlxcdGltZXNcXGlkX1gpXyoiXV0=
+  \[\begin{tikzcd}
+    Y & {(Y\times  X)^X} \\
+    W & {(W\times X)^X}
+    \arrow["f"', from=1-1, to=2-1]
+    \arrow["{\eta_W}", from=2-1, to=2-2]
+    \arrow["{\eta_Y}", from=1-1, to=1-2]
+    \arrow["{(f\times\id_X)_*}", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  Indeed, chasing an element $y$ around the top of the diagram yields the function obtained as the composition $x\mapsto (y,x)\mapsto f\times\id_X(y,x)=(f(y),x)$, while chasing around the bottom of the diagram more directly yields the function $x\mapsto (f(y),x)$.
+
+
+  Now that we have constructed the unit and counit, it remains to verify the counit-unit equations, i.e., that for each $Y\in\Top$ that $\vare_{Y\times X}\circ(\eta_Y\times\id_X)=\id_{Y\times X}$ and $(\vare_Y)_*\circ\eta_{Y^X}=\id_{Y^X}$. First of all, given $(y,x)\in Y\times X$, we have
+  \[(\vare_{Y\times X}\circ (\eta_Y\times\id_X))(y,x)=\vare_{X\times Y}(\eta_Y(y),x)=\eta_Y(y)(x)=(y,x).\]
+  On the other hand, given $f\in Y^X$, we have
+  \[(\vare_Y)_*(\eta_{Y^X}(f))=(\vare_Y)_*([x\mapsto (f,x)])=[x\mapsto (f,x)\mapsto\vare_Y(f,x)=f(x)]=f.\]
+  Hence, indeed $\vare$ and $\eta$ form the counit and unit for the adjoint pair $(-\times X,(-)^X)$.
+\end{proof}
+
+Now that we have gotten some topological preliminaries out of the way, we are ready to define the model structure.
+
+\begin{definition}
+  A map $f:X\to Y$ in $\Top$ is called a \textit{weak equivalence} if
+  \[\pi_n(f,x):\pi_n(X,x)\to\pi_n(Y,f(x))\]
+  is an isomorphism for all $n\geq0$ and for all $x\in X$. We will write $\cW$ to refer to the class of all weak equivalences in $\Top$.
+
+  Define the set of maps $I'$ to consist of all the boundary inclusion $S^{n-1}\into D^n$ for all $n\geq0$, and define the set $J$ to consist of all the inclusions $D^n\into D^n\times I$ mapping $x\mapsto(x,0)$ for $n\geq0$. Then a map $f$ will be called a \textit{cofibration} if it is in $I'\cof={\p( I'\p )}$, and a \textit{fibration} if it is in $J\inj=J\p$.
+
+  A map in $I'\cell$ is usually called a \textit{relative cell complex}; a relative CW-complex is a special case of a relative cell complex, where, in particular, the cells can be attached in order of their dimension. Note that in particular maps of $J$ are relative CW complexes, hence are relative $I'$-cell complexes. 
+  %Thus $J\cof\sseq I'\cof$.
+  A fibration is often known as a \textit{Serre fibration} in the literature.
+\end{definition}
+
+\begin{theorem}[Hovey Theorem 2.4.19]\label{2.4.19}
+  There is a finitely generated model structure on $\Top$ with $I'$ as the set of generating cofibrations, $J$ as the set of generating trivial cofibrations, and the cofibrations, fibrations, and weak equivalences as above. Every object of $\Top$ is fibrant, and the cofibrant objects are retracts of relative cell complexes.
+\end{theorem}
+\begin{proof}
+  We will apply \autoref{2.1.19} to get that there is a cofibrantly generated model structure on $\Top$ with $I'$ as the set of generating cofibrations, $J$ as the set of generating trivial fibrations, and $\cW$ as the subcategory of weak equivalences. The six requirements outlined in the theorem will be verified like so:
+  \begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
+    \item $\cW$ is a subcategory of $\cC$ which has the 2-of-3 property and is closed under retracts: \autoref{2.4.4}.
+    \item The domains of $I'$ are small relative to $I'\cell$: \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}.
+    \item The domains of $J$ are small relative to $J\cell$: \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}.
+    \item $J\cell\sseq\cW\cap {\p( I'\p )}$: In \autoref{2.4.9}, we will show ${\p({J}\p)}\sseq\cW\cap {\p( I'\p )}$, and by \autoref{2.1.10} $J\cell\sseq {\p({J}\p)}$.
+    \item $ I'\p \sseq\cW\cap J\p$: \autoref{2.4.10}
+    \item $\cW\cap J\p\sseq  I'\p $: \autoref{2.4.12}
+  \end{enumerate}
+  It will follow by the definition of a cofibrantly generated model structure (\autoref{2.1.17}) that the fibrations in this model structure are given by $J\p$, which is precisely how we defined it. By \autoref{2.1.18}, the class of cofibrations will be given by ${\p( I'\p )}$, which is likewise exactly how we defined them.
+
+  In \autoref{2.4.2}, we will show that compact spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions. Hence, this model structure will be finitely generated, as the domains and codomains of $I'$ and $J$ are all compact, and by the reasoning given above we will have shown $I'\cell\sseq\cT$.
+  
+  We will show that every object of $\Top$ is fibrant in \autoref{2.4.14}. 
+\end{proof}
+
+\begin{lemma}\label{lambda_sequence_of_inclusions_makes_everything_an_inclusion}
+  Let $\lambda$ be an ordinal, and $X$ a $\lambda$-sequence in $\Top$. 
+  Then:
+  \begin{enumerate}[label=(\roman*)]
+    \item If $X$ is a $\lambda$-sequence of injections, then $X_\alpha\to X_\beta$ is an injective for all $\alpha\leq\beta<\lambda$.
+    \item If $X$ is a $\lambda$-sequence of inclusions, then the map $X_\alpha\to X_\beta$ is an inclusion for all $\alpha\leq\beta<\lambda$.
+    \item If $X$ is a $\lambda$-sequence of closed $T_1$ inclusions, then the map $X_\alpha\to X_\beta$ is a closed $T_1$ inclusion for all $\alpha\leq\beta<\lambda$.
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  In what follows, given $\alpha\leq\beta<\lambda$, let $\iota_{\alpha,\beta}$ denote the map $X_\alpha\to X_\beta$.
+  \begin{enumerate}[label=(\roman*),listparindent=\parindent,parsep=0pt]
+    \item Let $\alpha<\lambda$. We perform a proof by transfinite induction on $\beta$ for $\alpha\leq\beta<\lambda$ that $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ is injective. For the zero case, clearly $\iota_{\alpha,\alpha}=\id_{X_\alpha}$ is injective. Supposing $\iota_{\alpha,\beta}$ is injective for some $\alpha<\beta+1<\lambda$, we have $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ is a composition of injections, and is therefore clearly injective itself. Finally, suppose $\gamma$ is a limit ordinal with $\alpha\leq\gamma<\lambda$ such that $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\gamma$. We claim $\iota_{\alpha,\gamma}$ is injective. Since $X_\gamma$ is colimit preserving and $\gamma$ is a limit ordinal, $X_\gamma$ is the colimit of the diagram $\{X_\beta\}_{\beta<\gamma}$ via the maps $\iota_{\beta,\gamma}$, so that in particular by \autoref{explicit_description_of_(co)limit_in_set} and the fact that the forgetful functor $\Top\to\Set$ preserves colimits, given $a,b\in X_\alpha$ with $\iota_{\alpha,\gamma}(a)=\iota_{\alpha,\gamma}(b)$, there exists some $\beta<\gamma$ with $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$, and $\iota_{\alpha,\beta}$ is injective for all $\beta<\gamma$, so it must have been true $a=b$ in $X_\alpha$. 
+    \item By part(i), we know that $\iota_{\alpha,\beta}$ is injective for $\alpha\leq\beta<\lambda$. Thus it suffices to prove the following statement: For all $\alpha<\lambda$ and $U\sseq X_\alpha$, for all $\alpha\leq\beta<\lambda$, there exists $U_\beta\sseq X_\beta$ with $U_\alpha=U$ such that for all $\alpha\leq\beta'\leq\beta<\lambda$, $\iota_{\beta',\beta}^{-1}(U_\beta)=U_{\beta'}$. We prove this by transfinite recursion on $\alpha\leq\beta<\lambda$.
+    
+    The zero case has been taken care of: $U_\alpha=U$. For the sucessor case, given $\alpha<\beta+1<\lambda$, supposing $U_\beta$ has been defined with the desired properties, since $\iota_{\beta,\beta+1}$ is an inclusion, there exists $U_{\beta+1}\sseq X_{\beta+1}$ with $\iota_{\beta,\beta+1}^{-1}(U_{\beta+1})=U_\beta$. Then given $\alpha\leq\beta'\leq\beta+1$, we have
+    \[\iota_{\beta',\beta+1}^{-1}(U_{\beta+1})=(\iota_{\beta,\beta+1}\circ\iota_{\beta',\beta})^{-1}(U_{\beta+1})=\iota_{\beta',\beta}^{-1}(\iota_{\beta,\beta+1}^{-1}(U_{\beta+1}))=\iota_{\beta',\beta}^{-1}(U_\beta)=U_{\beta'}.\]
+    Finally, the limit case. Suppose $\gamma$ is a limit ordinal with $\alpha<\gamma\leq\lambda$, and suppose $U_\beta$ has been constructed with the desired properties for $\alpha\leq\beta<\gamma$. We wish to define $U_\gamma$. Since $X$ is colimit preserving and $\gamma=\sup_{\alpha\leq\beta<\gamma}\beta$, the maps $\iota_{\beta,\gamma}$ for $\alpha\leq\beta<\gamma$ form a colimit cone for the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$. Let $S=\{0,1\}$ be the Sierpinski space whose open sets are $\{\emptyset,\{1\},\{0,1\}\}$. For $\alpha\leq\beta<\gamma$, define a map $s_\beta:X_\beta\to S$ mapping everything in $U_\beta$ to $1$ and every other point to $0$. Each $s_\beta$ is clearly continuous, as $s_\beta^{-1}(1)=U_\beta$. Furthermore, we claim the $s_\beta$'s form a cone under the diagram $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, i.e., that given $\alpha\leq\beta'\leq\beta<\gamma$, the following diagram commutes
+    \[\begin{tikzcd}
+      {X_{\beta'} } && {X_\beta} \\
+      & S
+      \arrow["{\iota_{\beta',\beta}}", from=1-1, to=1-3]
+      \arrow["{s_\beta}", from=1-3, to=2-2]
+      \arrow["{s_{\beta'}}"', from=1-1, to=2-2]
+    \end{tikzcd}\]
+    To see this, let $x\in X_{\beta'}$. If $x\in U_{\beta'}=\iota_{\beta',\beta}^{-1}(U_\beta)$, then $\iota_{\beta',\beta}(x)\in U_\beta$, so $s_\beta(\iota_{\beta',\beta}(x))=1=s_{\beta'}(x)$. Conversely, if $x\in X_{\beta'}\setminus U_{\beta'}=X_{\beta'}\setminus\iota^{-1}_{\beta',\beta}(U_\beta)$, then $x\notin \iota_{\beta',\beta}^{-1}(U_\beta)$, so $\iota_{\beta',\beta}(x)\notin U_{\beta}$, meaning $s_\beta(\iota_{\beta',\beta}(x))=0=s_{\beta'}(0)$. Hence, the $s_\beta$'s do indeed form a cone under $\{X_\beta\}_{\alpha\leq\beta<\gamma}$, so by universal property of the colimit there exists a unique map $\ell:X_\gamma\to S$ such that $s_\beta=\ell\circ\iota_{\beta,\gamma}$ for all $\alpha\leq\beta<\gamma$. Define $U_\gamma:=\ell^{-1}(1)$, which is open as $\{1\}$ is open in $S$. It remains to show that for all $\alpha\leq\beta\leq\gamma$ that $\iota_{\beta,\gamma}^{-1}(U_\gamma)=U_\beta$. Indeed, we have
+    \[\iota_{\beta,\gamma}^{-1}(U_\gamma)=\iota_{\beta,\gamma}^{-1}(\ell^{-1}(1))=(\ell\circ\iota_{\beta,\gamma})^{-1}(1)=s_\beta^{-1}(1)=U_\beta.\]
+    \item By part (ii), we know that $\iota_{\alpha,\beta}$ is an inclusion for $\alpha\leq\beta<\lambda$. Fix $\alpha<\lambda$. We perform transfinite induction on $\alpha\leq\beta<\lambda$ to show that $\iota_{\alpha,\beta}$ is a closed $T_1$ inclusion, assuming it is already an inclusion. For the zero case, clearly $\iota_{\alpha,\alpha}=\id_{X_\alpha}$ is closed, and vacuosuly very point in $X_\alpha\setminus\iota_{\alpha,\alpha}(X_\alpha)=\emptyset$ is a closed point. For the successor case, supposing $\iota_{\alpha,\beta}:X_\alpha\to X_\beta$ is a closed $T_1$ inclusion, we wish to show that $\iota_{\alpha,\beta+1}:X_\alpha\to X_{\beta+1}$ is a closed $T_1$ inclusion. Since $\iota_{\alpha,\beta+1}=\iota_{\beta,\beta+1}\circ\iota_{\alpha,\beta}$ is a composition of closed $T_1$ inclusions, it is clearly closed. It remains to show that every point in $X_{\beta+1}\setminus\iota_{\alpha,\beta+1}(X_\alpha)$ is closed in $X_{\beta+1}$. Indeed, let $x\in X_{\beta+1}\setminus\iota_{\alpha,\beta+1}(X_\alpha)$. First, if $x\in X_{\beta+1}\setminus\iota_{\beta,\beta+1}(X_\beta)$, we are done, as $\iota_{\beta,\beta+1}$ is a closed $T_1$ inclusion. Hence, we may assume that $x\in\iota_{\beta,\beta+1}(X_\beta)$, so there exists some $y\in X_\beta$ such that $\iota_{\beta,\beta+1}(y)=x$. Since $\iota_{\beta,\beta+1}$ is closed, in order to show $x$ is a closed point in $X_{\beta+1}$, it suffices to show that $y$ is a closed point in $X_\beta$. Since $\iota_{\alpha,\beta}$ is a closed $T_1$ inclusion, it further suffices to show that $y$ is not in the image of $\iota_{\alpha,\beta}$. Suppose for the sake of a contradiction that there existed $z\in X_\alpha$ with $\iota_{\alpha,\beta}(z)=y$. Then we would have
+    \[\iota_{\alpha,\beta+1}(z)=\iota_{\beta,\beta+1}(\iota_{\alpha,\beta}(z))=\iota_{\beta,\beta+1}(y)=x,\]
+    a contradiction of the fact that $x\in X_{\beta+1}\setminus\iota_{\alpha,\beta+1}(X_\alpha)$. Hence, it must have been true that $y$ is not in the image of $\iota_{\alpha,\beta}$ in the first place, the desired result. Finally, the limit case. Suppose $\gamma$ is a limit ordinal with $\alpha<\gamma\leq\lambda$ such that $\iota_{\alpha,\beta}$ is a closed $T_1$ inclusion for all $\alpha\leq\beta<\gamma$. Then we wish to show $\iota_{\alpha,\gamma}$ is a closed $T_1$ inclusion.
+
+    First, we show $\iota_{\alpha,\gamma}$ is closed. Let $C\sseq X_\alpha$ be closed. Since $\gamma=\sup_{\alpha\leq\beta<\gamma}\beta$ and $X$ is colimit-preserving, $X_\gamma$ is the colimit of the $X_\beta$'s for $\alpha\leq\beta<\gamma$ via the maps $\iota_{\beta,\gamma}$, and the topology on $X_\gamma$ is the final topology induced by these maps. Hence, in order to show $\iota_{\alpha,\gamma}(C)$ is closed in $X_\gamma$, it suffices to show that $\iota_{\beta,\gamma}^{-1}(\iota_{\alpha,\gamma}(C))$ is closed in $X_\beta$ for all $\alpha\leq\beta<\gamma$. It further suffices to show that $\iota_{\beta,\gamma}^{-1}(\iota_{\alpha,\gamma}(C))=\iota_{\alpha,\beta}(C)$, as $\iota_{\alpha,\beta}$ is closed. First, suppose $x\in\iota_{\beta,\gamma}^{-1}(\iota_{\alpha,\gamma}(C))$, so $\iota_{\beta,\gamma}(x)=\iota_{\alpha,\gamma}(c)$ for some $c\in C$. Then since the forgetful functor $\Top\to\Set$ preserves colimits, by the explicit description of the colimit in $\Set$ (\autoref{explicit_description_of_(co)limit_in_set}), there exists $\mu$ with $\alpha,\beta\leq\mu<\gamma$ such that $\iota_{\beta,\mu}(x)=\iota_{\alpha,\mu}(c)$. But $\iota_{\alpha,\mu}=\iota_{\beta,\mu}\circ\iota_{\alpha,\beta}$, and $\iota_{\beta,\mu}$ is injective (by (i)) so $x=\iota_{\alpha,\beta}(c)$, meaning $x\in\iota_{\alpha,\beta}(C)$, as desired. Conversely, suppose we are given $c\in C$, then we wish to show $\iota_{\alpha,\beta}(c)\in\iota_{\beta,\gamma}^{-1}(\iota_{\alpha,\gamma}(C))$, i.e., that $\iota_{\beta,\gamma}(\iota_{\alpha,\beta}(c))\in\iota_{\alpha,\gamma(C)}$. This follows immediately as $\iota_{\beta,\gamma}\circ\iota_{\alpha,\beta}=\iota_{\alpha,\gamma}$.
+
+    Lastly, we show that for all $x\in X_\gamma\setminus\iota_{\alpha,\gamma}(X_\alpha)$ that $x$ is a closed point in $X_\gamma$. Again by the description of the colimit in $\Set$ (\autoref{explicit_description_of_(co)limit_in_set}), the fact that the forgetful functor $\Top\to\Set$ preserves colimits, and that $X$ preserves colimits, we know that every point in $X_\gamma$ is in the image of some $\iota_{\beta,\gamma}$ for some $\alpha\leq\beta<\gamma$. Hence, there exists some $\alpha<\beta<\gamma$ and a point $y\in X_\beta$ with $\iota_{\beta,\gamma}(y)=x$. By the preceeding paragraph, $\iota_{\beta,\gamma}$ is closed, so in order to show $x$ is a closed point in $X_\gamma$ it suffices to show that $y$ is a closed point in $X_\beta$. It further suffices to show that $y\in X_\beta\setminus\iota_{\alpha,\beta}(X_\alpha)$, as $\iota_{\alpha,\beta}$ is a closed $T_1$ inclusion. Suppose for the sake of a contradiction that there existed some $z\in X_\alpha$ such that $\iota_{\alpha,\beta}(z)=y$. Then we would have
+    \[\iota_{\alpha,\gamma}(z)=\iota_{\beta,\gamma}(\iota_{\alpha,\beta}(z))=\iota_{\beta,\gamma}(y)=x,\] 
+    a contradiction of the fact that $x\in X_\gamma\setminus\iota_{\alpha,\gamma}(X_\alpha)$. Hence, $y$ must not have been in the image of $\iota_{\alpha,\beta}$ in the first place, as desired.
+    \qedhere
+  \end{enumerate}
+\end{proof}
+
+This result, by \autoref{condition_for_family_of_arrows_to_be_closed_under_transfinite_composition} and \autoref{stronger_characterization_of_closure_under_transfinite_composition}, gives the following corollaries:
+
+\begin{corollary}\label{inclusions_closed_under_transfinite_composition}
+  The class of injective maps (resp.\ inclusions, closed $T_1$ inclusions) in $\Top$ is closed under transfinite composition.
+\end{corollary}
+
+\begin{corollary}\label{colimit_legs_of_lambda_sequence_of_inclusions_are_inclusions}
+  Let $\lambda$ be an ordinal, and $X$ be a $\lambda$-sequence in $\Top$. 
+  Then:
+  \begin{enumerate}[label=(\roman*),noitemsep]
+    \item If $X$ is a $\lambda$-sequence of injections, then the canonical map $X_\alpha\to\colim X$ is an injection for all $\alpha<\lambda$.
+    \item If $X$ is a $\lambda$-sequence of inclusions, then the canonical map $X_\alpha\to\colim X$ is an inclusion for all $\alpha<\lambda$.
+    \item If $X$ is a $\lambda$-sequence of closed $T_1$ inclusions, then the canonical map $X_\alpha\to\colim X$ is a closed $T_1$ inclusion for all $\alpha<\lambda$.
+  \end{enumerate} 
+\end{corollary}
+
+%\begin{proof}
+  %\begin{enumerate}[label=(\roman*),listparindent=\parindent,parsep=0pt]
+    %\item Suppose we are given $\alpha<\lambda$ and $a,b\in X_\alpha$ with $j_\alpha(a)=j_\alpha(b)$. Then by the fact that the forgetful functor $\Top\to\Set$ preserves colimits and \autoref{explicit_description_of_(co)limit_in_set}, there exists $\beta\geq\alpha$ such that $\iota_{\alpha,\beta}(a)=\iota_{\alpha,\beta}(b)$. But $\iota_{\alpha,\beta}$ is injective for all $\alpha\leq\beta<\lambda$ by \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}(i), so it must have been true $a=b$ in the first place. 
+    %\item Suppose we are given $\alpha<\lambda$ and an open set $U\sseq X_\alpha$. We wish to show there exists $V\sseq\colim X$ open with $j_\alpha^{-1}(V)=U$. By \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}(ii), for each $\alpha\leq\beta<\lambda$, there exists $V_\beta\sseq X_\beta$ open with $\iota_{\alpha,\beta}^{-1}(V_\beta)=U$. Now, since $\lambda=\sup_{\alpha\leq\beta<\lambda}\beta$ and $X$ is colimit preserving, $X_\lambda$ is a colimit for the ``subdiagram'' $\{X_\beta\}_{\alpha\leq\beta<\lambda}$. Let $S=\{0,1\}$ be the Sierpinski space, whose open sets are $\{\emptyset,\{1\},\{0,1\}\}$. Then for $\alpha\leq\beta<\lambda$, define $s_\beta:X_\beta\to S$ mapping $V_\beta$ to $1$ and every point in $X_\beta\setminus V_\beta$ to $0$. As in the proof of \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}(ii), by the universal property of the colimit, the $s_\beta$'s induce a (continuous) map $\ell:\colim X\to S$ such that $s_\beta=\ell\circ j_\beta$ for all $\alpha\leq\beta<\lambda$. Then define $V:=\ell^{-1}(1)$, which is open as $\{1\}$ is open in $S$. Then in particular,
+    %\[j_\alpha^{-1}(V)=j_\alpha^{-1}(\ell^{-1}(1))=(\ell\circ j_\alpha)^{-1}(1)=s_\alpha^{-1}(1)=V_\alpha=U,\]
+    %\item\color{red}TODO.
+  %\end{enumerate}
+%
+  %In particular, if $X$ is a $\lambda$-sequence of inclusions, then we have shown that for all $\alpha<\lambda$, $j_\alpha:X_\alpha\to\colim X$ is injective, and for all $U\sseq X_\alpha$ open, there exists $V\sseq\colim X$ open with $j_\alpha^{-1}(V)=U$. Thus, $j_\alpha$ is an inclusion.
+%\end{proof}
+
+\begin{lemma}[Hovey 2.4.1]\label{2.4.1}
+  Every topological space is small relative to the inclusions.
+\end{lemma}
+\begin{proof}
+  We claim that every topological space $A$ is $|A|$-small relative to the inclusions. We use the characterization of smallness afforded by \autoref{nicer_description_of_smallness_conditions}. Let $\lambda$ be an $|A|$-filtered ordinal, and let $X:\lambda\to\Top$ be a $\lambda$-sequence so that $X_\beta\to X_{\beta+1}$ is an inclusion for all $\beta+1<\lambda$. Recall that the forgetful functor $\Top\to\Set$ is forgetful, so elements of $\colim X$ are equivalence classes of elements $a\in X_\alpha$ for $\alpha<\lambda$, where $a\in X_\alpha$ and $b\in X_\beta$ represent the same equivalence class iff there exists $\alpha,\beta\leq\gamma<\lambda$ so that $a$ and $b$ are sent to the same element by the maps $X_\alpha\to X_\gamma$ and $X_\beta\to X_\gamma$, respectively.
+
+  First, suppose $f:A\to X_\alpha$ and $g:A\to X_\beta$ are continuous maps such that the compositions $A\xrightarrow fX_\alpha\to\colim X$ and $A\xrightarrow gX_\beta\to \colim X$ are equal. Then the same proof given in \autoref{2.1.5} works to show that $f$ and $g$ are equal in some stage of the colimit, as desired.
+
+  Conversely, suppose we are given a (continuous) map $f:A\to\colim X$. As in the proof of \autoref{2.1.5}, we may find some $\beta<\lambda$ and a map of sets $\wt f:A\to X_\beta$ such that the composition $A\xrightarrow{\wt f}X_\beta\xrightarrow j\colim X$ is equal to $f$ (note we have given the canonical map $X_\beta\to\colim X$ the name $j$). It remains to show that $\wt f$ is continuous. Let $U\sseq X_\beta$ be open. Since $j$ is an inclusion (\autoref{colimit_legs_of_lambda_sequence_of_inclusions_are_inclusions}), there exists $V\sseq\colim X_\beta$ open such that $j^{-1}(V)=U$. Then ${\wt f}^{-1}(U)=\wt f^{-1}(j^{-1}(V))=(j\circ\wt f)^{-1}(V)=f^{-1}(V)$, and $f$ is continuous, so $\wt f^{-1}(U)=f^{-1}(V)$ is open. Thus $\wt f$ is continuous, as desired.
+\end{proof}
+
+\begin{proposition}[Hovey 2.4.2]\label{2.4.2}
+  Compact topological spaces are finite relative to the class $\cT$ of closed $T_1$ inclusions.
+\end{proposition}
+\begin{proof}
+  We use the characterization of smallness afforded by \autoref{nicer_description_of_smallness_conditions}. Let $\lambda$ be a limit ordinal, and let $X:\lambda\to\Top$ be a $\lambda$-sequence so that $X_\beta\to X_{\beta+1}$ is a closed $T_1$ inclusion for all $\beta+1<\lambda$. Let $j:X\Rightarrow\ul{\colim X}$ is a colimit cone for $X$. Recall that the forgetful functor $\Top\to\Set$ is forgetful, so by \autoref{explicit_description_of_(co)limit_in_set} elements of $\colim X$ are equivalence classes of elements $a\in X_\alpha$ for $\alpha<\lambda$, where $a\in X_\alpha$ and $b\in X_\beta$ represent the same equivalence class iff there exists $\alpha,\beta\leq\gamma<\lambda$ so that $a$ and $b$ are sent to the same element by the maps $X_\alpha\to X_\gamma$ and $X_\beta\to X_\gamma$, respectively.
+
+  First, we show condition (i) of \autoref{nicer_description_of_smallness_conditions}. Let $j:X\Rightarrow\ul{\colim X}$ be a colimt cone for $X$, and suppose we are given maps $f:A\to X_\alpha$ and $g:A\to X_\beta$ such that $j_\alpha\circ f=j_\beta\circ g$. WLOG, suppose $\alpha\leq\beta$. Then
+  \[j_\beta\circ\iota_{\alpha,\beta}\circ f=j_\alpha\circ f=j_{\beta}\circ g,\]
+  and $j_\beta$ is injective (\autoref{colimit_legs_of_lambda_sequence_of_inclusions_are_inclusions}) and therefore a monomorphism in $\Top$, so $\iota_{\alpha,\beta}\circ f=g$, meaning $f$ and $g$ do indeed agree in some stage of the colimit, as desired.
+
+  Now we show condition (ii) of \autoref{nicer_description_of_smallness_conditions}. Let $f:A\to\colim X$ be a continuous map. In order to show $f$ factors through some $X_\alpha$, we first claim it is sufficient for there to be some $\alpha<\lambda$ with $f(A)\sseq j_\alpha(X_\alpha)$. Given an ordinal $\alpha<\lambda$, for each $a\in A$, there exists $\wt f(a)\in X_\alpha$ such that $j_\alpha(\wt f(a))=f(a)$. Thus we have defined a function $\wt f:A\to X_\alpha$ such that $j_\alpha\circ\wt f=f$. It remains to show that $\wt f$ is continuous. Indeed, we know $j_\alpha$ is an inclusion (\autoref{colimit_legs_of_lambda_sequence_of_inclusions_are_inclusions}), so given $U\sseq X_\alpha$ open, there exists $V\sseq\colim X$ open with $j_\alpha^{-1}(V)=U$, in which case
+  \[\wt f^{-1}(U)=\wt f^{-1}(j_\alpha^{-1}(V))=(j_\alpha\circ\wt f)^{-1}(V)=f^{-1}(V),\]
+  which is open as $f$ is continuous. Hence, $\wt f$ is continuous, as desired.
+
+  Now, suppose for the sake of a contradiction that for all $\alpha<\lambda$, $f(A)\not\sseq j_\alpha(X_\alpha)$. Thus we may construct a \textbf{strictly increasing} sequence $\{\alpha_n\}_{n=0}^\infty\sseq\lambda$ such that for $n>0$, there exists $x_n\in j_{\alpha_n}(X_{\alpha_n})\setminus j_{\alpha_{n-1}}(X_{\alpha_{n-1}})$ with $x_n\in f(A)$. Thus for each $n>0$, there exists $y_n\in X_{\alpha_n}$ such that $j_{\alpha_n}(y_n)=x_n$. Note in particular that given $0\leq m<n$, $y_n$ is not in the image of $\iota_{\alpha_m,\alpha_n}$. Suppose for the sake of a contradiction that $y_n=\iota_{\alpha_m,\alpha_n}(z)$ for some $z\in X_{\alpha_m}$ and $0\leq m<n$. Then we know $j_{\alpha_m}(z)=j_{\alpha_n}(\iota_{\alpha_m,\alpha_n}(z))=j_{\alpha_n}(y_n)=x_n$, and
+  \[x_n\in j_{\alpha_n}(X_{\alpha_n})\setminus j_{\alpha_{n-1}}(X_{\alpha_{n-1}})\spseq j_{\alpha_n}(X_{\alpha_n})\setminus j_{\alpha_{n-1}}(\iota_{\alpha_m,\alpha_{n-1}}(X_{\alpha_m}))=j_{\alpha_n}(X_{\alpha_n})\setminus j_{\alpha_{m}}(X_{\alpha_m}).\]
+  Hence we reach a contradiction, as $j_{\alpha_m}(z)=x_m$ but $x_n$ is not in the image of $j_{\alpha_m}$. Let $\mu:=\sup_{n=1}^\infty\alpha_n$. Clearly $\mu\leq\lambda$; if $\mu=\lambda$, define $X_\mu:=\colim X$, $j_\mu:=\id_{X_\mu}$, and for $\alpha<\lambda$ define $\iota_{\alpha,\mu}:=j_\alpha$. Let $K:=\{\iota_{\alpha_n,\mu}(y_n)\}_{n=1}^\infty\sseq X_\mu$. We claim every subset of $K$ is closed in $X_\mu$. Since $X$ is colimit preserving and $\mu=\sup_{n=1}^\infty\alpha_n$, the topology on $X_\mu$ is the final topology induced by the maps $\iota_{\alpha_n,\mu}:X_{\alpha_n}\to X_\mu$ for $n=1,2,\ldots$. Thus, given a subset $C\sseq K$, in order to show that $C$ is closed in $X_\mu$, it is sufficient (and necessary) for $\iota_{\alpha_n,\mu}^{-1}(C)$ to be closed in $X_{\alpha_n}$ for $n=1,2,\ldots$. Let $n>0$. Given $y\in\iota_{\alpha_n,\mu}^{-1}(C)$, then $\iota_{\alpha_n,\mu}(y)\in C\sseq K$, so that in particular $\iota_{\alpha_n,\mu}(y)=\iota_{\alpha_m,\mu}(y_m)$ for some $m=1,2,\ldots$. We claim $m\leq n$. Suppose for the sake of a contradiction that $m>n$, then we would have 
+  \[\iota_{\alpha_m,\mu}(y_m)=\iota_{\alpha_n,\mu}(y)=\iota_{\alpha_m,\mu}(\iota_{\alpha_n,\alpha_m}(y)),\]
+  and $\iota_{\alpha_m,\mu}$ is injective (by either \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion} if $\mu<\lambda$ or by \autoref{colimit_legs_of_lambda_sequence_of_inclusions_are_inclusions} if $\mu=\lambda$, in which case recall we defined $\iota_{\alpha_m,\mu}=j_{\alpha_m}$), thus $y_m=\iota_{\alpha_n,\alpha_m}(y)$, meaning $y_m$ is in the image of $\iota_{\alpha_n,\alpha_m}$ for $m>n$, a contradiction, as we showed earlier this is impossible. Thus it must have been true that $m\leq n$ in the first place, so 
+  \[\iota_{\alpha_n,\mu}(y)\in\{\iota_{\alpha_m,\mu}(y_m)\}_{m=1}^n\implies y\in\iota_{\alpha_n,\mu}^{-1}(\{\iota_{\alpha_m,\mu}(y_m)\}_{m=1}^n).\]
+  We further claim $\iota_{\alpha_n,\mu}^{-1}(\{\iota_{\alpha_m,\mu}(y_m)\}_{m=1}^n)=\{\iota_{\alpha_m,\alpha_n}(y_m)\}_{m=1}^n$. To see the inclusion $\sseq$, suppose $z\in X_{\alpha_n}$ with $\iota_{\alpha_n,\mu}(z)=\iota_{\alpha_m,\mu}(y_m)$ for some $m\leq n$. Then $\iota_{\alpha_n,\mu}(z)=\iota_{\alpha_n,\mu}(\iota_{\alpha_m,\alpha_n}(y_m))$ and $\iota_{\alpha_n,\mu}$ is injective (\autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion} if $\mu<\lambda$ and \autoref{colimit_legs_of_lambda_sequence_of_inclusions_are_inclusions} if $\mu=\lambda$), so $z=\iota_{\alpha_m,\alpha_n}(y_m)$, as desired. To see the opposite inclusion, given $m\leq n$, we have $\iota_{\alpha_n,\mu}(\iota_{\alpha_m,\alpha_n}(y_m))=\iota_{\alpha_m,\mu}(y_m)$, so $\iota_{\alpha_m,\alpha_n}(y_m)\in \iota_{\alpha_n,\mu}^{-1}(\{\iota_{\alpha_m,\mu}(y_m)\}_{m=1}^n)$, as desired. Thus, we have shown $y\in\{\iota_{\alpha_m,\alpha_n}(y_m)\}_{m=1}^n$. Recall our choice of $y\in\iota_{\alpha_n,\mu}^{-1}(C)$ was arbitrary, so $\iota_{\alpha_n,\mu}^{-1}(C)$ is contained in $\{\iota_{\alpha_m,\alpha_n}(y_m)\}_{m=1}^n$. Thus, because $\{\iota_{\alpha_m,\alpha_n}(y_m)\}_{m=1}^n$ is finite, in order to show $\iota_{\alpha_n,\mu}^{-1}(C)$ is closed in $X_{\alpha_n}$, it suffices to show that $\iota_{\alpha_m,\alpha_n}(y_m)$ is a closed point in $X_{\alpha_n}$ for $m=1,\ldots,n$. As we have shown above, $y_m$ is not in the image of $\iota_{\alpha_0,\alpha_m}$ for any $m\geq1$, and $\iota_{\alpha_0,\alpha_m}$ is a closed $T_1$ inclusion (\autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}), so $y_m$ is a closed point of $X_{\alpha_m}$ for $m=1,\ldots,n$. Then since $\iota_{\alpha_m,\alpha_n}$ is closed (again by \autoref{lambda_sequence_of_inclusions_makes_everything_an_inclusion}), $\iota_{\alpha_m,\alpha_n}(y_m)$ is closed in $X_{\alpha_n}$ for $m=1,\ldots,n$, precisely the desired result.
+
+  Now, we have shown that every subset of $K$ is closed in $X_{\mu}$. Then $j_\mu:X_\mu\to\colim X$ is a closed and injective (this follows by \autoref{colimit_legs_of_lambda_sequence_of_inclusions_are_inclusions} if $\mu<\lambda$, and if $\mu=\lambda$, $X_\mu=\colim X$, in which case $j_\mu$ is the identity), so every subset of $S:=j_\mu(K)$ is closed in $\colim X$. Note that
+  \[S=\{j_\mu(\iota_{\alpha_n,\mu}(y_n))\}_{n=1}^\infty=\{j_{\alpha_n}(y_n)\}_{n=1}^\infty=\{x_n\}_{n=1}^\infty\sseq f(A),\]
+  Then for $n=1,2,\ldots$, define $U_n:=f(A)\setminus (S\setminus\{x_n\})$. Each $U_n$ is open in $f(A)$ (as $S\setminus\{x_n\}$ is a subset of $S$ and is therefore closed in $\colim X$, thus in $f(A)$), and the collection $\{U_n\}_{n=1}^\infty$ forms an infinite open cover of $f(A)$. Finally, this open cover has no finite subcover, as $U_n$ is the only element of the cover containing $x_n$ for $n=1,2,\ldots$. Hence we reach a contradiction, as $f$ is continuous and $A$ is compact, so $f(A)$ is compact, but we have found an infinite open cover of $f(A)$ which has no finite subcover. Thus, there must have existed soem $\alpha<\lambda$ with $f(A)\sseq j_\alpha(X_\alpha)$ in the first place, in which case, as we have shown, this implies $f$ factors through $X_\alpha$ via a continuous map, as desired.
+\end{proof}
+
+\begin{proposition}[Hovey 2.4.5 \& 2.4.6]\label{2.4.5-6}
+  The class of injective maps (resp.\ inclusions, closed $T_1$ inclusions) in $\Top$ is saturated.
+\end{proposition}
+\begin{proof}
+  We know these three classes are closed under transfinite compositions (\autoref{inclusions_closed_under_transfinite_composition}), so it suffices to show these classes are closed under pushouts and retracts. In what follows, fix a pushout diagram and a retract diagram of the following form: 
+  \[\begin{tikzcd}
+    A & C && A & B & A \\
+    B & D && C & D & C
+    \arrow["i"', from=1-1, to=2-1]
+    \arrow["g", from=2-1, to=2-2]
+    \arrow["f", from=1-1, to=1-2]
+    \arrow["j", from=1-2, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow["f"', from=1-4, to=1-5]
+    \arrow["g"', from=1-5, to=1-6]
+    \arrow["j"', from=1-4, to=2-4]
+    \arrow["h", from=2-4, to=2-5]
+    \arrow["k", from=2-5, to=2-6]
+    \arrow["i", from=1-5, to=2-5]
+    \arrow["j", from=1-6, to=2-6]
+    \arrow[curve={height=-18pt}, Rightarrow, no head, from=1-4, to=1-6]
+    \arrow[curve={height=18pt}, Rightarrow, no head, from=2-4, to=2-6]
+  \end{tikzcd}\]
+  \begin{enumerate}[label=(\roman*),listparindent=\parindent,parsep=0pt]
+    \item First, consider the pushout diagram, and suppose $i$ is injective. We wish to show $j$ is injective. Suppose for the sake of a contradiction there existed distinct points $c_1,c_2\in C$ such that $j(c_1)=j(c_2)$. Define $ h:C\to\{1,2,3\}$ mapping $c_1\mapsto 1$, $c_2\mapsto 2$, and every other point in $C$ maps to $3$. Define $k:B\to\{1,2,3\}$ to map every point in $i(f^{-1}(c_1))$ to $1$, every point in $i(f^{-1}(c_2))$ to $2$, and every other point to $3$. We may give $\{1,2,3\}$ the indiscrete topology so that $ h$ and $k$ are continuous. Then clearly $ h\circ f= k\circ i$, so there exists a map $\ell:D\to\{1,2,3\}$ such that $\ell\circ j= h$ and $\ell\circ g= k$. But we reach a contradiction, as $\ell(j(c_1))=\ell(j(c_2))$, but $ h(c_1)\neq h(c_2)$.
+    
+    Now, consider the retract diagram, and suppose $i$ is injective. We wish to show $j$ is injective. Suppose $a_1,a_2\in A$ such that $j(a_1)=j(a_2)$. Then $h(j(a_1))=h(j(a_2))$, and $h\circ j=i\circ f$, so $i(f(a_1))=i(f(a_2))$. Note that since $g\circ f=\id_A$, necessarily $f$ is injective, and we are assuming $i$ is injective, so $i(f(a_1))=i(f(a_2))\implies a_1=a_2$.
+    \item First, consider the pushout diagram, and suppose $i$ is an inclusion. We wish to show $j$ is an inclusion. We know $j$ is injective by (i). It remains to show that given $U\sseq C$ open, there exists $V\sseq D$ open with $j^{-1}(V)=U$. Given $U\sseq C$ open, $f^{-1}(U)$ is open in $A$ as $f$ is continuous, and $i$ is an inclusion, so there exists $W\sseq B$ open with $i^{-1}(W)=f^{-1}(U)$. Now let $S=\{0,1\}$ be the Sierpinski space with open sets $\{\emptyset,\{1\},\{0,1\}\}$. Define $ h:C\to S$ to map every point of $U$ to $1$, and every other point to $0$. Define $ k:B\to S$ to map every point of $W$ to $1$, and every other point to $0$. Clearly $ h$ and $ k$ are continuous. We claim $ h\circ f= k\circ i$. Indeed, let $a\in A$. If $a\in f^{-1}(U)$, then $ h(f(a))=1$, as $f(a)\in U$, while $ k(i(a))=1$, as $a\in U=i^{-1}(W)$, so $i(a)\in W$. Conversely, if $a\notin f^{-1}(U)$, then $ h(f(a))=0$ as $f(a)\notin U$, while $ k(i(a))=0$, as $a\notin i^{-1}(W)$ meaning $i(a)\notin W$. Hence, there exists a (unique) continuous map $\ell:D\to S$ with $\ell\circ j=h$ and $\ell\circ g=k$. Define $V:=\ell^{-1}(1)$, which is open in $D$ as $\{1\}$ is open in $S$. Then finally, we claim $j^{-1}(V)=U$. Indeed,
+    \[j^{-1}(V)=j^{-1}(\ell^{-1}(1))=(\ell\circ j)^{-1}(1)=h^{-1}(1)=U.\]
+    Thus $j$ is an inclusion, as desired.
+    
+    Now, consider the retract diagram, and suppose $i$ is an inclusion. We wish to show $j$ is an inclusion. We know $j$ is injective by (i). It remains to show that given $U\sseq A$ open, there exists $V\sseq C$ open with $j^{-1}(V)=U$. Then since $g$ is continuous, $g^{-1}(U)$ is open in $B$, and $i$ is an inclusion, so there exists $W\sseq D$ open with $i^{-1}(W)=g^{-1}(U)$. Then 
+    \[j^{-1}(h^{-1}(W))=(h\circ j)^{-1}(W)=(i\circ f)^{-1}(W)= f^{-1}(i^{-1}(W))= f^{-1}(g^{-1}(U))=(g\circ f)^{-1}(U)=U,\]
+    and $h^{-1}(W)$ is open as $h$ is continuous and $W$ is open, so we are done, as if we set $V:=h^{-1}(W)$, then we have shown $V$ is open in $C$ and $j^{-1}(V)=U$, as desired.
+
+    \item First, consider the pushout diagram, and suppose $i$ is a closed $T_1$ inclusion. We wish to show $j$ is a closed $T_1$ inclusion. We know $j$ is an inclusion by (ii). It remains to show $j$ is closed, and every point of $D\setminus j(C)$ is closed in $D$. First, we show closedness. Let $V\sseq C$ be a closed set, we want to show $j(C)$ is closed in $D$. By definition of the colimit topology on $D$ (which is the final topology on $D$ induced by $j$ and $g$ by the discussion at the beginning of this chapter), in order to show $j(V)$ is closed in $D$ it suffices to show that $j^{-1}(j(V))$ is closed in $C$ and $g^{-1}(j(V))$ is closed in $B$. Since $j$ is injective by (i), $j^{-1}(j(V))=V$, which we have defined to be closed in $A$. Now, to show $g^{-1}(j(V))$ is closed, since $i$ is a closed map and $f$ is continuous, it suffices to show $i(f^{-1}(V))=g^{-1}(j(V))$. First of all, let $b\in i(f^{-1}(V))$, then $b=i(a)$ for some $a\in A$ with $f(a)\in V$. Then $g(b)=g(i(a))=j(f(a))\in j(V)$, so $b\in g^{-1}(j(V))$. Conversely, let $b\in g^{-1}(j(V))$, so $g(b)=j(c)$ for some $c\in V$. Then by the explicit description of the colimit in $\Set$ and the fact that the forgetful functor $\Top\to\Set$ preserves colimits, there exists $a\in A$ such that $f(a)=c$ and $i(a)=b$. Then in particular, $f(a)=c\in V$, so $a\in f^{-1}(V)$, so $b\in i(f^{-1}(V))$ as desired. Hence, $j$ is indeed a closed map. It remains to show that for all $d\in D\setminus j(C)$, $d$ is a closed point in $D$. Given $d\in D\setminus j(C)$, by the explicit characterization of the colimit topology, it suffices to show that $j^{-1}(d)$ and $g^{-1}(d)$ are closed in $C$ and $B$, respectively. First of all, $j^{-1}(d)=\emptyset$, which is closed. Now, since $d$ is not in the image of $j$, $d$ is not in the image of $g\circ i=j\circ f$, so $g^{-1}(d)\sseq B\setminus i(A)$. Thus since $i$ is a closed $T_1$ inclusion, in order to show $g^{-1}(d)$ is closed, it suffices to show that $g^{-1}(d)$ is a singleton. Suppose for the sake of a contradiction there existed distinct points $x,y\in B$ with $g(x)=g(y)=d$. Define $h:C\to\{1,2,3\}$ to map every point to $3$. Define $k:B\to\{1,2,3\}$ to map $x\mapsto 1$, $y\mapsto 2$, and every other point in $B$ maps to $3$. Endow $\{1,2,3\}$ with the indiscrete topology so that $h$ and $k$ are continuous. Note $h\circ f=k\circ i$: given $a\in A$, since $x,y\in g^{-1}(d)\sseq B\setminus i(A)$, $i(a)$ does not equal $x$ or $y$, thus $k(i(a))=3=h(f(a))$. Hence by the definition of the colimit, there exists a map $\ell:D\to X$ such that $\ell\circ g=k$ and $\ell\circ j=h$. Then we reach a contradiction, as $k(x)\neq k(y)$ but $\ell(g(x))=\ell(g(y))=\ell(d)$. Hence, $g^{-1}(d)\notin i(A)$ must have been a singleton in the first place, meaning $g^{-1}(d)$ is closed in $B$ as desired.
+    
+    Now, consider the retract diagram, and suppose $i$ is a closed $T_1$ inclusion. We wish to show $j$ is a closed $T_1$ inclusion. We know $j$ is an inclusion by (ii). It remains to show $j$ is closed, and every point of $C\setminus j(A)$ is closed in $C$. First, we show closedness. Let $V\sseq A$ be closed. First, we claim $j(V)=h^{-1}(i(g^{-1}(V)))$. Given $c\in j(V)$, $c=j(a)$ for some $a\in V$, in which we have $h(c)=h(j(a))=i(f(a))$, and $g(f(a))=a\in V$, so $f(a)\in g^{-1}(V)$, meaning $h(c)\in i(g^{-1}(V))$, so $c\in h^{-1}(i(g^{-1}(V)))$. Conversely, given $c\in h^{-1}(i(g^{-1}(V)))$, so $h(c)=i(b)$ for some $b\in B$ with $g(b)\in V$. Then
+    \[c=k(h(c))=k(i(b))=j(g(b))\in j(V),\]
+    as desired. Thus, we have shown $j(V)=h^{-1}(i(g^{-1}(V)))$.Note that since $V\sseq A$ is closed and $g$ is continuous, $g^{-1}(V)$ is closed in $B$. Since $i$ is a closed map, $i(g^{-1}(V))$ is closed in $D$. Finally, since $h$ is continuous, $h^{-1}(i(g^{-1}(V)))=j(V)$ is closed in $C$, as desired. It remains to show that for all $c\in C\setminus j(A)$ that $c$ is a closed point in $C$. Given $c\in C\setminus j(A)$, note that $h(c)\notin i(B)$, as if $h(c)=i(b)$ for some $b\in B$, then we would have $c=k(h(c))=k(i(b))=j(g(b))$, yet we chose $c$ not in the image of $j$. Hence, since $i$ is a closed $T_1$ inclusion, and $h(c)$ is not in the image of $i$, $h(c)$ is a closed point in $D$. Then note that since $k\circ h=\id_C$, $h$ is injective, so $c=h^{-1}(h(c))$ is a closed point, as it is the preimage of the closed set $\{h(c)\}$ along the continuous map $h$.\qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.8]\label{2.4.8}
+  $\cW\cap\cT$ is closed under transfinite compositions, where $\cT$ denotes the class of closed $T_1$ inclusions.
+\end{lemma}
+\begin{proof}
+  Let $\lambda$ be an ordinal, and let $X:\lambda\to\Top$ be a $\lambda$-sequence such that for all $\beta+1<\lambda$, the map $X_{\beta}\to X_{\beta+1}$ belongs to $\cW\cap\cT$. Let $j:X\to\ul{X_\lambda}$ be a colimit cone for $X$. By \autoref{inclusions_closed_under_transfinite_composition}, we know that $j_0:X\to X_\lambda$ is a closed $T_1$ inclusion, so it remains to show that $\pi_n(j_0,x_0):\pi_n(X_0,x_0)\to\pi_n(X_\lambda,j_0(x_0))$ is an isomorphism for all $n\geq0$ and $x_0\in X_0$.
+
+  First we show surjectivity. Suppose we are given $x_0\in X_0$ and a continuous map $f:(S^n,\ast)\to(X_\lambda,j_0(x_0))$. Since $S^n$ is compact, by \todo{Oops, I left this unfinished. Honestly I don't really want to type out this argument...lol!}
+\end{proof}
+
+\begin{proposition}\label{domains_of_I'/J_small_rel_I'-cell/J-cell}
+  The domains of $I'$ (resp.\ $J$) are small relative to $I'\cell$.
+\end{proposition}
+\begin{proof}
+  By \autoref{2.4.1}, every space is small relative to the inclusions, and in particular every space is small relative to the class $\cT$ of closed $T_1$ inclusions. Hence, it suffices to show that $J\cell,I'\cell\sseq\cT$. We showed above in \autoref{2.4.5-6} that $\cT$ is closed under transfinite composition and pushouts, and clearly every map in $I'$ and $J$ is a closed $T_1$ inclusion, so the desired result follows.
+\end{proof}
+
+\begin{lemma}[Hovey Lemma 2.4.4]\label{2.4.4}
+  The weak equivalences in $\Top$ are closed under retracts and satisfy 2-of-3 axiom (so that in particular the weak equivalences form a subcategory, as clearly identities are weak equivalences).
+\end{lemma}
+\begin{proof}
+  First we show that weak equivalences satisfy 2-of-3. Let $f:X\to Y$ and $g:Y\to Z$ be continuous functions of topological spaces. 
+  
+  First of all, suppose $f$ and $g$ are both weak equivalences. Then by functoriality of $\pi_n$, since $\pi_n(f,x)$ and $\pi_n(g,f(x))$ are isomorphisms for all $x\in X$, $\pi_n(g\circ f,x)=\pi_n(g,f(x))\circ\pi_n(f,x)$ is likewise an isomorphism for all $x\in X$, so that $g\circ f$ is a weak equivalence.
+
+  Now, suppose that $g\circ f$ and $g$ are weak equivalences. Pick a point $x\in X$. We wish to show that $\pi_n(f,x):\pi_n(X,x)\to\pi_n(Y,f(x))$ is an isomorphism for all $n\geq0$. We know that $\pi_n(g\circ f,x)$ is an isomorphism, and $\pi_n(g,f(x))$ is an isomorphism, say with inverse, $\varphi$, so that
+  \[\varphi\circ\pi_n(g\circ f,x)=\varphi\circ\pi_n(g,f(x))\circ\pi_n(f,x)=\pi_n(f,x)\]
+  is an isomorphism, as it is a composition of isomorphisms.
+
+  Now, suppose that $g\circ f$ and $f$ are weak equivalences. Pick a point $y\in Y$. Since $\pi_0(f)$ is an isomorphism, there exists a point $x\in X$ such that $f(x)$ belongs to the path component containing $y$, so that there exists some $\alpha:I\to Y$ with $\alpha(0)=f(x)$ and $\alpha(1)=f(y)$. Then consider the following diagram
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXHBpX24oWSx5KSJdLFsxLDAsIlxccGlfbihaLGcoeSkpIl0sWzAsMSwiXFxwaV9uKFksZih4KSkiXSxbMSwxLCJcXHBpX24oWixnKGYoeCkpKSJdLFswLDEsIlxccGlfbihnLHkpIl0sWzAsMl0sWzIsMywiXFxwaV9uKGcsZih4KSkiLDJdLFsxLDNdXQ==
+  \[\begin{tikzcd}
+    {\pi_n(Y,y)} & {\pi_n(Z,g(y))} \\
+    {\pi_n(Y,f(x))} & {\pi_n(Z,g(f(x)))}
+    \arrow["{\pi_n(g,y)}", from=1-1, to=1-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow["{\pi_n(g,f(x))}", from=2-1, to=2-2]
+    \arrow[from=1-2, to=2-2]
+  \end{tikzcd}\]
+  where the left arrow is the isomorphism given by conjugation by the path $\alpha$, and the right arrow is the isomorphism given by conjugation by the path $g\circ\alpha$. It is tedious yet straightforward to verify that the diagram commutes.
+  Furthermore, we know that $\pi_n(f,x)$ and $\pi_n(g\circ f,x)=\pi_n(g,f(x))\circ\pi_n(f,x)$ are isomorphisms for all $n$, so that if we denote the inverse of $\pi_n(f,x)$ by $\varphi$, then
+  \[\pi_n(g\circ f,x)\circ\varphi=\pi_n(g,f(x))\circ\pi_n(f,x)\circ\varphi=\pi_n(g,f(x))\]
+  is an isomorphism, as it is given as a composition of isomorphisms. Hence, the top arrow must likewise be an isomorphism, precisely the desired result.
+
+  The fact that weak equivalences in $\Top$ are closed under retracts is entirely straightforward and follows from the fact that the functors $\pi_n$ preserve retract diagrams and that the class of isomorphisms in any category is closed under retracts.
+\end{proof}
+
+\begin{proposition}[Hovey 2.4.9]\label{2.4.9}
+  ${\p({J}\p)}\sseq\cW\cap {\p( I'\p )}$.
+\end{proposition}
+\begin{proof}
+  First, in order to show ${\p(J\p)}\sseq{\p( I'\p )}$, It suffices to show that $J\sseq I'\cell$, as by \autoref{2.1.10} we would have $J\sseq{\p( I'\p )}$, and
+  \[J\sseq {\p( I'\p )}\implies{\p(J\p)}\sseq{\p((\p( I'\p ))\p)}={\p( I'\p )},\]
+  where the implication and equality both follow from \autoref{useful_LP_properties} which gives that
+  \[A\sseq B\implies {\p(A\p)}\sseq{\p(B\p)}\quad\text{ and }\quad(\p({A}\p))\p=A\p.\]
+  Now, to show $J\sseq I'\cell$, first consider the composition $j_n:D^n\into S^n\into D^{n+1}$, where the first map is the pushout
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    {D^n} & {S^n}
+    \arrow[hook, from=1-1, to=1-2]
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\]
+  obtained by gluing two copies of $D^n$ along their boundary, and the second map map is simply the inclusion $S^n\into D^{n+1}$, which can be written as the pushout
+  \[\begin{tikzcd}
+    {S^n} & {S^n} \\
+    {D^{n+1}} & {D^{n+1}}
+    \arrow[Rightarrow, no head, from=1-1, to=1-2]
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow[Rightarrow, no head, from=2-1, to=2-2]
+    \arrow[hook, from=1-2, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\]
+  It can be seen that $j_n$ includes $D^n$ as a hemisphere of $S^n=\partial D^{n+1}\sseq D^{n+1}$. Note that $D^{n}\times I$ is homeomorphic to $D^{n+1}$ (``smooth out'' the sharp edges of the cylinder) via some homeomorphism $h_n:D^{n+1}\to D^n\times I$, and in particular, we may define $h_n$ so that $h_n(j_n(D^n))= D^n\times\{0\}\sseq D^n\times I$ by squashing the hemisphere $j_n(D^n)$ to be one of the faces of the cylinder $D^n\times I$, in which case $h_n\circ j_n:D^n\to D^n\times I$ is precisely the inclusion $D^n\into D^n\times I$ sending $x\mapsto (x,0)$, and since $j_n\in I'\cell$, $h_n\circ j_n\in I'\cell$ by \autoref{I-cell_closed_under_composition_with_isomorphisms}.
+
+  Now, we claim that $\p(J\p)\sseq\cW$. First note that by \autoref{2.1.15} and \autoref{domains_of_I'/J_small_rel_I'-cell/J-cell}, every map in $\p(J\p)$ is a retract of an element of $J\cell$. Furthermore, we know that $\cW$ is closed under retracts (\autoref{2.4.4}), so that it suffices to show that $J\cell\sseq\cW$. We claim it suffices to show that pushouts of maps in $J$ are weak equivalences. Supposing we had shown this, we would have that pushouts of maps in $J$ are weak equivalences and $T_1$ inclusions, as $J\sseq\cT$ and $\cT$ is saturated by \autoref{2.4.5-6}. Then by \autoref{2.4.8}, we would have that $J\cell\sseq\cW\cap\cT$, precisely the desired result.
+  
+  Now, let $\cS$ be the class of \textit{inclusions of a deformation retract}, i.e., those \textbf{injective} maps $i:A\to B$ such that there exists a homotopy $H:B\times I\to B$ with $H(i(a),t)=i(a)$ for all $a\in A$, $H(b,0)=b$ for all $b\in B$, and $H(b,1)=i(r(b))$ for all $b\in B$ for some map $r:B\to A$.%
+  %
+  \footnote{Hovey has a typo here, namely, he does not specify that $i$ must be injective. Without this specification, his assertion fails. For example, take $A=\bR^2$, $B=\bR$, $i(x,y)=x$, $H(b,t)=b$, and $r(b)=(b,0)$. Then $i$ is an inclusion of a deformation retract according to Hovey's ``definition,'' but $i$ is not injective and $r$ is not a retract.}
+  We will show the following:
+  \begin{enumerate}[listparindent=\parindent,parsep=0pt]
+    \item $\cS\sseq\cW$.
+    
+    It suffices to show that if $i:A\to B$ belongs to $\cS$, then $i$ is a homotopy equivalence. Indeed, given $i:A\to B$, let $H:B\times I\to B$ and $r:B\to A$ be a homotopy and retract satisfying the conditions above. Then in particular, $H$ is a homotopy between $\id_B$ (at time $t=0$) and $i\circ r$ (at time $t=1$). It remains to show that $r\circ i=\id_A$. First of all, note that since $H(b,1)=i(r(b))$ for all $b\in B$, we have $H(i(a),1)=i(r(i(a)))$. Yet, we also know that $H(i(a),t)=i(a)$ for all $t\in I$, so $i(r(i(a)))=i(a)$, and $i$ is injective so $r(i(a))=a$.
+
+    \item $J\sseq\cS$.
+    
+    For $n\geq0$, let $j_n:D^n\into D^n\times I$ denote the inclusion of $D^n$ as the subset $D^n\times\{0\}$. Define a deformation retract $H:D^n\times I\times I\to D^n\times I$ by $(x,s,t)\mapsto(x,s(1-t))$. Then indeed we have $H(j_n(x),t)=H(x,0,t)=(x,0)=j_n(x)$ for all $x\in D^n$, $H(x,t,0)=(x,t(1-0))=(x,t)$ for all $(x,t)\in D^n\times I$, and $H(x,t,1)=(x,t(1-1))=(x,0)=j_n(r(x))$ for all $(x,t)\in D^n\times I$, where $r:D^n\times I\to D^n$ is the projection onto time zero sending $(x,t)\mapsto(x,0)$. Finally, $j_n$ is clearly injective. Thus, indeed $J\sseq\cS$.
+
+    \item $\cS$ is closed under pushouts.
+    
+    Suppose we are given a pushout diagram
+    \[\begin{tikzcd}
+      A & C \\
+      B & D
+      \arrow["i"', from=1-1, to=2-1]
+      \arrow["g"', from=2-1, to=2-2]
+      \arrow["f", from=1-1, to=1-2]
+      \arrow["j", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \end{tikzcd}\]
+    where $i\in\cS$. Then we wish to show $j$ in $\cS$. First, we know $j$ is injective by \autoref{2.4.5-6}. Now, we look to construct $H$ and $r$. Let $K:B\times I\to B$ and $r':B\to A$ be maps satisfying the conditions for $i$ to be an inclusion of a deformation retract.
+
+    We wish to define a homotopy $H:D\times I\to D$. Then $I$ is a locally compact Hausdorff space (in particular, it is compact and Hausdorff), so that the functor $-\times I:\Top\to\Top$ preserves colimits (\autoref{locally_compact_hausdorff_spaces_are_exponentiable}), meaning the following is a pushout diagram:
+    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBXFx0aW1lcyBJICJdLFsxLDAsIkNcXHRpbWVzIEkiXSxbMSwxLCJEXFx0aW1lcyBJIl0sWzAsMSwiQlxcdGltZXMgSSJdLFswLDEsImZcXHRpbWVzXFxpZF9JIl0sWzEsMiwialxcdGltZXNcXGlkX0kiXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyLWludmVyc2UifX1dLFswLDMsImlcXHRpbWVzXFxpZF9JIiwyXSxbMywyLCJnXFx0aW1lc1xcaWRfSSIsMl1d
+    \[\begin{tikzcd}
+      {A\times I } & {C\times I} \\
+      {B\times I} & {D\times I}
+      \arrow["{f\times\id_I}", from=1-1, to=1-2]
+      \arrow["{j\times\id_I}", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+      \arrow["{i\times\id_I}"', from=1-1, to=2-1]
+      \arrow["{g\times\id_I}"', from=2-1, to=2-2]
+    \end{tikzcd}\]
+    Then by the universal property of the pushout, there is a map $H:D\times I\to D$ (the dashed line) such that the following diagram commutes
+    \[\begin{tikzcd}
+      {A\times I } & {C\times I} \\
+      {B\times I} & {D\times I} & C \\
+      & B & D
+      \arrow["{f\times\id_I}", from=1-1, to=1-2]
+      \arrow["{j\times\id_I}", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+      \arrow["{i\times\id_I}"', from=1-1, to=2-1]
+      \arrow["{g\times\id_I}"', from=2-1, to=2-2]
+      \arrow["{\pi_1}", curve={height=-12pt}, two heads, from=1-2, to=2-3]
+      \arrow["K"', curve={height=12pt}, from=2-1, to=3-2]
+      \arrow["g"', from=3-2, to=3-3]
+      \arrow["j", from=2-3, to=3-3]
+      \arrow["H", dashed, from=2-2, to=3-3]
+    \end{tikzcd}\]
+    Now, note $r'\circ i=\id_A$. Indeed, given $a\in A$, we have $i(r'(i(a)))=K(i(a),t)=i(a)$ and $i$ is injective, so that $r'(i(a))=a$, as desired. Hence, there exists a unique map $r:D\to C$ (the dashed line) such that the following diagram commutes:
+    % https://q.uiver.app/?q=WzAsNixbMCwwLCJBIl0sWzEsMCwiQyJdLFsxLDEsIkQiXSxbMCwxLCJCIl0sWzIsMiwiQyJdLFsxLDIsIkEiXSxbMCwxLCJmIl0sWzEsMiwiaiJdLFsyLDAsIiIsMCx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXItaW52ZXJzZSJ9fV0sWzAsMywiaSIsMl0sWzMsMiwiZyIsMl0sWzMsNSwiciIsMix7ImN1cnZlIjoyfV0sWzUsNCwiZiIsMl0sWzIsNCwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsNCwiIiwyLHsiY3VydmUiOi0yLCJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+    \[\begin{tikzcd}
+      A & C \\
+      B & D \\
+      & A & C
+      \arrow["f", from=1-1, to=1-2]
+      \arrow["j", from=1-2, to=2-2]
+      \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+      \arrow["i"', from=1-1, to=2-1]
+      \arrow["g"', from=2-1, to=2-2]
+      \arrow["r'"', curve={height=12pt}, from=2-1, to=3-2]
+      \arrow["f"', from=3-2, to=3-3]
+      \arrow["r", dashed, from=2-2, to=3-3]
+      \arrow[curve={height=-20pt}, Rightarrow, no head, from=1-2, to=3-3]
+    \end{tikzcd}\]
+    Now we claim that our constructions $H$ and $r$ endow $j$ with the structure of an inclusion of a deformation retract, as desired. First $c\in C$, we wish to show $H(j(c),t)=j(c)$ for all $t$. Indeed, we have 
+    \[H(j(c),t)=H(j\times\id_I(c,t))=j(\pi_1(c,t))=j(c).\]
+    Given $d\in D$, we want to show $H(d,0)=d$. By the explicit description of the colimit in $\Top$, we know that every element of $D$ is in the image of either $j$ or $g$. If $d=j(c)$ for some $c$, then we have just shown $H(d,0)=H(j(c),0)=j(c)=d$, as desired. On the other hand, if $d=g(b)$ for some $b\in B$ we have 
+    \[H(d,0)=H(g\times\id_I(b,0))=g(K(b,0))=g(b)=d.\] 
+    Finally, we claim that $H(d,1)=j(r(d))$ for all $d\in D$. If $d=j(c)$ for some $c\in C$, then we have 
+    \[H(d,1)=H(j(c),1)=j(c)=j(r(j(c)))=j(r(d)),\] 
+    as desired. On the other hand, if $d=g(b)$ for some $b\in B$, then
+    \[H(d,1)=H(g\times\id_I(b,1))=g(K(b,1))=g(i(r'(b)))=j(f(r'(b)))=j(r(g(b)))=j(r(d)).\qedhere\]
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}[Hovey 2.4.10]\label{2.4.10}
+  $I'\p\sseq\cW\cap J\p$
+\end{proposition}
+\begin{proof}
+  First, by \autoref{2.4.9} we know $\p(J\p)\sseq\p(I'\p)$, and this implies $I'\p\sseq J\p$, as by \autoref{useful_LP_properties} we have
+  \[\p(J\p)\sseq\p(I'\p)\implies J\p=(\p(J\p))\p\spseq(\p(I'\p))\p=I'\p.\]
+  Thus, it suffices to show that $I'\p\sseq\cW$. Now, suppose $p:(X,x_0)\to (Y,p(x_0))$ is in $I'\p$. We wish to show that the map $\pi_n(p,x_0):\pi_n(X,x_0)\to\pi_n(Y,p(x_0))$ is an isomorphism for all $n$.
+  
+  First we show that $\pi_n(p,x_0)$ is surjective. Let $g:(S^n,\ast)\to(Y,p(x_0))$ be a map. Then we have the following commutative diagram
+  \[\begin{tikzcd}
+    \ast & X \\
+    {S^n} & Y
+    \arrow[from=1-1, to=2-1]
+    \arrow["g", from=2-1, to=2-2]
+    \arrow[from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  where the top arrow picks out $x_0$. Note that the map $\ast\to S^n$ may be realized as a pushout of the diagram $D^n\leftarrow S^{n-1}\rightarrow\ast$, so that $\ast\to S^n$ belongs to $I'\cell$, and therefore $\p(I'\p)$ by \autoref{2.1.10}, and $p\in I'\p$, so $\ast\to S^n$ has the left lifting property against $p$. Thus, the above diagram has a lift $f:(S^n,\ast)\to (X,x_0)$ such that $p\circ f=g$, so that $\pi_n(p,x_0)([f])=[p\circ f]=[g]$, as desired.
+
+  Finally, we show that $\pi_n(p,x_0)$ is injective. Suppose we have two maps $f,g:(S^n,\ast)\to(X,x_0)$ such that $p\circ f$ and $p\circ g$ represent the same element of $\pi_n(Y,p(x_0))$. Then there is a homotopy $H:S^n\times I\to Y$ such that for all $s\in S^n$ and $t\in I$, $H(s,0)=p(f(s))$, $H(s,1)=p(g(s))$, and $H(\ast,t)=p(x_0)$. By the universal property of the quotient, $H$ induces a map $\ol H:S^n\wedge I_+:=(S^n\times I)/(\ast\times I)$ sending the equivalence class $[s,t]\mapsto H(s,t)$. Hence, the following diagram commutes:
+  \[\begin{tikzcd}
+    {S^n\vee S^n} & X \\
+    {S^n\wedge I_+} & Y
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow["{\ol H}", from=2-1, to=2-2]
+    \arrow["{f\vee g}", from=1-1, to=1-2]
+    \arrow["p"', from=1-2, to=2-2]
+  \end{tikzcd}\]
+  where the left arrow is an element of $I'\cell$, as it may be obtained by attaching an $n+1$ cell to $S^n\vee S^n$ (when $n=0$, the attachning map is obvious; when $n>0$, the attaching map is the quotient map $S^n\onto S^n\vee S^n$ obtained by collapsing the equator). Thus, by similar reasoning to above there exists a lift $\ol K: S^n\wedge I_+\to X$. Then if we define $K$ to be the composition $S^n\times I\onto S^n\wedge I_+\xrightarrow{\ol K} X$, this gives us the desired homotopy between $f$ and $g$: given $s\in S^n$ and $t\in I$, we have $K(s,0)=\ol K([s,0])=f(s)$, $K(s,1)=\ol K([s,1])=g(s)$, and $K(\ast,t)=\ol K([\ast,t])=\ol K([\ast,0])=(\ast)=x_0$.
+\end{proof}
+
+In what follows, given continuous maps $p:X\to Y$ and $i:A\to B$, let $Q(i,p):X^B\to P(i,p):=X^A\times_{Y^A}Y^B$ denote the map obtained by the universal property of the fiber product (pullback) via the maps $i^\ast\circ p_\ast:X^B\to Y^A$ and $p_\ast\circ i^\ast:X^B\to Y^A$.
+
+\begin{lemma}[Hovey 2.4.11]\label{2.4.11}
+  Suppose $p:X\to Y$ is a map. Then $p\in I'\p$ if and only if the map $Q(i,p):X^B\to P(i,p):=X^A\times_{Y^A} Y^B$ is surjective for all maps $i:A\to B$ in $I'$. In particular, if $Q(i,p)\in\cW\cap J\p$ for all $i\in I'$, then $p\in I'\p$.
+\end{lemma}
+\begin{proof}
+  First of all, suppose $p\in I'\p$, and let $i:A\to B$ in $I'$. We wish to show $Q(i,p)$ is surjective. We know the forgetful functor $\Top\to\Set$ preserves limits, so by the explicit description of limits in $\Set$ and \autoref{explicit_description_of_(co)limit_in_set}, the set $P(i,p)$ is given by pairs of maps $(A\xrightarrow{\alpha}X,B\xrightarrow{\beta}Y)$ such that $p\circ\alpha=\beta\circ i$, and the map $Q(i,p):X^B\to P(i,p)$ sends an arrow $\ell:B\to X$ to the pair $(\ell\circ i,p\circ \ell)$. Now to see $Q(i,p)$ is surjective, suppose there exists $(\alpha,\beta)\in P(i,p)$ so that the following diagram commutes:
+  \[\begin{tikzcd}
+    A & X \\
+    B & Y
+    \arrow["\alpha", from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["i"', from=1-1, to=2-1]
+    \arrow["\beta"', from=2-1, to=2-2]
+  \end{tikzcd}\]
+  Then because $p\in I'\p$ and $i\in I'$, there exists a lift $\ell:B\to X$, in which case $Q(i,p)(\ell)=(\ell\circ i,p\circ\ell)=(\alpha,\beta)$, as desired.
+
+  Conversely, suppose that we are given a map $p:X\to Y$ such that $Q(i,p)$ is surjective for all maps $i:A\to B$ in $I'$. Then we wish to show that $p\in I'\p$. Let $i:A\to B$ belong to $I'$, and suppose we are given a lifting problem of the same form as the above diagram. Then since $p\circ\alpha=\beta\circ i$, the pair $(\alpha,\beta)$ is an element of $P(i,p)$. Since $Q(i,p)$ is surjective, there exists an arrow $\ell:B\to X$ such that $Q(i,p)(\ell)=(\alpha,\beta)$. But $Q(i,p)(\ell)=(\ell\circ i,p\circ\ell)$, so $\ell\circ i=\alpha$ and $p\circ\ell=\beta$, meaning $\ell$ is a lift, as desired. Thus indeed $p\in I'\p$.
+
+  Thus, in order to show the second part, it suffices to show that any map belonging to $\cW\cap J\p$ is surjective. To see this, suppose $q:W\to Z$ belongs to $\cW\cap J\p$, and let $z\in Z$. Pick any point $w\in W$, and consider the map $\beta:S^0=\{0,1\}\to Z$ sending $0\mapsto q(w)$ and $1\mapsto z$. Then since $q\in\cW$, the homomorphism $\pi_0(q,w):(W,w)\to(Z,q(w))$ is surjective, so there exists a map $\alpha:(S^0,0)\to(W,w)$ and a homotopy $H:S^0\times I\to Z$ such that $H(s,0)=q(\alpha(s))$, $H(s,1)=\beta(s)$, and $H(0,t)=q(w)$ for all $s\in S^0$ and $t\in I$. Then we have a lifting problem of the following form
+  \[\begin{tikzcd}
+    \ast & W \\
+    I & Z
+    \arrow["0"', from=1-1, to=2-1]
+    \arrow["{H(1,-)}"', from=2-1, to=2-2]
+    \arrow["{\alpha(1)}", from=1-1, to=1-2]
+    \arrow["q", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  $H(1,-)$ is continuous as it is $H^\flat(1)$, where $H^\flat:S^0\to W^I$ is the adjoint of $H:S^0\times I\to W$ (see the proof of \autoref{locally_compact_hausdorff_spaces_are_exponentiable} and recall how to construct the adjoint of a morphism given the unit and counit of the adjunction). Then we may identify the left arrow with the map $D^0\to D^0\times I$, in which case since $q\in J\p$ there exists a lift $\ell:I\to W$ such that $q\circ\ell=H(1,-)$. In particular, $z=\beta(1)=H(1,1)=q(\ell(1))$, so that $z$ does belong to the image of $q$, as desired.
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.13]\label{2.4.13}
+  Suppose $p:X\to Y$ belongs to $J\p$ and $i:S^{n-1}\into D^n$ belongs to $I'$. Then the map $Q(i,p)$ belongs to $J\p$.
+\end{lemma}
+\begin{proof}
+  Suppose we are given a map $j:D^m\times\{0\}\into D^m\times I$ belonging to $J$ and a lifting problem of the following form
+  \[\begin{tikzcd}
+    {D^m} & {X^{D^n}} \\ 
+    {D^m\times I} & {P(i,p)=X^{S^{n-1}}\times_{Y^{S^{n-1}}}Y^{D^{n}}}
+    \arrow["j"', hook, from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=1-1, to=1-2]
+    \arrow["{Q(i,p)}"', from=1-2, to=2-2]
+  \end{tikzcd}\]
+  In order to show that any such diagram has a lift, by \autoref{locally_compact_hausdorff_spaces_are_exponentiable} and \autoref{adjointness_argument}, since $S^{n-1}$ and $D^n$ are locally compact Hausdorff, it suffices to show that any lifting problem of the following form has a solution:
+  \[\begin{tikzcd}
+    {D^m\times\{0\}\times D^n\coprod_{D^m\times\{0\}\times S^{n-1}}D^m\times I\times S^{n-1}} & X \\
+    {D^m\times I\times D^n} & Y
+    \arrow[from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["{(i\times\id_{D^n},\id_{D^m\times I}\times i)}"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  For ease of notation, write $f$ for the map on the left. Since $p\in J\p$, in order to show that the diagram has a lift, it suffices to show that $f\in\p(J\p)$. Note that since $\p(J\p)$ is characterized by a lifting property, it is closed under composition with isomorphisms (homeomorphisms). Furthermore, since $J\sseq\p(J\p)$, it suffices to show that $f$ is homeomorphic to the second map in the factorization $D^{m+n}\cong D^{m+n}\times\{0\}\into D^{m+n}\times I\in J$. Note that $f=\id_{D^m}\times g$, where 
+  \[g:\{0\}\times D^n\coprod_{\{0\}\times S^{n-1}}I\times S^{n-1}=(\{0\}\times D^n)\cup (I\times S^{n-1})\into I\times D^n.\]
+  The space $(\{0\}\times D^n)\cup(I\times S^{n-1})$ may be obtained by removing one of the ends of the hollow cylinder $\partial(I\times D^n)$. By flattening the edges of this cylinder-with-a-missing-end, we get a disk homeomorphic to $D^n$. Thus $g$ is homeomorphic to the map $\{0\}\times D^n\into I\times D^n$, so that $f=\id_{D^m}\times g$ is homeomorphic to the inclusion $D^{m+n}\times\{0\}\into D^{m+n}\times I$ as desired.
+\end{proof}
+
+\begin{corollary}[Hovey 2.4.14]\label{2.4.14}
+  Every topological space is fibrant, i.e., given a space $X$, the unique map $X\to\ast$ is an element of $J\p$. In particular, the map $X^{D^n}\to X^{S^{n-1}}$ belongs to $J\p$ for all $n\geq0$.
+\end{corollary}
+\begin{proof}
+  Suppose we are given a space $X$, a map $j:D^n\into D^n\times I$ belonging to $J$, and a lifting problem of the following form
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJEXm4iXSxbMCwxLCJEXm5cXHRpbWVzIEkiXSxbMSwxLCJcXGFzdCJdLFsxLDAsIlkiXSxbMCwxLCJqIiwyXSxbMSwyXSxbMCwzLCJmIl0sWzMsMl1d
+  \[\begin{tikzcd}
+    {D^n} & X \\
+    {D^n\times I} & \ast
+    \arrow["j"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["f", from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+  \end{tikzcd}\]
+  Then it is straightforward to see that the composition $f\circ \pi_1$, where $\pi_1:D^n\times I\to D^n$ is the canonical projection, is a lift for the diagram. Hence, $X$ is indeed fibrant as desired. Now, suppose we are given a map $i:S^{n-1}\into D^n$ belonging to $I'$. It is straightforward to check that the following is a pullback diagram:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYXntTXntuLTF9fSJdLFsxLDAsIlxcYXN0XntEXm59Il0sWzEsMSwiXFxhc3Ree1Nee24tMX19Il0sWzAsMSwiWF57U157bi0xfX0iXSxbMCwxXSxbMSwyXSxbMCwzLCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDJdLFswLDIsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+  \[\begin{tikzcd}
+    {X^{S^{n-1}}} & {\ast^{D^n}} \\
+    {X^{S^{n-1}}} & {\ast^{S^{n-1}}}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[Rightarrow, no head, from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+  \end{tikzcd}\]
+  where the top arrow sends a map $f:S^{n-1}\to X$ to unique arrow $D^n\to\ast$ (it is continuous as $\ast^{D^n}$ is a singleton). Hence, by \autoref{2.4.13} the map $X^{D^n}\to P(i,p)=X^{S^{n-1}}$ sending $f:D^n\to X$ to the composition $S^{n-1}\to D^n\xrightarrow fX$ is fibrant (belongs to $J\p$), as desired.
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.15]\label{2.4.15}
+  If $p:X\to Y$ is a weak equivalence (belongs to $\cW$), then $p^{D^n}:X^{D^n}\to Y^{D^n}$ is also a weak equivalence.
+\end{lemma}
+\begin{proof}
+  We claim it suffices to show that the map $j_Z:Z\to Z^{D^n}$ that takes $z$ to the constant map at $z$ is a homotopy equivalence for all spaces $Z$. Indeed, supposing this had been shown, then consider the following diagram
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJYIl0sWzAsMSwiWF57RF5ufSJdLFsxLDEsIllee0Rebn0iXSxbMSwwLCJZIl0sWzAsMSwial9YIiwyXSxbMSwyLCJwX1xcYXN0IiwyXSxbMCwzLCJwIl0sWzMsMiwial9ZIl1d
+  \[\begin{tikzcd}
+    X & Y \\
+    {X^{D^n}} & {Y^{D^n}}
+    \arrow["{j_X}"', from=1-1, to=2-1]
+    \arrow["{p_\ast}"', from=2-1, to=2-2]
+    \arrow["p", from=1-1, to=1-2]
+    \arrow["{j_Y}", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  First of all, it is straightforward to see that this diagram commutes. By 2-of-3 (\autoref{2.4.4}) we know that $p_\ast\circ j_X=j_Y\circ p$ is a weak equivalence, if $j_Y$ is, as $p$ is a weak equivalence. Furthermore, if $j_X$ is a weak equivalence, then by 2-of-3 again, it would have to hold that $p_\ast$ is a weak equivalence, as desired.
+
+  Now, we claim that $j_Z$ is  homotopy equivalence. First of all, it is well-defined, as given $z\in Z$, $j_Z(z):D^n\to Z$ is a constant map, which is always continuous, so that $j_Z(z)$ is indeed an element of $Z^{D^n}$. Now, to see that $j_Z$ is continuous, recall the topology on $Z^{D^n}$ is that with subbasis given by sets of the form
+  \[S(K,U):=\{f\in\Top(D^n,Z):f(K)\sseq U\}\]
+  for $K\sseq D^n$ compact and $U\sseq Z$ open. Hence in order to show $j_Z$ is continuous, it suffices to show $j_Z^{-1}(S(K,U))$ is open in $Z$ for all $K\sseq D^n$ compact and $U\sseq Z$ open. Indeed, we have
+  \[j_Z^{-1}(S(K,U))=\{z\in Z:j_Z(z)(K)\sseq U\}=\{z\in Z:z\in U\}=U,\]
+  which is open as desired. Hence, $j_Z$ is well-defined and continuous. Now, it remains to show that it is a homotopy equivalence. Define the map $q_Z:Z^{D^n}\to Z$ to be evaluation at $0$ (where by $0$ we mean the origin in $D^n$), so that $q_Z(f:D^n\to Z):=f(0)$. To see this is continuous, note that given $U\sseq Z$ open, that
+  \[q_Z^{-1}(U):=\{f\in\Top(D^n,Z):f(0)\in U\}=S(\{0\},U),\]
+  which is open in $Z^{D^n}$, as desired. Now, the composite $q_Z\circ j_Z$ is the identity, and the composite $j_Z\circ q_Z$ is homotopic to the identity by the homotopy $H:Z^{D^n}\times I\to Z^{D^n}$ defined by $H(f,t)(x)=f(tx)$. It remains to show $H$ is continuous. To do so, it suffices to show that $H^\sharp:Z^{D^n}\times I\times D^n\to Z$ mapping $(f,t,x)\mapsto f(tx)$ is continuous, as $D^n$ is locally compact Hausdorff and $H$ is the adjoint of $H^\sharp$ (\autoref{locally_compact_hausdorff_spaces_are_exponentiable}). Note that $H^\sharp$ factors as
+  % https://q.uiver.app/?q=WzAsNixbMCwwLCJaXntEXm59XFx0aW1lcyBJXFx0aW1lcyBEXm4iXSxbMSwwLCJaXntEXm59XFx0aW1lcyBEXm4iXSxbMiwwLCJaIl0sWzAsMSwiKGYsdCx4KSJdLFsxLDEsIihmLHR4KSJdLFsyLDEsImYodHgpIl0sWzAsMV0sWzEsMl0sWzMsNF0sWzQsNV1d
+  \[\begin{tikzcd}
+    {Z^{D^n}\times I\times D^n} & {Z^{D^n}\times D^n} & Z \\
+    {(f,t,x)} & {(f,tx)} & {f(tx)},
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-3]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=2-2, to=2-3]
+  \end{tikzcd}\]
+  and this composition is continuous as the first arrow is the product of $\id_{Z^{D^n}}$ with the multiplication map $I\times D^n\to D^n$ sending $(t,x)\mapsto tx$, and the second arrow is simply the evaluation map, which is also continuous (see the proof of \autoref{locally_compact_hausdorff_spaces_are_exponentiable}).
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.16]\label{2.4.16}
+  Suppose $p:X\to Y$ belongs to $J\p$, and $x\in X$. Let $F:=p^{-1}(p(x))$, and $i:F\into X$ denote the inclusion. Then there is a long exact sequences
+  % https://q.uiver.app/?q=WzAsOCxbMCwxLCJcXHBpX24oRix4KSJdLFsxLDEsIlxccGlfbihYLHgpIl0sWzIsMSwiXFxwaV9uKFkscCh4KSkiXSxbMCwyLCJcXHBpX3tuLTF9KEYseCkiXSxbMSwwLCJcXGNkb3RzIl0sWzIsMCwiXFxwaV97bisxfShZLHAoeCkpIl0sWzEsMiwiXFxjZG90cyJdLFsyLDIsIlxccGlfMChZLHAoeCkpIl0sWzAsMSwiXFxwaV9uKGkseCkiLDJdLFsxLDIsIlxccGlfbihwLHgpIl0sWzIsMywiZF9cXGFzdCJdLFs0LDVdLFs1LDAsImRfXFxhc3QiLDJdLFszLDYsIlxccGlfe24tMX0oaSx4KSIsMl0sWzYsNywiXFxwaV8wKHAseCkiLDJdXQ==
+  \[\begin{tikzcd}
+    & \cdots & {\pi_{n+1}(Y,p(x))} \\
+    {\pi_n(F,x)} & {\pi_n(X,x)} & {\pi_n(Y,p(x))} \\
+    {\pi_{n-1}(F,x)} & \cdots & {\pi_0(Y,p(x))}
+    \arrow["{\pi_n(i,x)}"', from=2-1, to=2-2]
+    \arrow["{\pi_n(p,x)}", from=2-2, to=2-3]
+    \arrow["{d_{n+1}}", from=2-3, to=3-1]
+    \arrow[from=1-2, to=1-3]
+    \arrow["{d_n}"', from=1-3, to=2-1]
+    \arrow["{\pi_{n-1}(i,x)}"', from=3-1, to=3-2]
+    \arrow["{\pi_0(p,x)}"', from=3-2, to=3-3]
+  \end{tikzcd}\]
+  which is natural with respect to commutative squares
+  \[\begin{tikzcd}
+    X & {X'} \\
+    Y & {Y'}
+    \arrow["{p'}", from=1-2, to=2-2]
+    \arrow[from=1-1, to=1-2]
+    \arrow["p"', from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  where $p,p'\in J\p$. Here $d_n$ is a group homomorphism $\pi_n(Y,p(x))\to\pi_{n-1}(F,x)$ when $n>1$.
+\end{lemma}
+\begin{proof}
+  First, fix $n\geq0$. We define $d_{n+1}:\pi_{n+1}(Y,p(x))\to \pi_n(F,x)$. To start with, fix a homeomorphism $k_n:D^{n+1}\cong D^n\times I$, and write $\partial k_n:\partial(D^{n+1})=S^n\cong\partial(D^n\times I)$ for the restriction of $k_n$ to $\partial(D^{n+1})=S^n$. We may represent an element of $\pi_{n+1}(Y,p(x))$ by a map $f:(D^{n+1},S^n)\to(Y,p(x))$. Then we may construct the following lifting problem
+  % https://q.uiver.app/?q=WzAsNCxbMCwxLCJEXm5cXHRpbWVzIEkiXSxbMSwxLCJZIl0sWzEsMCwiWCJdLFswLDAsIkRebiJdLFswLDEsImYiLDJdLFsyLDEsInAiXSxbMywyLCJkXFxtYXBzdG8geCJdLFszLDAsImRcXG1hcHN0byAoZCwwKSIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV1d
+  \[\begin{tikzcd}
+    {D^n} & X \\
+    {D^n\times I} & Y
+    \arrow["f\circ k_n^{-1}", from=2-1, to=2-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["{d\mapsto x}", from=1-1, to=1-2]
+    \arrow["{d\mapsto (d,0)}"', hook, from=1-1, to=2-1]
+  \end{tikzcd}\]
+  Since $p\in J\p$, this diagram has a lift $D^n\times I\to X$. Let $\ell$ denote the restriction of this lift to $\partial(D^n\times I)$. Note that the image of $\ell$ is contained in $F$, as given $z\in\partial(D^n\times I)$, we have $p(\ell(z))=f(k_n^{-1}(z))$ Then define $d_{n+1}f:=\ell|_{\partial(D^n\times I)}\circ \partial k_n$. First, note that $d_{n+1}f:S^n\to F$
+
+  \todo{Finish or add reference (Hatcher Theorem 4.41)}
+\end{proof}
+
+\begin{lemma}\label{closed=compact_in_CH_spaces}
+  Let $f:X\to Y$ be a continuous map between compact Hausdorff spaces. Then given $A\sseq X$ and $B\sseq Y$, $A$ and $B$ are closed iff they are compact, in which case $f^{-1}(B)$ and $f(A)$ are both closed and compact
+\end{lemma}
+\begin{proof}
+  \href{https://ncatlab.org/nlab/show/closed+subspaces+of+compact+Hausdorff+spaces+are+equivalently+compact+subspaces}{nLab reference} 
+  \todo{Add proper reference or complete proof}
+\end{proof}
+
+\begin{lemma}\label{Z^{S^n}->Z_is_fibration}
+  Let $Z$ be a topological space. Then for all $n\geq0$ and for all points $\ast\in S^n$, consider the pullback square
+  \begin{equation}\label{Jeq6}
+    \begin{tikzcd}
+      {S^{n-1}} & {D^n} \\
+      \ast & {S^n}
+      \arrow["i", from=1-1, to=1-2]
+      \arrow["j", from=1-2, to=2-2]
+      \arrow["h"', from=1-1, to=2-1]
+      \arrow["k", from=2-1, to=2-2]
+      \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \end{tikzcd}
+  \end{equation}
+  Explicitly, when $n>0$, $j$ is the quotient map which collapses the boundary of $D^n$ to the point $\ast$ to obtain $S^n$. Then the following is a pullback diagram
+  \begin{equation}\label{Jeq7}
+    \begin{tikzcd}
+    {Z^{S^n}} & {Z^{D^n}} \\
+    {Z^\ast} & {Z^{S^{n-1}}}
+    \arrow["{j^\ast}", from=1-1, to=1-2]
+    \arrow["{i^\ast}", from=1-2, to=2-2]
+    \arrow["{k^\ast}"', from=1-1, to=2-1]
+    \arrow["{h^\ast}", from=2-1, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  where each arrow is the pullback of the corresponding arrow in diagram (\ref{Jeq6}). In particular, for all $\ast\in S^n$, the evaluation map $Z^{S^n}\to Z$ sending $\alpha\mapsto\alpha(\ast)$ belongs to $J\p$.
+\end{lemma}
+\begin{proof}
+  Note if $n=0$, diagram (\ref{Jeq7}) is obviously a pullback diagram, as it simply becomes
+  \[\begin{tikzcd}
+    {Z^{S^0}\cong Z\times Z} & {Z^\ast\cong Z} \\
+    {Z^\ast\cong Z} & {Z^\emptyset\cong\ast}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  (Check the arrows are the obvious ones under these isomorphisms). Now suppose $n>0$ in diagram (\ref{Jeq7}). First of all the diagram clearly commutes as (\ref{Jeq6}) does: given $f\in Z^{S^n}$, $i^\ast(j^\ast(f))=f\circ j\circ i=f\circ k\circ h=h^\ast(k^\ast(f))$. Now, given arrows $f:W\to Z^{D^n}$ and $g:W\to Z^\ast$ such that $i^\ast(f)=h^\ast(g)$ (so $f\circ i=g\circ h$), we would like to show there exists a unique map $\ell:W\to Z^{S^n}$ such that $j^\ast(\ell)=f$ and $k^\ast\circ\ell=g$. For each $w\in W$, we have a map $f(w):D^n\to Z$ and $g(w):\ast\to Z$ such that $f(w)\circ i=g(w)\circ h$ which make the following diagram commute
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    \ast & {S^n} \\
+    && Z
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["j", from=1-2, to=2-2]
+    \arrow["h"', from=1-1, to=2-1]
+    \arrow["k", from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow["{\ell(w)}"', dashed, from=2-2, to=3-3]
+    \arrow["{f(w)}", curve={height=-12pt}, from=1-2, to=3-3]
+    \arrow["{g(w)}"', curve={height=12pt}, from=2-1, to=3-3]
+  \end{tikzcd}\]
+  Hence by the universal property of the pushout, there is a unique map $\ell(w):S^n\to Z$ such that $\ell(w)\circ j=f(w)$ and $\ell(w)\circ k=g(w)$. In this way, we have defined a function $\ell:W\to Z^{S^n}$, and furthermore it clearly makes the following diagram commute
+  \begin{equation}\label{Jeq8}
+    \begin{tikzcd}
+      W \\
+      & {Z^{S^n}} & {Z^{D^n}} \\
+      & {Z^\ast} & {Z^{S^{n-1}}}
+      \arrow["\ell", from=1-1, to=2-2]
+      \arrow["{j^\ast}", from=2-2, to=2-3]
+      \arrow["{i^\ast}", from=2-3, to=3-3]
+      \arrow["{k^\ast}"', from=2-2, to=3-2]
+      \arrow["{h^\ast}", from=3-2, to=3-3]
+      \arrow["f", curve={height=-12pt}, from=1-1, to=2-3]
+      \arrow["g"', curve={height=12pt}, from=1-1, to=3-2]
+    \end{tikzcd}
+  \end{equation}
+  Furthermore, it is not difficult to see that $\ell$ is the \textit{unique} function $W\to Z^{S^n}$ which makes this diagram commute, as necessarily given $w\in W$, we know $\ell(w):S^n\to Z$ is a continuous map satisfying $\ell(w)\circ j=f(w)$ and $\ell(w)\circ k=g(w)$, but since (\ref{Jeq6}) is a pushout diagram, $\ell(w)$ is the \textit{unique} such map, so $\ell$ must be defined as we defined it. It remains to show that $\ell$ is continuous. By definition of the compact-open topology, it suffices to show that for all compact $K\sseq S^n$ and open $U\sseq Z$ that
+  \[\ell^{-1}(S(K,U))=\{w\in W:\ell(w)(K)\sseq U\}\]
+  is open in $W$. Note it suffices to show that $\ell(w)(K)=f(w)(j^{-1}(K))$ and that $j^{-1}(K)$ is compact, as if this were true then we would have
+  \[\ell^{-1}(S(K,U))=\{w\in W:\ell(w)(K)\sseq U\}=\{w\in W:f(w)(j^{-1}(K))\sseq U\}=f^{-1}(S(j^{-1}(K),U)),\]
+  and since $f$ is continuous, if $j^{-1}(K)$ is compact then $S(j^{-1}(K),U)$ is open in $Z^{D^n}$, so we would have that $\ell^{-1}(S(K,U))=f^{-1}(S(j^{-1}(K),U))$ is open, as desired.
+  
+  Now, to see $\ell(w)(K)=f(w)(j^{-1}(K))$, note that given $z\in\ell(w)(K)$, there exists $x\in K\sseq S^n$ such that $\ell(w)(x)=z$, then since $j$ is surjective we may pick $d\in D^n$ such that $j(d)=x\in K$. Furthermore, $z=\ell(w)(x)=\ell(w)(j(d))=f(w)(d)$. Thus it follows $z\in f(w)(j^{-1}(K))$. Conversely, suppose we are given $z\in f(w)(j^{-1}(K))$, so there exists $d\in D^n$ such that $z=f(w)(d)=\ell(w)(j(d))$, and $j(w)\in K$. Thus it follows $z\in \ell(w)(K)$, as desired.
+
+  Finally, to see $j^{-1}(K)$ is compact, note that $j$ is a continuous map between compact Hausdorff spaces, so that $j^{-1}(K)$ is compact in $D^n$ by \autoref{closed=compact_in_CH_spaces}. Thus, we have shown that diagram (\ref{Jeq7}) is a pullback square.
+
+  Now, by \autoref{2.4.14} we know that the map $i^\ast:Z^{D^n}\to Z^{S^{n-1}}$ in diagram (\ref{Jeq7}) belongs to $J\p$. Thus since $J\p$ is characterized by a right lifting property, it is straightforward to see it is closed under taking pullbacks, so that the left map in the diagram $k^\ast:Z^{S^n}\to Z^\ast$ also belongs to $J\p$. Under the obvious isomorphism $Z^\ast\cong Z$, this is precisely the evaluation map $Z^{S^n}\to Z$ sending $\alpha\mapsto\alpha(\ast)$.
+\end{proof}
+
+\begin{lemma}[Hovey 2.4.17]\label{2.4.17}
+  Suppose $p:X\to Y$ is a weak equivalence. Then $p^{S^n}:X^{S^n}\to Y^{S^n}$ is a weak equivalence for all $n\geq-1$, where $S^{-1}=\emptyset$.
+\end{lemma}
+\begin{proof}
+  We give a proof by induction on $n$. In the case $n=-1$, since $S^{-1}=\emptyset$, $X^{S^{-1}}=Y^{S^{-1}}=\ast$ (because $\emptyset$ is initial in $\Top$), so that the map $p^{S^{-1}}:\ast\to\ast$ is a homeomorphism (because $\ast$ is terminal) and in particular a weak-equivalence.
+
+  Now, supposing we have shown $p^{S^{n-1}}$ is a weak equivalence for some $n\geq0$, we wish to show $p^{S^n}$ is likewise. Let $i:S^{n-1}\to D^n$ and $j:D^n\to S^n$ be as in diagram (\ref{Jeq6}). Pick a point $\alpha\in X^{S^n}$, let $F_X$ denote the fiber of $i_X:X^{D^n}\to X^{S^{n-1}}$ containing $\alpha\circ j$ and let $F_Y$ denote the corresponding fiber of $i_Y:Y^{D^n}\to Y^{S^{n-1}}$ containing $p\circ\alpha\circ j$. Let $\iota_X$ and $\iota_Y$ denote the inclusions $F_X\into X^{D^n}$ and $F_Y\into Y^{D^n}$, respectively. Then we first claim that $F_X\to F_Y$ is a weak equivalence. First, we claim $\pi_0(p_\ast):\pi_0(F_X)\to\pi_0(F_Y)$ is a bijection. Since $p:X\to Y$ is a weak equivalence, it suffices to show that $\pi_0(F_X)\cong\pi_n(X,\alpha(\ast))$ and $\pi_0(F_Y)\cong\pi_n(Y,p(\alpha(\ast)))$, and that the following diagram commutes under these bijections
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHBpXzAoRl9YLFxcYWxwaGFcXGNpcmMgaikiXSxbMCwxLCJcXHBpX24oWCxcXGFscGhhKFxcYXN0KSkiXSxbMSwxLCJcXHBpX24oWSxwKFxcYWxwaGEoXFxhc3QpKSkiXSxbMSwwLCJcXHBpXzAoRl9ZLHBcXGNpcmNcXGFscGhhXFxjaXJjIGopIl0sWzAsMSwiXFxjb25nIl0sWzEsMiwiXFxjb25nIl0sWzAsM10sWzMsMiwiXFxjb25nIiwyXV0=
+  \begin{equation}\label{Meq1}
+    \begin{tikzcd}
+      {\pi_0(F_X)} & {\pi_0(F_Y)} \\
+      {\pi_n(X,\alpha(\ast))} & {\pi_n(Y,p(\alpha(\ast)))}
+      \arrow["\cong", from=1-1, to=2-1]
+      \arrow["\cong", from=2-1, to=2-2]
+      \arrow[from=1-1, to=1-2]
+      \arrow["\cong"', from=1-2, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  An element of $F_X=i_X^{-1}(i_X(\alpha\circ j))$ is a map $\beta:D^n\to X$ satisfying $\beta\circ i=\alpha\circ j\circ i$. Unravelling definitions, $\alpha\circ j\circ i:S^{n-1}\to X$ is simply the constant map on $\alpha(\ast)$, so that if $\beta:D^n\to X$ belongs to $F_X$, it must send every element in $S^{n-1}$ to $\alpha(\ast)$. Thus $\beta$ fits into the pushout square (\ref{Jeq6}), so there exists a unique map $\wt\beta:S^n\to X$ such that the composition $D^n\xrightarrow j S^n\xrightarrow{\wt\beta} X$ is equal to $\beta$, and $\wt\beta(\ast)=\alpha(\ast)$. Conversely, an element of $X^{S^n}$ sending $\ast$ to $\alpha(\ast)$ gives rise to an element of $F_X$ by precomposition with $j$. Thus we may identify $F_X$ (as a set) with the subset $[S^n,X]_\ast\sseq X^{S^n}$ containing those maps $\beta:S^n\to X$ such that $\beta(\ast)=\alpha(\ast)$. We further claim the assignment $h_X:F_X\to[S^n,X]_\ast$ is a homeomorphism, where $[S^n,X]_\ast$ is endowed with the subspace topology inherited from $X^{S^n}$. Given $K\sseq S^n$ compact and $U\sseq X$ open, we want to show that $h_X^{-1}(S(K,U))$ is open in $F_X$. Indeed,
+  \[h_X^{-1}(S(K,U)\cap [S^n,X]_\ast)=\{\beta\in F_X:\wt\beta(K)\sseq U\}\overset{(\ast)}=\{\beta\in F_X:\beta(j^{-1}(K))\sseq U\}=S(j^{-1}(K),U)\cap F_X,\]
+  where $(\ast)$ follows by the fact that $j:D^n\onto S^n$ is surjective and $\wt\beta\circ j=\beta$. Note $j^{-1}(K)$ is compact in $D^n$ by \autoref{closed=compact_in_CH_spaces}, so that $h_X$ is continuous as desired. Conversely to see $h_X$ is open note a similar argument yields
+  \[h_X(S(K,U)\cap F_X)=S(j(K),U)\cap[S^n,X]_\ast\]
+  for all $K\sseq D^n$ compact and $U\sseq X$ open (continuous maps preserve open maps), so that $h_X$ is a continuous open bijection, therefore a homeomorphism, as desired. Thus the assignment $\beta\mapsto\wt\beta$ yields a bijection between $\pi_0(F_X)\to\pi_0([S^n,X]_\ast)=\pi_n(X,\alpha(\ast))$, i.e., the path component of some $\beta\in F_X\sseq X^{D^n}$ is sent to the equivalence class of the map $\wt\beta:S^n\to X$ in $\pi_n(X,\alpha(\ast))$. An entirely analagous argument yields a bijection $\pi_0(F_Y)\to\pi_n(Y,p(\alpha(\ast)))$ sending the path component of a map $\gamma:D^n\to Y$ in $F_Y$ to the equivalence class of the unique continuous map $\wt\gamma:(S^n,\ast)\to(Y,p(\alpha(\ast)))$ such that $\gamma=\wt\gamma\circ j$. Finally, to see diagram (\ref{Meq1}) commutes, unravelling the maps we have that the top composition sends $[\beta]\in\pi_0(F_X)$ to $[\wt{p\circ \beta}]$, while the bottom composition sends it to $[p\circ\wt\beta]$. By definition, $\wt{p\circ\beta}$ is the unique continuous dashed line $S^n\to Y$ such that the following diagram commutes
+  % https://q.uiver.app/#q=WzAsNSxbMCwwLCJTXntuLTF9Il0sWzEsMCwiRF5uIl0sWzEsMSwiU15uIl0sWzAsMSwiXFxhc3QiXSxbMiwyLCJZIl0sWzAsMSwiaSJdLFsxLDIsImoiXSxbMCwzLCJoIiwyXSxbMywyLCJrIl0sWzEsNCwicFxcY2lyY1xcYmV0YSIsMCx7ImN1cnZlIjotMn1dLFszLDQsInAoXFxhbHBoYShcXGFzdCkpIiwyLHsiY3VydmUiOjJ9XSxbMiw0LCIiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    \ast & {S^n} \\
+    && Y
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["j", from=1-2, to=2-2]
+    \arrow["h"', from=1-1, to=2-1]
+    \arrow["k", from=2-1, to=2-2]
+    \arrow["p\circ\beta", curve={height=-12pt}, from=1-2, to=3-3]
+    \arrow["{p(\alpha(\ast))}"', curve={height=12pt}, from=2-1, to=3-3]
+    \arrow[dashed, from=2-2, to=3-3]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+  \end{tikzcd}\]
+  Then it follows by commutativity of the following diagram that $p\circ\wt\beta=\wt{p\circ\beta}$
+  % https://q.uiver.app/#q=WzAsNixbMCwwLCJTXntuLTF9Il0sWzEsMCwiRF5uIl0sWzEsMSwiU15uIl0sWzAsMSwiXFxhc3QiXSxbMiwyLCJYIl0sWzMsMywiWSJdLFswLDEsImkiXSxbMSwyLCJqIl0sWzAsMywiaCIsMl0sWzMsMiwiayJdLFsxLDQsIlxcYmV0YSIsMix7ImN1cnZlIjotMn1dLFszLDQsIlxcYWxwaGEoXFxhc3QpIiwwLHsiY3VydmUiOjJ9XSxbMiw0LCJcXHd0XFxiZXRhIiwxXSxbMiwwLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbNCw1LCJwIiwxXSxbMSw1LCJwXFxjaXJjXFxiZXRhIiwwLHsiY3VydmUiOi0zfV0sWzMsNSwicChcXGFscGhhKFxcYXN0KSkiLDIseyJjdXJ2ZSI6M31dXQ==
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    \ast & {S^n} \\
+    && X \\
+    &&& Y
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["j", from=1-2, to=2-2]
+    \arrow["h"', from=1-1, to=2-1]
+    \arrow["k", from=2-1, to=2-2]
+    \arrow["\beta"', curve={height=-12pt}, from=1-2, to=3-3]
+    \arrow["{\alpha(\ast)}", curve={height=12pt}, from=2-1, to=3-3]
+    \arrow["\wt\beta"{description}, from=2-2, to=3-3]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow["p"{description}, from=3-3, to=4-4]
+    \arrow["p\circ\beta", curve={height=-18pt}, from=1-2, to=4-4]
+    \arrow["{p(\alpha(\ast))}"', curve={height=18pt}, from=2-1, to=4-4]
+  \end{tikzcd}\]
+  Thus since diagram (\ref{Meq1}) commutes, we get that $\pi_0(p_\ast):\pi_0(F_X)\to\pi_0(F_Y)$ is a bijection, as desired.
+
+  Now, we would like to show that $\pi_m(p_\ast,\alpha\circ j):\pi_m(F_X,\alpha\circ j)\to\pi_m(F_Y,p\circ \alpha\circ j)$ is a bijection for all $m>0$. Consider the square
+  \[\begin{tikzcd}
+    {X^{D^n}} & {Y^{D^n}} \\
+    {X^{S^{n-1}}} & {Y^{S^{n-1}}}
+    \arrow["{i_X}"', from=1-1, to=2-1]
+    \arrow["{p^{S^{n-1}}}", from=2-1, to=2-2]
+    \arrow["{p^{D^n}}", from=1-1, to=1-2]
+    \arrow["{i_Y}", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  It commutes, as given $f\in X^{D^n}$, $i_Y(p^{D^n}(f))=i_Y(p\circ f)=p\circ f\circ i=p\circ i_X(f)=p^{S^{n-1}}(i_X(f))$. Furthermore, $i_X$ and $i_Y$ belong to $J\p$ by \autoref{2.4.14}. Thus by \autoref{2.4.16}, for all $m>0$ the following diagram commutes and both rows are exact
+  % https://q.uiver.app/?q=WzAsMTAsWzEsMCwiXFxwaV97bSsxfShYXntTXntuLTF9fSxcXGFscGhhIGppKSJdLFsyLDAsIlxccGlfbShGX1gsXFxhbHBoYSBqKSJdLFszLDAsIlxccGlfbShYXntEXm59LFxcYWxwaGEgaikiXSxbNCwwLCJcXHBpX20oWF57U157bi0xfX0sXFxhbHBoYSBqaSkiXSxbMCwwLCJcXHBpX3ttKzF9KFhee0Rebn0sXFxhbHBoYSBqKSJdLFswLDEsIlxccGlfe20rMX0oWV57RF5ufSxwXFxhbHBoYSBqKSJdLFsxLDEsIlxccGlfe20rMX0oWV57U157bi0xfX0scFxcYWxwaGEgamkpIl0sWzIsMSwiXFxwaV9tKEZfWSxwXFxhbHBoYSBqKSJdLFszLDEsIlxccGlfbShZXntEXm59LHBcXGFscGhhIGopIl0sWzQsMSwiXFxwaV9tKFlee1Nee24tMX19LHBcXGFscGhhIGppKSJdLFswLDEsImRfbSJdLFsxLDIsIlxccGlfbShcXGlvdGFfWCxcXGFscGhhX2opIl0sWzIsMywiXFxwaV97bX0oaV9YLFxcYWxwaGEgaikiXSxbNCwwLCJcXHBpX3ttKzF9KGlfWCxcXGFscGhhIGopIl0sWzQsNSwiXFxwaV97bSsxfShwXntEXm59LFxcYWxwaGEgaikiXSxbMCw2LCJcXHBpX3ttKzF9KHBee1Nee24tMX19LFxcYWxwaGEgamkpIl0sWzUsNiwiXFxwaV97bSsxfShpX1ksXFxhbHBoYSBqKSIsMl0sWzYsNywiZF9tIiwyXSxbNyw4LCJcXHBpX20oXFxpb3RhX1ksXFxhbHBoYV9qKSIsMl0sWzgsOSwiXFxwaV97bX0oaV9ZLFxcYWxwaGEgaikiLDJdLFsxLDcsIlxccGlfbShwXntEXm59LFxcYWxwaGEgaikiXSxbMiw4LCJcXHBpX20ocF57RF5ufSxcXGFscGhhIGopIl0sWzMsOSwiXFxwaV9tKHBee1Nee24tMX19LFxcYWxwaGEgamkpIl1d
+  \[\begin{tikzcd}
+    {\pi_{m+1}(X^{D^n},\alpha j)} & {\pi_{m+1}(X^{S^{n-1}},\alpha ji)} & {\pi_m(F_X,\alpha j)} & {\pi_m(X^{D^n},\alpha j)} & {\pi_m(X^{S^{n-1}},\alpha ji)} \\
+    {\pi_{m+1}(Y^{D^n},p\alpha j)} & {\pi_{m+1}(Y^{S^{n-1}},p\alpha ji)} & {\pi_m(F_Y,p\alpha j)} & {\pi_m(Y^{D^n},p\alpha j)} & {\pi_m(Y^{S^{n-1}},p\alpha ji)}
+    \arrow["{d_m}", from=1-2, to=1-3]
+    \arrow["{\pi_m(\iota_X,\alpha_j)}", from=1-3, to=1-4]
+    \arrow["{\pi_{m}(i_X,\alpha j)}", from=1-4, to=1-5]
+    \arrow["{\pi_{m+1}(i_X,\alpha j)}", from=1-1, to=1-2]
+    \arrow["{\pi_{m+1}(p^{D^n},\alpha j)}", from=1-1, to=2-1]
+    \arrow["{\pi_{m+1}(p^{S^{n-1}},\alpha ji)}", from=1-2, to=2-2]
+    \arrow["{\pi_{m+1}(i_Y,\alpha j)}"', from=2-1, to=2-2]
+    \arrow["{d_m}"', from=2-2, to=2-3]
+    \arrow["{\pi_m(\iota_Y,\alpha_j)}"', from=2-3, to=2-4]
+    \arrow["{\pi_{m}(i_Y,\alpha j)}"', from=2-4, to=2-5]
+    \arrow["{\pi_m(p^{D^n},\alpha j)}", from=1-3, to=2-3]
+    \arrow["{\pi_m(p^{D^n},\alpha j)}", from=1-4, to=2-4]
+    \arrow["{\pi_m(p^{S^{n-1}},\alpha ji)}", from=1-5, to=2-5]
+  \end{tikzcd}\]
+  Now per our induction hypothesis, the second and fifth vertical arrows are isomorphisms. The first and fourth vertical arrows are isomorphisms by \autoref{2.4.15}. Then it follows by the five-lemma that the middle arrow is an isomorphism (in the case $m=1$, this argument still works, a simple diagram chase yields that the five-lemma does hold in the more general setting when the last three elements of each row are non-abelian groups). Thus the restriction $p^{D^n}:F_X\to F_Y$ is indeed a weak equivalence, as desired.
+
+  In what follows, fix a basepoint $\ast\in S^n$, and given a space $Z$ let $k_Z:Z^{S^n}\to Z$ be the evaluation map sending $\alpha\mapsto\alpha(\ast)$. let $\wt{F_X}$ and $\wt{F_Y}$ be the fibers of $k_X:X^{S^n}\to X$ and $k_Y:Y^{S^n}\to Y$ containing $\alpha$ and $p\circ \alpha$, respectively. Let $F_X$ and $F_Y$ be defined as above (so $p^{D^n}:F_X\to F_Y$ is a weak equivalence, as we have just shown). Finally, let $j_Z:Z^{S^n}\to Z^{D^n}$ be the pullback map induced by $j:D^n\to S^n$. Consider the following square
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJcXHd0e0ZfWH0iXSxbMCwxLCJcXHd0e0ZfWX0iXSxbMSwxLCJGX1kiXSxbMSwwLCJGX1giXSxbMCwxLCJwXntTXm59IiwyXSxbMSwyLCJqX1kiXSxbMCwzLCJqX1giXSxbMywyLCJwXntEXm59Il1d
+  \begin{equation}\label{Jeq9}
+    \begin{tikzcd}
+      {\wt{F_X}} & {F_X} \\
+      {\wt{F_Y}} & {F_Y}
+      \arrow["{p^{S^n}}"', from=1-1, to=2-1]
+      \arrow["{j_Y}", from=2-1, to=2-2]
+      \arrow["{j_X}", from=1-1, to=1-2]
+      \arrow["{p^{D^n}}", from=1-2, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  First of all, it clearly commutes, as given $\beta\in\wt{F_X}$, so $\beta:S^n\to X$ is continuous and $\beta(\ast)=\alpha(\ast)$, we have $p^{D^n}(j_X(\beta))=p^{D^n}(\beta\circ j)=p\circ\beta\circ j=j_Y(p\circ\beta)=j_Y(p^{S^n}(\beta))$. Now we claim the restriction $j_X|_{\wt{F_X}}:\wt{F_X}\to F_X$ is a homeomorphism. First, note explicitly that 
+  \[F_X=i_X^{-1}(i_X(\alpha\circ j))=\{\gamma\in X^{D^n}:i_X(\gamma)=i_X(\alpha\circ j)\}=\{\gamma\in X^{D^n}:\gamma\circ i=\alpha\circ j\circ i\},\]
+  and
+  \[\wt{F_X}=k_X^{-1}(k_X(\alpha))=\{\beta\in X^{S^n}:k_X(\beta)=k_X(\alpha)\}=\{\beta\in X^{S^n}:\beta(\ast)=\alpha(\ast)\}.\] 
+  Now we show $j_X:\wt{F_X}\to F_X$ is a homeomorphism by considering the cases $n=0$ and $n>0$ separately.
+  
+  In the case $n=0$, given $\gamma\in X^{D^0}$, $\gamma\circ i$ and $\alpha\circ j\circ i$ are maps $S^{-1}\to X$, and $S^{-1}=\emptyset$ is initial in $\Top$, so $\gamma\circ i=\alpha\circ j\circ i$ for all $\gamma\in X^{D^0}$. Thus $F_X=X^{D^0}=X^\ast$. On the other hand, an element of $\wt{F_X}$ is a function $\beta:S^0=\{\ast,0\}\to X$ such that $\beta(\ast)=\alpha(\ast)$, and the map $j_X:\wt{F_X}\to F_X$ sends $\beta\mapsto\beta\circ j$. Here $j$ is simply the map $D^0\to\{\ast,0\}$ including the unique point $0\in D^0$ to $0$. Thus under the isomorphism $X^{\ast}\cong X$, $j_X:\wt{F_X}\to F_X=X^\ast\cong X$ simply sends $\beta\mapsto\beta(0)$. Now, clearly this map is a bijection, as an element of $\wt{F_X}$ is a function $\{\ast,0\}\to X$ which must send $\ast$ to $\alpha(\ast)$ and there are no restrictions on where $0$ is sent. To see this map is open, let $K\sseq S^0$ compact (so $K$ is any subset of $S^0$ as $S^0$ is a finite space) and let $U\sseq X$ be open. Then we would like to show $j_X(S(K,U)\cap\wt{F_X})$ is open in $X$. Note
+  \[j_X(S(K,U)\cap\wt{F_X})=\{\beta(0):\beta\in X^{\{\ast,0\}},\beta(\ast)=\alpha(\ast),\beta(K)\sseq U\}=\begin{cases}
+    U & \ast\in K,\alpha(\ast)\in U \\
+    \emptyset & \ast\in K,\alpha(\ast)\notin U \\
+    U & \ast\notin K.
+  \end{cases}\]
+  Hence $j_X(S(K,U)\cap\wt{F_X})$ is indeed open. Thus in the case $n=0$, $j_X:\wt{F_X}\to F_X$ is an open bijection, and it is continuous bijection, so it is a homeomorphism.
+  
+  Now, suppose that $n>0$, we would like to show $j_X:\wt{F_X}\to F_X$ is a continuous open bijection. It is continuous by definition. Since $j$ is an epimorphism when $n>0$, $j_X$ is clearly injective, as given $\beta,\beta'\in\wt{F_X}$, if $j_X(\beta)=j_X(\beta')$, then $\beta\circ j=\beta'\circ j\implies\beta=\beta'$, as desired. To see it is surjective, first note that $j\circ i:S^{n-1}\to D^n\to S^n$ sends everything to the basepoint $\ast$, by commutativity of (\ref{Jeq6}). Thus elements of $F_X$ are maps $\gamma:D^n\to X$ such that $\gamma\circ i:S^{n-1}\into D^n\to X$ sends everything to $\alpha(\ast)$, i.e., $\gamma$ restricts to the constant map on $\alpha(\ast)$ on the boundary $\partial D^n=S^{n-1}$. Thus $\gamma$ fits into the following diagram
+  % https://q.uiver.app/#q=WzAsNSxbMCwwLCJTXntuLTF9Il0sWzEsMCwiRF5uIl0sWzEsMSwiU15uIl0sWzAsMSwiXFxhc3QiXSxbMiwyLCJYIl0sWzAsMSwiaSJdLFsxLDIsImoiXSxbMCwzLCJoIiwyXSxbMywyLCJrIl0sWzIsMCwiIiwwLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV0sWzEsNCwiXFxnYW1tYSIsMCx7ImN1cnZlIjotMn1dLFszLDQsIlxcYWxwaGEoXFxhc3QpIiwyLHsiY3VydmUiOjJ9XSxbMiw0LCJcXHd0XFxnYW1tYSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+  \[\begin{tikzcd}
+    {S^{n-1}} & {D^n} \\
+    \ast & {S^n} \\
+    && X
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["j", from=1-2, to=2-2]
+    \arrow["h"', from=1-1, to=2-1]
+    \arrow["k", from=2-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow["\gamma", curve={height=-12pt}, from=1-2, to=3-3]
+    \arrow["{\alpha(\ast)}"', curve={height=12pt}, from=2-1, to=3-3]
+    \arrow["\wt\gamma"', dashed, from=2-2, to=3-3]
+  \end{tikzcd}\]
+  so there is a (unique) dashed arrow $\wt\gamma:S^n\to X$ such that $j_X(\wt\gamma)=\wt\gamma\circ j=\gamma$, and $\wt\gamma\in\wt{F_X}$ as $(\wt\gamma(\ast))=\alpha(\ast)$. Thus $j_X$ is surjective. It remains to show that $j_X$ is open. Let $K\sseq S^n$ be compact and $U\sseq X$ open. Then we would like to show that $j_X(S(K,U)\cap\wt{F_X})$ is open in $F_X$. It suffices to show that $j_X(S(K,U)\cap\wt{F_X})=F_X\cap S(j^{-1}(K),U)$, as $j^{-1}(K)$ is compact (\autoref{closed=compact_in_CH_spaces}). First of all, let $\beta\in S(K,U)\cap\wt{F_X}$. We would like to show $j_X(\beta)=\beta\circ j\in S(j^{-1}(K),U)$. Indeed, $\beta\circ j(j^{-1}(K))=\beta(j(j^{-1}(K)))=\beta(K)\sseq U$, where the second equality follows by the fact that $j$ is surjective (since $n>0$). Conversely, suppose we are given $\gamma\in S(K,U)\cap\wt{F_X}$. Then by what we have shown above, $\gamma=\wt\gamma\circ j$ for a unique $\wt\gamma\in X^{S^n}$ with $\wt\gamma(\ast)=\alpha(\ast)$, and $\gamma(j^{-1}(K))\sseq U$, so that $\wt\gamma(j(j^{-1}(K)))=\wt\gamma(K)\sseq U$ (where again equality follows since $j$ is surjective when $n>0$). Thus $\wt\gamma\in S(K,U)\cap\wt{F_X}$ and satisfies $j_X(\wt\gamma)=\wt\gamma\circ j=\gamma$, so $\gamma\in j_X(S(K,U)\cap\wt{F_X})$. Hence, $j_X$ is a continuous open bijection, thus a homeomorphism, as desired.
+
+  By an entirely analagous argument, $j_Y:\wt{F_Y}\to F_Y$ is a homeomorphism. Thus looking at diagram (\ref{Jeq9}), since the top and bottom arrows are isomorphisms and we have shown the right arrow is a weak equivalence, it follows by two applications of $2$-of-$3$ (\autoref{2.4.4}) that the left arrow $p^{S^n}:\wt{F_X}\to\wt{F_Y}$ is a weak equivalence as well. 
+ 
+  Now we will finally show that $\pi_m(p^{S^n},\alpha):\pi_m(X^{S^n},\alpha)\to\pi_m(Y^{S^n},p\circ\alpha)$ is a bijection for all $m\geq0$. Consider the square
+  \[\begin{tikzcd}
+    {X^{S^n}} & {Y^{S^n}} \\
+    X & Y
+    \arrow["{p^{S^n}}", from=1-1, to=1-2]
+    \arrow["{k_Y}", from=1-2, to=2-2]
+    \arrow["{k_X}"', from=1-1, to=2-1]
+    \arrow["p", from=2-1, to=2-2]
+  \end{tikzcd}\]
+  This diagram commutes, as given $\beta\in X^{S^n}$, $k_Y(p_\ast(\beta))=k_Y(p\circ\beta)=p(\beta(\ast))=p(k_X(\beta))$. Re-define $\iota_X$ and $\iota_Y$ to be the inclusions $\wt{F_X}\into X^{S^n}$ and $\wt{F_Y}\into Y^{S^n}$, respectively. Since $k_X$ and $k_Y$ are fibrations, by \autoref{2.4.16}, for all $m\geq0$ the following diagram commutes and the rows are exact% https://q.uiver.app/?q=WzAsMTAsWzAsMCwiXFxwaV97bSsxfShYLFxcYWxwaGEoXFxhc3QpKSJdLFsxLDAsIlxccGlfbShcXHd0e0ZfWH0sXFxhbHBoYSkiXSxbMiwwLCJcXHBpX20oWF57U15ufSxcXGFscGhhKSJdLFszLDAsIlxccGlfbShYLFxcYWxwaGEoXFxhc3QpKSJdLFs0LDAsIlxccGlfe20tMX0oXFx3dHtGX1h9LFxcYWxwaGEpIl0sWzAsMSwiXFxwaV97bSsxfShZLHAoXFxhbHBoYShcXGFzdCkpKSJdLFsxLDEsIlxccGlfbShcXHd0e0ZfWX0scFxcYWxwaGEpIl0sWzIsMSwiXFxwaV9tKFlee1Nebn0scFxcYWxwaGEpIl0sWzMsMSwiXFxwaV9tKFkscChcXGFscGhhKFxcYXN0KSkpIl0sWzQsMSwiXFxwaV97bS0xfShcXHd0e0ZfWX0scFxcYWxwaGEpIl0sWzAsMSwiZF9tIl0sWzEsMiwiXFxwaV9tKFxcaW90YV9YLFxcYWxwaGEpIl0sWzMsNCwiZF97bS0xfSJdLFswLDUsIlxccGlfe20rMX0ocCxcXGFscGhhKFxcYXN0KSkiXSxbMiw3LCJcXHBpX20ocF57U15ufSxcXGFscGhhKSJdLFszLDgsIlxccGlfbShwLFxcYWxwaGEoXFxhc3QpKSJdLFs0LDksIlxccGlfe20tMX0ocF57U15ufSxcXGFscGhhKSJdLFs2LDcsIlxccGlfbShcXGlvdGFfWSxwXFxhbHBoYSkiLDJdLFs3LDgsIlxccGlfbShrX1kscFxcYWxwaGEpIiwyXSxbOCw5LCJkX3ttLTF9IiwyXSxbMSw2LCJcXHBpX20ocF57U15ufSxcXGFscGhhKSJdLFs1LDYsImRfbSIsMl0sWzIsMywiXFxwaV9tKGtfWCxcXGFscGhhKSJdXQ==
+  \[\begin{tikzcd}
+    {\pi_{m+1}(X,\alpha(\ast))} & {\pi_m(\wt{F_X},\alpha)} & {\pi_m(X^{S^n},\alpha)} & {\pi_m(X,\alpha(\ast))} & {\pi_{m-1}(\wt{F_X},\alpha)} \\
+    {\pi_{m+1}(Y,p(\alpha(\ast)))} & {\pi_m(\wt{F_Y},p\alpha)} & {\pi_m(Y^{S^n},p\alpha)} & {\pi_m(Y,p(\alpha(\ast)))} & {\pi_{m-1}(\wt{F_Y},p\alpha)}
+    \arrow["{d_m}", from=1-1, to=1-2]
+    \arrow["{\pi_m(\iota_X,\alpha)}", from=1-2, to=1-3]
+    \arrow["{d_{m-1}}", from=1-4, to=1-5]
+    \arrow["{\pi_{m+1}(p,\alpha(\ast))}", from=1-1, to=2-1]
+    \arrow["{\pi_m(p^{S^n},\alpha)}", from=1-3, to=2-3]
+    \arrow["{\pi_m(p,\alpha(\ast))}", from=1-4, to=2-4]
+    \arrow["{\pi_{m-1}(p^{S^n},\alpha)}", from=1-5, to=2-5]
+    \arrow["{\pi_m(\iota_Y,p\alpha)}"', from=2-2, to=2-3]
+    \arrow["{\pi_m(k_Y,p\alpha)}"', from=2-3, to=2-4]
+    \arrow["{d_{m-1}}"', from=2-4, to=2-5]
+    \arrow["{\pi_m(p^{S^n},\alpha)}", from=1-2, to=2-2]
+    \arrow["{d_m}"', from=2-1, to=2-2]
+    \arrow["{\pi_m(k_X,\alpha)}", from=1-3, to=1-4]
+  \end{tikzcd}\]
+  (in the case $m=0$, the final entry of each row becomes $0$). We know the second and fifth vertical arrows are isomorphisms by what we have shown above. Since $p$ is a weak equivalence a priori, we also have that the first and fourth vertical arrows are isomorphisms. Thus by the five-lemma we get that the middle arrow is an isomorphism when $m>0$ (again, a simple diagram chase yields that the five-lemma still works here in the case $m=1$, as it holds in the more general setting where the first and second entries are abelian groups, the third and fourth entries are non-abelian groups, and the last entry of each row is a set), as desired.
+
+  Finally, we claim that $\pi_0(p^{S^n},\alpha):\pi_0(X^{S^n},\alpha)\to\pi_0(Y^{S^n},p\circ\alpha)$ is a bijection.  to see surjectivity, we first claim that $\pi_0(X^{S^n})\cong[S^n,X]$ where $[A,Z]$ means the set of (free) homotopy classes of maps from $A$ to $Z$. Indeed, connected components of $X^{S^n}$ are precisely the homotopy classes of maps $S^n\to X$. In order to see this, first suppose $\beta,\gamma\in X^{S^n}$ are in the same connected component, so there exists a continuous map $f:I\to X^{S^n}$ with $f(0)=\beta$ and $f(1)=\gamma$. Since $S^n$ is LCH (in particular it is compact and Hausdorff), we get an induced map $F:I\times S^n\to X$ (\autoref{locally_compact_hausdorff_spaces_are_exponentiable}). Unravelling how this map is defined, we have $F(t,s)=f(t)(s)$ for all $t\in I$ and $s\in S^n$, so that in particular $F(0,s)=\beta(s)$ and $F(1,s)=\gamma(s)$, so $F$ defines a homotopy between $\beta$ and $\gamma$, as desired. Conversely, given two maps $\beta,\gamma:S^n\to X$ and a homotopy $H:I\times S^n\to X$ with $H(0,s)=\alpha(s)$ and $H(1,s)=\beta(s)$ for all $s\in S^n$, again since $S^n$ is LCH, $H$ induces a map $h:I\to X^{S^n}$, and $h(0)=H(0,-)=\beta$ and $h(1)=H(1,-)=\gamma$, so that $\beta$ and $\gamma$ belong to the same path-component of $X^{S^n}$, as desired. Similarly, $\pi_0(Y^{S^n})\cong[S^n,Y]$. Thus in order to show $\pi_0(p^{S^n})$ is surjective it suffices to show that the map $p_\ast:[S^n,X]\to[S^n,Y]$ is surjective. Indeed, let $[f]\in[S^n,Y]$. Since $\pi_0(p)$ is bijective, there exists $x\in X$ and a path $\gamma:I\to Y$ with $\gamma(0)=p(x)$ and $\gamma(1)=f(\ast)$. Then conjugation by $\gamma$ yields an isomorphism $h_\gamma:\pi_n(Y,f(\ast))\cong\pi_n(Y,p(x))$ which preserves free homotopy equivalence, and since $p$ is a weak equivalence there exists $[g]\in\pi_n(Y,p(x))$ and a homotopy between $h_\gamma([f])$ and $[p\circ g]$, so it follows $[p\circ g]$ is homotopic to $[f]$ as desired (see a similar discussion in the proof of \autoref{2.4.4}).
+  
+  Finally, to see injectivity of $\pi_0(p^{S^n})$, suppose we are given two points $\beta,\gamma\in X^{S^n}$ which are sent to the same path component of $Y^{S^n}$. Note that our choice of $\alpha\in X^{S^n}$ all the way above was arbitrary, and we could have chosen $\alpha$ to be any element, so WLOG let's assume $\alpha=\gamma$. Then chasing $[\alpha]$ and $[\beta]$ around the third square in the diagram above yields that $p$ sends $\alpha(\ast)$ and $\beta(\ast)$ to the same path component in $Y$, and $\pi_0(p)$ is a bijection, so it follows that $\alpha(\ast)$ and $\beta(\ast)$ belong to the same path component of $X$. $[\alpha(\ast)]=[\beta(\ast)]$ is the distinguished point of $\pi_0(X,\alpha(\ast))$, so by exactness it follows that there exists $\wt\beta\in\wt{F_X}$ such that $[\beta]=[\iota_X(\wt\beta)]$. Then chasing $\wt\beta$ around the second square yields that $[p(\wt\beta)]$ is in the ``kernel'' of $\pi_0(\iota_Y,p\alpha)$, so that there exists $\delta\in\pi_1(Y,p(\alpha(\ast)))$ such that $d_0([\delta])=[p(\wt\beta)]$. Then since $\pi_1(p,\alpha(\ast))$ is surjective, there further exists $\delta'\in\pi_1(X,\alpha(\ast))$ such that $[p(\delta')]=[\delta]$. Finally, chasing $\delta'$ around the first arrow yields that 
+  \[\pi_0(p^{S^n},\alpha)(d_0([\delta']))=d_0([p(\delta')])=d_0([\delta])=[p(\wt\beta)]=\pi_0(p^{S^n},\alpha)([\wt\beta]),\]
+  and $\pi_0(p^{S^n},\alpha):\pi_0(\wt{F_X},\alpha)\to\pi_0(\wt{F_Y},p\alpha)$ is a bijective, so that $d_0([\delta'])=[\wt\beta]$. Thus it follows by exactness that $[\beta]=\pi_0(\iota_X,\alpha)([\wt\beta])=\pi_0(\iota_X,\alpha)(d_0([\delta']))=[\alpha]$, as desired.
+\end{proof}
+
+\begin{proposition}[Hovey 2.4.18]\label{2.4.18}
+  Suppose we have a pullback square
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJXIl0sWzAsMSwiWiJdLFsxLDEsIlkiXSxbMSwwLCJYIl0sWzAsMSwicSIsMl0sWzEsMiwiZyJdLFswLDMsImYiXSxbMywyLCJwIl0sWzAsMiwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lci1pbnZlcnNlIn19XV0=
+  \[\begin{tikzcd}
+    W & X \\
+    Z & Y
+    \arrow["q"', from=1-1, to=2-1]
+    \arrow["g", from=2-1, to=2-2]
+    \arrow["f", from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=2-2]
+  \end{tikzcd}\]
+  in $\Top$, where $p\in J\p$ and $g$ is a weak equivalence. Then $f$ is a weak equivalence.
+\end{proposition}
+\begin{proof}
+  Let $w\in W$, and define $F:=q^{-1}(q(w))$, $F':=p^{-1}(p(f(w)))$. We claim $f$ restricts to a homeomorphism $F\to F'$. First of all clearly given $a\in F=q^{-1}(q(w))$ (so $q(a)=q(w)$), note $p(f(a))=g(q(a))=g(q(w))=p(f(w))$ so that $f(a)\in p^{-1}(p(f(w)))$, as desired. To see it is injective, suppose we are given $a,b\in F$ such that $f(a)=f(b)$. Then consider the maps $h:\ast\to X$ and $k:\ast\to Z$ sending $\ast\mapsto f(a)$ and $\ast\mapsto q(w)$, respectively. Clearly 
+  \[p(h(\ast))=p(f(a))=g(q(a))=g(q(w))=g(k(\ast)).\] 
+  Then by the universal property of the pullback, there exists a \textbf{unique} map $\ell:\ast\to W$ such that $f\circ\ell=h$ and $q\circ\ell=k$. It is straightforward to see that $\ell:\ast\mapsto a$ is a solution as $q(\ell(\ast))=q(a)=q(w)=k(\ast)$ and $f(\ell(\ast))=f(a)=h(\ast)$. Yet $\ell:\ast\mapsto b$ is also a solution, as $q(\ell(\ast))=q(b)=q(w)=k$ and $f(\ell(\ast))=f(b)=f(a)=h(\ast)$. Thus we must have had $a=b$ in the first place. To see it is surjective, suppose we are given $x\in F'=p^{-1}(p(f(w)))$. Consider the maps $h:\ast\to X$ and $k:\ast\to Z$ sending $\ast\mapsto x$ and $\ast\mapsto q(w)$, respectively. Clearly
+  \[p(h(\ast))=p(x)=p(f(w))=g(q(w))=g(k(\ast)),\]
+  so that by the universal property of the pullback there exists a map $\ell:\ast\to W$ such that $f\circ\ell=h$ and $q\circ\ell=k$. Then $\ell(\ast)\in F=q^{-1}(q(w))$, as $q(\ell(\ast))=k(\ast)=q(w)$, and $f(\ell(\ast))=h(\ast)=x$. Thus we have found an element $\ell(\ast)\in F$ such that $f(\ell(\ast))=x$, so $f:F\to F'$ is surjective, as desired. 
+  
+  Finally, it remains to show that $f$ is open. By how limits are defined in $\Top$ (see the discussion at the beginning of this section), we know that $W$ is in bijection with the space $\{(z,x)\in Z\times X:g(z)=p(x)\}$. In particular, there exists $z_0\in Z$ and $x_0\in X$ such that $w$ corresponds to the point $(z_0,x_0)\in Z\times X$ under this bijection (so $g(z_0)=p(x_0)$). Furthermore, under this bijection $q$ and $f$ are simply the restriction of the projection maps $Z\times X\to Z$ and $Z\times X\to X$, respectively, and the topology on $W$ has subbasis given by sets of the form $q^{-1}(U)$ and $f^{-1}(V)$ for $U\sseq Z$ and $V\sseq X$ open. In particular, $F$ has subbasis given by sets of the form $q^{-1}(U)\cap F$ and $f^{-1}(V)\cap F$ for $U\sseq Z$ and $V\sseq X$ open. Now, in order to show $f|_F:F\to F'$ is open, it suffices to show it sends elements of the subbasis to open sets in $F'$. First note that $F=q^{-1}(q(w))=q^{-1}(q(z_0,x_0))=q^{-1}(z_0)$. Then given $U\sseq Z$ open we have
+  \[f(q^{-1}(U)\cap F)=f(q^{-1}(U)\cap q^{-1}(z_0))=f(q^{-1}(U\cap\{z_0\}))=\begin{cases}
+    f(q^{-1}(z_0))=f(F)\overset{(\ast)}=F' & z_0\in U\\
+    \emptyset & z_0\notin U,
+  \end{cases}\]
+  where $(\ast)$ follows by the fact that $f(F)=F'$, as we showed above. Either way, $f(q^{-1}(U)\cap F)$ is open, as desired. Conversely, given an open set $V\sseq X$, we have 
+  \[f(f^{-1}(V)\cap F)\overset{(\ast)}=f(f^{-1}(V)\cap f^{-1}(F'))=f(f^{-1}(V\cap F'))\overset{(\ast)}=V\cap F,\]
+  where both ocurrences of $(\ast)$ follow by the fact that $f|_F:F\to F'$ is a bijection, as we showed above. By definition of the subspace topology, $V\cap F'$ is open in $F'$. Hence we have shown $f$ sends elements of the subbasis of $F$ to open sets in $F'$, so it follows that $f|_F:F\to F'$ is properly open as desired.
+
+  Now, we apply \autoref{2.4.16} to get that for $n>0$ the following diagram commutes and both rows are exact:
+  % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiXFxwaV97bisxfShaLHEodykpIl0sWzEsMCwiXFxwaV9uKEYsdykiXSxbMiwwLCJcXHBpX24oVyx3KSJdLFszLDAsIlxccGlfbihaLHEodykpIl0sWzQsMCwiXFxwaV97bi0xfShGLHcpIl0sWzAsMSwiXFxwaV97bisxfShZLHAoZih3KSkiXSxbMSwxLCJcXHBpX24oRicsZih3KSkiXSxbMiwxLCJcXHBpX24oWCxmKHcpKSJdLFszLDEsIlxccGlfbihZLHAoZih3KSkiXSxbNCwxLCJcXHBpX3tuLTF9KEYnLGYodykpIl0sWzAsMSwiZF9uIl0sWzEsMiwiXFxwaV9uKFxcaW90YSx3KSJdLFsyLDMsIlxccGlfbihxLHcpIl0sWzMsNCwiZF97bi0xfSJdLFswLDUsIlxccGlfe24rMX0oZyxxKHcpKSJdLFsxLDYsIlxccGlfbihmLHcpIl0sWzIsNywiXFxwaV9uKGYsdykiXSxbMyw4LCJcXHBpX24oZyxxKHcpKSJdLFs0LDksIlxccGlfe24tMX0oZix3KSJdLFs1LDYsImRfbiIsMl0sWzYsNywiXFxwaV9uKFxcaW90YScsZih3KSkiLDJdLFs3LDgsIlxccGlfbihwLGYodykpIiwyXSxbOCw5LCJkX3tuLTF9IiwyXV0=
+  \[\begin{tikzcd}
+    {\pi_{n+1}(Z,q(w))} & {\pi_n(F,w)} & {\pi_n(W,w)} & {\pi_n(Z,q(w))} & {\pi_{n-1}(F,w)} \\
+    {\pi_{n+1}(Y,p(f(w))} & {\pi_n(F',f(w))} & {\pi_n(X,f(w))} & {\pi_n(Y,p(f(w))} & {\pi_{n-1}(F',f(w))}
+    \arrow["{d_n}", from=1-1, to=1-2]
+    \arrow["{\pi_n(\iota,w)}", from=1-2, to=1-3]
+    \arrow["{\pi_n(q,w)}", from=1-3, to=1-4]
+    \arrow["{d_{n-1}}", from=1-4, to=1-5]
+    \arrow["{\pi_{n+1}(g,q(w))}", from=1-1, to=2-1]
+    \arrow["{\pi_n(f,w)}", from=1-2, to=2-2]
+    \arrow["{\pi_n(f,w)}", from=1-3, to=2-3]
+    \arrow["{\pi_n(g,q(w))}", from=1-4, to=2-4]
+    \arrow["{\pi_{n-1}(f,w)}", from=1-5, to=2-5]
+    \arrow["{d_n}"', from=2-1, to=2-2]
+    \arrow["{\pi_n(\iota',f(w))}"', from=2-2, to=2-3]
+    \arrow["{\pi_n(p,f(w))}"', from=2-3, to=2-4]
+    \arrow["{d_{n-1}}"', from=2-4, to=2-5]
+  \end{tikzcd}\]
+  Furthermore, by the five lemma, since $g$ is a weak equivalence and $f|_F:F\to F'$ is a homeomorphism, it follows that the middle arrow is an isomorphism. It remains to show that $\pi_0(f):\pi_0(W)\to\pi_0(X)$ is an isomorphism. The same argument using the trick of changing the basepoint in the last paragraph of the proof of \autoref{2.4.17} works to show that $\pi_0(f)$ is injective. To see it is surjective, suppose $x\in X$. Then since $g$ is a weak equivalence, there is a point $z\in Z$ and a path $\gamma:I\to Y$ from $p(x)$ to $g(z)$. In other words, the following diagram commutes
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJEXjAiXSxbMCwxLCJEXjBcXHRpbWVzIEkiXSxbMSwwLCJYIl0sWzEsMSwiWSJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMiwieCJdLFsxLDMsIlxcZ2FtbWEiXSxbMiwzLCJwIiwyXV0=
+  \[\begin{tikzcd}
+    {D^0\cong\ast} & X \\
+    {D^0\times I\cong I} & Y
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow["x", from=1-1, to=1-2]
+    \arrow["\gamma", from=2-1, to=2-2]
+    \arrow["p"', from=1-2, to=2-2]
+  \end{tikzcd}\]
+  Since the left arrow belongs to $J$ and $p\in J\p$, there is a lift $\ell:I\to X$ such that $\ell(0)=x$ and $p(\ell(t))=\gamma(t)$ for all $t\in I$. In particular,  $p(\ell(1))=\gamma(1)=g(z)$, so that under the identification $W\cong Z\times_YX$ given above, there is a point $(z,\ell(1))=w\in W$, and $\ell$ is a path between $f(w)=\ell(1)$ and $x$, so that $f$ does indeed hit the path component of $x$. Hence we have shown $\pi_0(f)$ is a bijection, as desired.
+  \end{proof}
+
+  \begin{proposition}[Hovey 2.4.12]\label{2.4.12}
+    $\cW\cap J\p\sseq I'\p $
+  \end{proposition}
+  \begin{proof}
+    Let $p:X\to Y$ belong to $\cW\cap J\p$. By \autoref{2.4.11}, in order to show $p\in I'\p$ it suffices to show the map $Q(i,p)$ belongs to $\cW\cap J\p$ for all boundary inclusions $i:S^{n-1}\into D^n$ for $n\geq0$. Given such an $i$, consider the pullback diagram defining $P(i,p)$ and $Q(i,p)$
+    \[\begin{tikzcd}
+      {X^{D^n}} \\
+      & {P(i,p)} & {Y^{D^n} } \\
+      & {X^{S^{n-1}}} & {Y^{S^{n-1}}}
+      \arrow["{Q(i,p)}", from=1-1, to=2-2]
+      \arrow["{f}", from=2-2, to=2-3]
+      \arrow["{Y^i}", from=2-3, to=3-3]
+      \arrow["{q}"', from=2-2, to=3-2]
+      \arrow["{p^{S^{n-1}}}", from=3-2, to=3-3]
+      \arrow["{p^{D^n}}", curve={height=-12pt}, from=1-1, to=2-3]
+      \arrow["{X^i}"', curve={height=12pt}, from=1-1, to=3-2]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=2-2, to=3-3]
+    \end{tikzcd}\]
+    By \autoref{2.4.14}, the right-hand vertical map $(Y^i)$ belongs to $J\p$. By \autoref{2.4.17}, the bottom horizontal map $(p^{S^{n-1}})$ belongs to $\cW$. By \autoref{2.4.18} the top horizontal map $(f)$ also belongs to $\cW$. Finally using \autoref{2.4.15}, we get that $p^{D^n}$ also belongs to $\cW$, so that by 2-of-3 (\autoref{2.4.4}), we get that $Q(i,p)$ belongs to $\cW$. Finally, $Q(i,p)$ belongs to $J\p$ by \autoref{2.4.13}.
+  \end{proof}
+\end{document}

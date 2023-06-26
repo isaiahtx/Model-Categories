@@ -1,0 +1,504 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+We work with von Neumann ordinals, i.e.,\ an ordinal is a transitive set of ordinals (this definition is not circular, the empty set is an ordinal which we call ``$0$''). In the following discussion, let $\alpha$ and $\beta$ be ordinals. We write $\alpha+1$ to denote the successor ordinal $\alpha\cup\{\alpha\}$. We write $\alpha<\beta$ to mean $\alpha\in\beta$, and $\alpha\leq\beta$ denotes any of the equivalent conditions: (1) $\alpha<\beta$ or $\alpha=\beta$, (2) $\alpha\in\beta+1$, (3) $\alpha\sseq\beta$. Given a collection of ordinals $B$, we write $\sup B$ or $\sup_{\beta\in B}\beta$ to denote the ordinal $\bigcup_{\beta\in B}\beta$. We define the sum of ordinals $\alpha$ and $\beta$ recursively: $\alpha+0:=\alpha$, $\alpha+(\beta+1):=(\alpha+\beta)+1$, and $\alpha+\beta:=\sup_{\delta<\beta}(\alpha+\delta)$ when $\beta$ is a limit ordinal. Note that addition of ordinals is not commutative, but it is associative, and continuous in its right argument: given an ordinal $\alpha$ and a collection of ordinals $B$, $\alpha+\sup B=\sup_{\beta\in B}(\alpha+\beta)$. We say an ordinal $\lambda$ is a \textit{limit ordinal} if either of the following equivalent conditions hold: (1) $\lambda=\sup_{\beta<\lambda}\beta$ or (2) $\lambda\neq\beta+1$ for all ordinals $\beta$. Note that $0$ is a limit ordinal under our definition. We may regard an ordinal $\alpha$ as a poset category, in which case the colimit in $\alpha$ is given by the supremum. We let $\Ord$ denote the poset category of all (small) ordinals, so there exists a unique arrow $\alpha\to\beta$ if $\alpha\leq\beta$. Given a set $X$, we write $|X|$ to denote its \textit{cardinality}, i.e.,\ $|X|$ is the least ordinal $\alpha$ such that there exists a bijection between $\alpha$ and $X$. A cardinal number is an an ordinal which is the cardinality of some set $X$.
+
+\begin{definition}[Hovey Definition 2.1.1]
+  Suppose $\cC$ is a cocomplete category, and $\lambda$ is an ordinal. A \textit{$\lambda$-sequence} in $\cC$ is a colimit-preserving functor $X:\lambda\to\cC$, commonly written as
+  \[X_0\to X_1\to\cdots\to X_\beta\to\cdots.\]
+  Since $X$ preserves colimits, for all limit ordinals $\gamma<\lambda$, the arrows $X_\alpha\to X_\gamma$ for $\alpha<\gamma$ form a colimit cone under $\{X_\alpha\}_{\alpha<\gamma}$. We refer to the map $X_0\to \colim_{\beta<\lambda}X_\beta$ as the \textit{composition} of the $\lambda$-sequence. Given a collection $\cD$ of morphisms in $\cC$ such that every map $X_\beta\to X_{\beta+1}$ for $\beta+1<\lambda$ is in $\cD$, we refer to the composition $X_0\to\colim_{\beta<\lambda}X_\beta$ as a \textit{transfinite composition} of arrows in $\cD$.\footnote{To be more precise, there may be different (isomorphic) choices of colimit $\colim_{\beta<\gamma}X_\beta$, which give rise to different choices of composition $X_0\to\colim_{\beta<\gamma}X_\beta$. Thus, the composition of a $\lambda$-sequence is only unique up to composition by a unique isomorphism.}
+\end{definition}
+
+Of particular importance to us will be collections of arrows which are \textit{closed under transfinite composition}, i.e., collections $\cD$ for which given any ordinal $\lambda$ and $\lambda$-sequence $X$ of arrows in $\cD$, for any choice of colimit $\colim X$, the canonical map $X_0\to\colim X$ is also in $\cD$. We prove the following useful result about when a class of morphisms is closed under transfinite composition:
+
+\begin{lemma}\label{condition_for_family_of_arrows_to_be_closed_under_transfinite_composition}
+  Let $\cC$ be a category, and $\cD$ a collection of arrows in $\cC$ satisfying the following properties: $\cD$ is closed under composition with isomorphisms, and given an ordinal $\lambda$ and a $\lambda$-sequence $X:\lambda\to\cC$ of arrows in $\cD$ (so $X_\beta\to X_{\beta+1}$ belongs to $\cD$ for all $\beta+1<\lambda$), if we then get then get for free that $X_\alpha\to X_\beta$ belongs to $\cD$ for all $\alpha\leq\beta<\lambda$, then $\cD$ is closed under transfinite composition.
+\end{lemma}
+\begin{proof}
+  Let $\lambda$ be an ordinal, and $X:\lambda\to\cC$ a $\lambda$-sequence of arrows in $\cD$. First, suppose $\lambda=\mu+1$ is a successor ordinal. Since we know that any transfinite composition of $X$ may be obtained from another by composing with an isomorphism and $\cD$ is closed under composition with isomorphisms, it suffices to show there exists \textit{some} transfinite composition of $X$ belonging to $\cD$. We know $\sup_{\beta<\lambda}\beta=\sup_{\beta<\mu+1}\beta=\mu$, and $X$ is colimit preserving, so that $X_\mu$ is a colimit of the diagram $X$ via the arrows $X_{\alpha}\to X_\mu$ for $\alpha<\lambda=\mu+1$. But we know in particular that $X_0\to X_\mu$ belongs to $\cD$, so we are done.
+ 
+  Conversely, suppose $\lambda$ is a limit ordinal. Let $j:X\Rightarrow\ul{X_\lambda}$ be a colimit cone for $X$. We may use $j$ to extend $X$ to a $(\lambda+1)$-sequence in the obvious way (so for $\alpha<\lambda$, the structure map $X_\alpha\to X_\lambda$ is given by $j$ and the arrow $X_\lambda\to X_\lambda$ is the identity, as is necessary). Further note that $X$ is still a sequence of arrows in $\cD$, as given $\beta+1<\lambda+1$, so $\beta+1\leq\lambda$, it is not possible that $\beta+1=\lambda$ as $\lambda$ is a limit ordinal, in which case we know the map $X_\beta\to X_{\beta+1}$ belongs to $\cD$ as $\beta+1<\lambda$. Hence, unravelling definitions and applying the asserted property of $\cD$, we get for free that $j_0:X_0\to X_\lambda$ belongs to $\cD$.
+\end{proof}
+
+\begin{lemma}\label{stronger_characterization_of_closure_under_transfinite_composition}
+  Given a cocomplete category $\cC$ and a collection $\cD$ of arrows in $\cC$, if $\cD$ is closed under transfinite composition, then given any limit ordinal $\lambda$ and $\lambda$-sequence $X:\lambda\to\cC$, for all $\alpha<\lambda$ the canonical map $X_\alpha\to\colim X$ belongs to $\cD$.
+\end{lemma}
+\begin{proof}[Proof Sketch]
+  Let $\alpha<\lambda$, and fix a colimit cone $j:X\Rightarrow\ul{\colim X}$. Define $S:=\{\beta:\alpha\leq\beta\leq\lambda\}\sseq\lambda+1$. Define a map $\phi:S\to\Ord$ via transfinite recursion. Let $\phi(\alpha)=0$. Supposing $\phi(\beta)$ has been defined, let $\phi(\beta+1)=\phi(\beta)+1$. Finally, supposing $\alpha<\gamma\leq\lambda$ is a limit ordinal and $\phi(\beta)$ has been defined for $\alpha\leq\beta<\gamma$, define $\phi(\gamma)=\sup_{\alpha\leq\beta<\gamma}\phi(\beta)$. It is straightforward to verify that $\phi$ is order preserving, sends limit ordinals to limit ordinals, and satisfies $\alpha+\phi(\beta)=\beta$ for all $\alpha\leq\beta\leq\lambda$.
+  
+  Now, construct a $\phi(\lambda)$-sequence $Y:\phi(\lambda)\to\cC$ by $Y_\beta:=X_{\alpha+\beta}$, and given $\beta\leq\beta'<\phi(\lambda)$, define the map $Y_\beta\to Y_{\beta'}$ to be the arrow $X_{\alpha+\beta}\to X_{\alpha+\beta'}$ for $X$. Checking that $Y$ is functorial and colimit-preserving follows directly from the fact that $X$ is functorial and colimit-preserving. Then it can be seen that the $j_{\alpha+\beta}$'s for $0\leq\beta<\phi(\lambda)$ restrict to a colimit cone under $Y$. Since $Y$ is a $\phi(\lambda)$-sequence in $\cD$ and $\cD$ is closed under transfinite compositions, it follows that $j_\alpha\in\cD$, as desired.
+\end{proof}
+
+\begin{definition}[Hovey Definition 2.1.2]
+  Let $\gamma$ be a cardinal. An ordinal $\alpha$ is \textit{$\gamma$-filtered} if it is a limit ordinal and, if $A\sseq\alpha$ and $|A|\leq\gamma$, then $\sup A<\alpha$.
+\end{definition}
+
+Given a cardinal $\gamma$, a $\gamma$-filtered category $\cC$ is one such that any diagram $\cD\to\cC$ has a cocone when $\cD$ has $<\gamma$ arrows. A catgory is just ``filtered'' if it is $\omega$-filtered, i.e., if every finite diagram in $\cC$ admits a cocone. Note that an ordinal $\alpha$ is $\gamma$-filtered precisely when it is $\gamma$-filtered as a category, and in particular every ordinal is $\omega$-filtered.
+
+\begin{definition}[Hovey Definition 2.1.3]\label{2.1.3}
+  Suppose $\cC$ is a comcomplete category, $\cD\sseq\Mor\cC$ is some collection of morphisms of $\cC$, $A$ is an object of $\cC$, and $\kappa$ is a cardinal. We say that $A$ is \textit{$\kappa$-small relative to $\cD$} if, for all $\kappa$-filtered ordinals $\lambda$ and all $\lambda$-sequences
+  \[X_0\to X_1\to\cdots\to X_\beta\to\cdots\]
+  such that each map $X_\beta\to X_{\beta+1}$ is in $\cD$ for $\beta+1<\lambda$, the canonical map of sets
+  \[\colim_{\beta<\lambda}\cC(A,X_\beta)\to\cC(A,\colim_{\beta<\lambda}X_\beta)\]
+  is an isomorphism. We say that $A$ is \textit{small relative to $\cD$} if it is $\kappa$-small relative to $\cD$ for some $\kappa$. We say that $A$ is \textit{small} if it is small relative to $\cC$ itself.
+\end{definition}
+
+\begin{definition}[Hovey Definition 2.1.4]
+  Suppose $\cC$ is a cocomplete category, $\cD$ is a collection of morphisms of $\cC$, and $A$ is an object of $\cC$. We say that $A$ is \textit{finite relative to $\cD$} if $A$ is $\kappa$-small relative to $\cD$ for some finite cardinal $\kappa$. We say $A$ is \textit{finite} if it is finite relative to $\cC$ itself. In particular, since \textit{every} limit ordinal is $\kappa$-filtered for any finite cardinal $\kappa$, for an object $A$ to be finite relative to $\cD$, maps from $A$ must commute with colimits of \textit{arbitrary} $\lambda$-sequences for every limit ordinal $\lambda$.
+\end{definition}
+
+\begin{remark}\label{explicit_description_of_(co)limit_in_set}
+Recall that given a small category $\cD$ and a functor $F:\cD\to\Set$, we may explicitly construct the colimit of $F$ as the set
+\[\colim F:=\(\coprod_{d\in \cD}F(d)\)/\sim,\]
+where the equivalence relation $\sim$ is \textbf{generated} by
+\[((x\in F(d))\sim(x'\in F(d')))\quad\text{ if }\quad(\exists(f:d\to d')\text{ with }Ff(x)=x').\]
+In particular, if $\cD$ is a filtered category then the resulting relation can be described as follows:
+\begin{equation*}
+  ((x\in F(d))\sim(x'\in F(d')))\quad\text{ iff }\quad(\exists\ d'',\,(f:d\to d''),\,(g:d'\to d'')\text{ with }Ff(x)=Fg(x')).
+\end{equation*}
+Then the colimit cone $\eta:F\Rightarrow\ul{\colim F}$ is defined by $\eta_d(x)=[x]$ for $d\in\cD$ and $x\in F(d)$, where $[x]$ denotes the equivalence class of $x$ in $\colim F$. Given a cone $\vare:F\Rightarrow\underline Y$ under $F$, the unique map $\colim F\to Y$ maps an equivalence class $[x]$ represented by an element $x\in F(d)$ to the element $\vare_d(x)$.
+
+Similarly, we may explicitly construct the limit of a functor $F:\cD\to\Set$ as the subset
+\[\lim F=\left\{(x_d)_{d\in\cD}\in\prod_{d\in\cD}F(d):\forall(d_i\xrightarrow{\alpha}d_j)\in\cD,\ F(\alpha)(x_{d_i})=x_{d_j}\right\},\]
+in which case the limit cone is simply the restriction of the projection maps for $\prod_{d\in\cD}F(d)$ to $\lim F$.
+\end{remark}
+
+Now we unravel what the ``canonical map'' of \autoref{2.1.3} is. Suppose we are given a cocomplete category $\cC$, an element $A\in\cC$, an ordinal $\lambda$, and a $\lambda$-sequence $X:\lambda\to\cC$. For $\alpha\leq\beta<\lambda$, let $\iota_{\alpha,\beta}$ be the map $X_\alpha\to X_\beta$. Let $\eta:X\Rightarrow\ul{\colim X}$ be the colimit cone. By whiskering the colimit cone along the functor $\cC(A,-)$, we get a cone $\cC(A,\eta):\{\cC(A,X_\beta)\}_{\beta<\lambda}\Rightarrow\ul{\cC(A,\colim X)}$. Then if we let $\vare:\{\cC(A,X_\beta)\}_{\beta<\lambda}\Rightarrow\ul{\colim_{\beta<\lambda}\cC(A,X_\beta)}$ be the colimit cone, the universal property of the colimit gives us the canonical map $\ell:\colim_{\beta<\lambda}\cC(A,X_\beta)\to\cC(A,\colim X)$, so that the following diagram commutes:
+\[\begin{tikzcd}
+  {\cC(A,X_0)} && {\cC(A,X_1)} && \cdots && {\cC(A,X_\beta)} && \cdots \\
+  \\
+  &&&& {\colim_{\beta<\lambda}\cC(A,X_\beta)} \\
+  \\
+  &&&& {\cC(A,\colim X)}
+  \arrow["{(\iota_{0,1})_*}", from=1-1, to=1-3]
+  \arrow["{(\iota_{1,2})_*}", from=1-3, to=1-5]
+  \arrow[from=1-5, to=1-7]
+  \arrow["{(\iota_{\beta,\beta+1})_*}", from=1-7, to=1-9]
+  \arrow["{\vare_\beta}"', from=1-7, to=3-5]
+  \arrow["{\vare_1}", from=1-3, to=3-5]
+  \arrow["{\vare_0}"{pos=0.3}, from=1-1, to=3-5]
+  \arrow["{(\eta_\beta)_*}", from=1-7, to=5-5]
+  \arrow["\ell", dashed, from=3-5, to=5-5]
+  \arrow["{(\eta_1)_*}"'{pos=0.4}, from=1-3, to=5-5]
+  \arrow["{(\eta_0)_*}"', from=1-1, to=5-5]
+\end{tikzcd}\]
+In particular, by \autoref{explicit_description_of_(co)limit_in_set}, we know elements of $\colim_{\beta<\lambda}\cC(A,X_\beta)$ are equivalence classes of arrows $f:A\to X_\beta$ for $\beta<\lambda$ under the relation $[f:A\to X_\beta]=[g:A\to X_{\beta'}]$ iff there exists $\beta''\geq\beta,\beta'$ with $\iota_{\beta,\beta''}\circ f=\iota_{\beta',\beta''}\circ g$, and the map $\vare_\beta$ sends an arrow $f\in\cC(A,X_\beta)$ to the element $[f]$. Then it follows that $\ell([f:A\to X_\beta])=\eta_\beta\circ f$. Thus, this gives us the following result:
+
+\begin{proposition}\label{nicer_description_of_smallness_conditions}
+  Given a cocomplete category $\cC$, a collection $\cD$ of arrows in $\cC$, an object $A$ in $\cC$, and a cardinal $\kappa$, $A$ is $\kappa$-small relative to $\cD$, if, for all $\kappa$-filtered ordinals $\lambda$ and all $\lambda$-sequences $X:\lambda\to\cC$ such that the map $X_{\beta}\to X_{\beta+1}$ belongs to $\cD$ for all $\beta+1<\lambda$, given any colimit $\colim X$ for $X$, the following holds:
+  \begin{enumerate}[label=(\roman*)]
+    \item Given arrows $f:A\to X_\alpha$ and $g:A\to X_{\beta}$ in $\cC$, if $f$ and $g$ agree in the colimit (i.e., if the compositions $A\xrightarrow{f} X_\alpha\to\colim X$ and $A\xrightarrow{g} X_{\beta}\to \colim X$ are equal), then $f$ and $g$ are equal in some stage of the colimit (i.e., there exists $\gamma<\lambda$ with $\alpha,\beta\leq\gamma$ such that the compositions $A\xrightarrow{f} X_\alpha\to X_\gamma$ and $A\xrightarrow{g} X_{\beta}\to X_{\gamma}$ are equal).
+    \item Any arrow $f:A\to\colim X$ factors through some stage of the colimit (i.e., there exists $\beta<\lambda$ and an arrow $\wt f:A\to X_\beta$ such that the composition $A\xrightarrow{\wt f}X_\beta\to\colim X$ equals $f$).
+  \end{enumerate}
+  In terms of the canonical map $\colim_{\beta<\lambda}\cC(A,X_\beta)\to\cC(A,\colim X)$, the first condition shows injectivity, while the second shows surjectivity.
+\end{proposition}
+
+We will use the characterization of smallness given by this remark whenever proving smallness arguments, as in the following example.
+
+\begin{example}[Hovey 2.1.5]\label{2.1.5}
+  Every set is small. Indeed, if $A$ is a set we claim that $A$ is $|A|$-small. To see this, suppose $\lambda$ is an $|A|$-filtered ordinal, and $X$ is a $\lambda$-sequence of sets. First of all, by \autoref{explicit_description_of_(co)limit_in_set}, the elements of $\colim X$ are equivalence classes of elements $a\in X_\alpha$ where $a\in X_\alpha$ and $b\in X_\beta$ represent the same element of $\colim X$ iff there exists $\alpha,\beta\leq\gamma<\lambda$ so that $a$ and $b$ are sent to the same elements by the maps $X_\alpha\to X_\gamma$ and $X_\beta\to X_\gamma$, respectively. Now, we show the conditions of \autoref{nicer_description_of_smallness_conditions}.
+  
+  First, we need to show that given $\alpha,\beta<\lambda$, if $f:A\to X_\alpha$ and $g:A\to X_{\beta}$ such that the compositions $\ol f:A\xrightarrow{f}X_\alpha\to \colim X$ and $\ol g:A\xrightarrow{g}X_{\beta}\to \colim X$ are equal, then $f$ and $g$ are equal in some stage of the colimit. For each $a\in A$, since $\ol f(a)=\ol f(g)$ in $\colim X$, by the above characterization of $\colim X$, there exists $\gamma_a<\lambda$ with $\alpha,\beta\leq\gamma_a$ such that $f(a)$ and $g(a)$ are sent to the same element in $X_{\gamma_a}$ by the maps $X_\alpha\to X_{\gamma_a}$ and $X_\beta\to X_{\gamma_a}$, respectively. Then let $\gamma:=\sup_{a\in A}\gamma_a$. Since $\left|\{\gamma_a\}_{a\in A}\right|\leq|A|$ and $\lambda$ is $|A|$-filtered, necessarily $\gamma<\lambda$. Then clearly the compositions $A\xrightarrow{f}X_\alpha\to X_\gamma$ and $A\xrightarrow{g}X_\beta\to X_\gamma$ agree for all $a\in A$.
+
+  Secondly, we wish to show that given a map $f:A\to\colim X$, that $f$ factors through $X_\beta\to \colim X$ for some $\beta<\lambda$. For each $a\in A$, by the explicit description of $\colim X$, there exists some $\beta_a<\lambda$ and some $x_a\in X_{\beta_a}$ such that $f(a)=[x_a]$. Then let $\beta:=\sup_{a\in A}\beta_a$, so $\beta<\lambda$ as $X$ is $|A|$-filtered. Now define $\wt f:A\to X_\beta$ like so: for $a\in A$, define $\wt f(a)\in X_\beta$ to be the image of $x_a$ along the map $X_{\beta_a}\to X_\beta$. Then clearly the composition $f':A\xrightarrow{\wt f}X_\beta\to\colim X$ is equal to $f$, by unravelling definitions.
+\end{example}
+
+\begin{definition}[Hovey Definition 2.1.7]
+  Let $I$ be a class of maps in a category $\cC$.\begin{enumerate}
+    \item A map is \textit{$I$-injective} if it has the right lifting property w.r.t.\ every map in $I$. The class of $I$-injective maps is denoted $I\inj$ (or $I\p$).
+    \item A map is \textit{$I$-projective} if it has the left lifting property w.r.t.\ every map in $I$. The class of $I$-projective maps is denoted $I\proj$ (or $\p I$).
+    \item A map is an \textit{$I$-cofibration} if it has the left lifting property w.r.t.\ every $I$-injective map. The class of $I$-cofibrations is the class $(I\inj)\proj$ and is denoted $I\cof$ (or $\p(I\p)$).
+    \item A map is an \textit{$I$-fibration} if it has the right lifting property w.r.t.\ every $I$-projective map. The class of $I$-fibrations is the class $(I\proj)\inj$ and is denoted $I\fib$ (or $(\p I)\p$).
+  \end{enumerate}
+\end{definition}
+
+The following is asserted in Hovey on pg.\ 30 following Definition 2.1.7, but not proven. We provide a proof.
+
+\begin{lemma}\label{useful_LP_properties}
+  Given classes $A$ and $B$ of maps in a category $\cC$ with $A\sseq B$, we have $A\sseq {\p(A\p)}$, $A\sseq (\p A)\p$, $(\p(A\p))\p=A\p$, $\p((\p A)\p)={\p A}$, $A\p\spseq B\p$, $\p A\spseq {\p B}$, ${\p(A\p)}\sseq {\p(B\p)}$, and $(\p A)\p\sseq (\p B)\p$.
+\end{lemma}
+\begin{proof}
+  Each of these amount to unravelling definitions and are entirely straightforward.
+\end{proof}
+
+\begin{definition}[Hovey Definition 2.1.9]
+  Let $I$ be a set of maps in a cocomplete category $\cC$. A \textit{relative $I$-cell complex} is a transfinite composition of pushouts of elements of $I$. That is, if $f:A\to B$ is a relative $I$-cell complex, then there is an ordinal $\lambda$ and a $\lambda$-sequence $X:\lambda\to\cC$ such that $f$ is the composition of $X$ and such that, for each $\beta$ such that $\beta+1<\lambda$, there is a pushout square
+  \[\begin{tikzcd}
+    {C_\beta} & {X_\beta} \\
+    {D_\beta} & {X_{\beta+1}}
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=2-2]
+    \arrow[from=2-1, to=2-2]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+    \arrow["{g_\beta}"', from=1-1, to=2-1]
+  \end{tikzcd}\]
+  with $g_\beta\in I$. We denote the collection of relative $I$-cell complexes by $I\cell$. We say that $A\in\cC$ is an \textit{$I$-cell complex} if the map $0\to A$ is a relative $I$-cell complex.
+\end{definition}
+
+\begin{lemma}\label{I-cell_closed_under_composition_with_isomorphisms}
+  Let $\cC$ be a category and $I$ a class of morphisms in $\cC$. Then $I\cell$ is closed under composition with isomorphisms.
+\end{lemma}
+\begin{proof}[Proof Sketch]
+  Suppose that $f:B\to C$ is an element of $I\cell$, and $h:A\to B$ and $g:C\to D$ are isomorphisms in $\cC$. We wish to show $f\circ h$ and $g\circ f$ are also elements of $I\cell$. Since $f\in I\cell$, there exists an ordinal $\lambda$, a $\lambda$-sequence $X$ with $X_0=B$, and a colimit cone $\eta:X\Rightarrow\underline C$, such that $\eta_0=f$. 
+  
+  First of all, construct a new cone $\eta':X\Rightarrow\underline D$ under $X$ where $\eta'_\beta:=g\circ\eta_\beta$. It is straightforward to verify that $\eta'$ is a colimit cone for $X$ since $\eta$ is a colimit cone and $g$ is an isomorphism. Thus, $g\circ f=g\circ\eta_0=\eta_0'\in I\cell$, as $\eta_0'$ is the composition of a sequence of pushouts of elements of $I$.
+
+  On the other hand, we may construct a new $\lambda$-sequence $X'$ by defining $X'_0=A$, $X_\beta'=X_\beta$ for all $0<\beta<\lambda$, the map $X_0'\to X_\beta'$ for $0<\beta<\lambda$ to be the composition
+  \[\begin{tikzcd}
+    A & {B=X_0} & {X_\beta},
+    \arrow["h", from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-3]
+  \end{tikzcd}\]
+  and the composition $X'_\alpha\to X'_\beta$ to simply be the same map $X_\alpha\to X_\beta$ for $0<\alpha\leq \beta<\lambda$. It is straightforward to verify that defines a $\lambda$-sequence, and that we may define a colimit cone $\eta':X'\Rightarrow\underline C$ by $\eta'_0=\eta_0\circ h=f\circ h$, and $\eta'_\beta=\eta_\beta$ for $0<\beta<\lambda$. Furthermore, clearly for all $1<\beta+1<\lambda$, we have the arrow $X_\beta'\to X_{\beta+1}'$ is a pushout of a map in $I$. Thus, in order to show $f\circ h\in I\cell$, it remains to show that the arrow $X_0'=A\to X_1=X_1'$ is a pushout of a map in $I$. Indeed, we know $B=X_0\to X_1$ is a pushout of a map $k:P\to Q$ in $I$, and it can be easily verified the diagram on the right is a pushout diagram as the left diagram is a pushout diagram and $h$ is an isomorphism
+  \[\begin{tikzcd}[row sep=small,column sep=small]
+    P && {X_0} && P & {X_0} & {X_0'} \\
+    &&& \leadsto &&& {X_0} \\
+    Q && {X_1} && Q && {X_1'}
+    \arrow[from=1-3, to=3-3]
+    \arrow[from=3-1, to=3-3]
+    \arrow[from=1-1, to=1-3]
+    \arrow["k"', from=1-1, to=3-1]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+    \arrow[from=1-5, to=1-6]
+    \arrow["h", from=1-7, to=2-7]
+    \arrow[from=2-7, to=3-7]
+    \arrow[from=1-5, to=3-5]
+    \arrow[from=3-5, to=3-7]
+    \arrow["{h^{-1}}", from=1-6, to=1-7]
+    \arrow["\ulcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-7, to=1-5]
+  \end{tikzcd}\qedhere\]
+\end{proof}
+
+\begin{definition}\label{saturated}
+  Let $\cC$ be a category and $I$ a collection of morphisms in $\cC$. Then if $I$ is closed under transfinite composition, pushouts, and retracts then we say $I$ is \textit{saturated}.
+\end{definition}
+
+\begin{lemma}
+  Suppose $I$ is a class of maps in a cocomplete category $\cC$. Then $\p I$ is saturated. 
+\end{lemma}
+\begin{proof}
+  \todo{TODO}
+\end{proof}
+
+This yields the following Corollary:
+
+\begin{corollary}[Hovey 2.1.10]\label{2.1.10}
+  Given a cocomplete category $\cC$ and a class of maps $I$ in $\cC$, $I\cell\sseq{\p(I\p)}$.
+\end{corollary}
+
+\begin{theorem}[Small Object Argument, Hovey 2.1.14]\label{2.1.14}
+  Suppose $\cC$ is a cocomplete categroy, and $I$ is a set of maps in $\cC$. Suppose the domains of the maps of $I$ are small relative to $I\cell$. Then there is a functorial factorization $(\gamma,\delta)$ on $\cC$ such that for all morphisms $f\in\cC$, the map $\gamma(f)$ is in $I\cell$ and the map $\delta(f)$ is in $I\inj$.
+\end{theorem}
+\begin{proof}
+  \todo{TODO}
+\end{proof}
+
+\begin{corollary}[Hovey 2.1.15]\label{2.1.15}
+  Suppose that $I$ is a set of maps in a cocomplete category $\cC$. Suppose as well that the domains of $I$ are small relative to $I\cell$. Then given $f:A\to B$ in $\p(I\p)$, there is a $g:A\to C$ in $I\cell$ such that $f$ is a retract of $g$ by a map which fixes $A$.
+\end{corollary}
+\begin{proof}
+  \todo{TODO}
+\end{proof}
+
+\begin{definition}[Hovey Definition 2.1.17]\label{2.1.17}
+  Suppose $\cC$ is a model category. We say that $\cC$ is \textit{cofibrantly generated} if there are sets $I$ and $J$ of maps such that:\begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
+    \item The domains of the maps of $I$ are small relative to $I\cell$;
+    \item The domains of the maps of $J$ are small relative to $J\cell$;
+    \item The class of fibrations is $J\p$; and
+    \item The class of trivial fibrations is $I\p$.
+  \end{enumerate}
+  We refer to $I$ as the set of \textit{generating cofibrations} and to $J$ as the set of \textit{generating trivial cofibrations}. A cofibrantly generated model category is \textit{finitely generated} if we can choose the sets $I$ and $J$ above so that the domains and codomains of $I$ and $J$ are finite relative to $I\cell$.
+\end{definition}
+
+\begin{proposition}[Hovey Proposition 2.1.18]\label{2.1.18}
+  Suppose $\cC$ is a cofibrantly generated model category, with generating cofibrations $I$ and generating trivial fibrations $J$.\begin{enumerate}[label=(\alph*),noitemsep,topsep=0pt]
+    \item The cofibrations form the class ${\p(I\p)}$.
+    \item Every cofibration is a retract of a relative $I$-cell complex.
+    \item The domains of $I$ are small relative to the cofibrations.
+    \item The trivial cofibrations form the class ${\p(J\p)}$.
+    \item Every trivial cofibration is a retract of a relative $J$-cell complex.
+    \item The domains of $J$ are small relative to the trivial cofibrations.
+  \end{enumerate}
+  If $\cC$ is fibrantly generated, then the domains and codomains of $I$ and $J$ are finite relative to the cofibrations.
+\end{proposition}
+\begin{proof}
+  \todo{TODO}
+\end{proof}
+
+\begin{theorem}[Hovey Theorem 2.1.19]\label{2.1.19}
+  Suppose $\cC$ is a complete \& cocomplete category. Suppose $\cW$ is a subcategory of $\cC$, and $I$ and $J$ are sets of maps of $\cC$. Then there is a cofibrantly generated model structure on $\cC$ with $I$ as the set of generating cofibrations, $J$ as the set of generating trivial fibrations, and $\cW$ as the subcategory of weak equivalences if and only if the following conditions are satisfied.\begin{enumerate}[label=\arabic*.,noitemsep,topsep=0pt]
+    \item The subcategory $\cW$ has the 2-of-3 property and is closed under retracts.
+    \item The domains of $I$ are small relative to $I\cell$.
+    \item The domains of $J$ are small relative to $J\cell$.
+    \item $J\cell\sseq\cW\cap {\p(I\p)}$.
+    \item $I\p\sseq\cW\cap J\p$.
+    \item Either $\cW\cap {\p(I\p)}\sseq {\p(J\p)}$ or $\cW\cap J\p\sseq I\p$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \todo{TODO}
+\end{proof}
+
+We establish some notation for the following results. Given an adjunction $F:\cC\rightleftarrows\cD:G$, we will use ``$(-)^\sharp$'' and ``$(-)^\flat$'' to decorate a pair of adjoint arrows $f^\sharp:F(C)\to D$ and $f^\flat:C\to G(D)$. Ocasionally we will write $g^\sharp$ or $g^\flat$ to denote the transpose of a morphism $g:C\to G(D)$ or $g:F(C)\to D$ not already written in this form. 
+
+Given a complete and cocomplete category $\cC$ and arrows $i:A\to B$, $j:C\to D$, $p:X\to Y$, where $C$ and $D$ are exponentiable,\footnote{Explicitly, the functors $-\times C$ and $-\times D$ admit right adjoints $(-)^C$ and $(-)^D$, respectively.} define $Q(j,p)$ to be the fiber product $(j^\ast,p_\ast)$ which fits into the following fiber diagram:
+\[\begin{tikzcd}
+	{X^D} \\
+	& {X^C\times_{Y^C}Y^D} & {Y^D} \\
+	& {X^C} & {Y^C}
+	\arrow["{Q(j,p)}", dashed, from=1-1, to=2-2]
+	\arrow["{p_\ast}", curve={height=-12pt}, from=1-1, to=2-3]
+	\arrow["{j^\ast}"', curve={height=12pt}, from=1-1, to=3-2]
+	\arrow[from=2-2, to=3-2]
+	\arrow["{p_\ast}", from=3-2, to=3-3]
+	\arrow[from=2-2, to=2-3]
+	\arrow["{j^\ast}", from=2-3, to=3-3]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=2-2, to=3-3]
+\end{tikzcd}\]
+where given an object $Z$, the pullback map $j^\ast:Z^D\to Z^C$ is obtained as the adjoint of the composition
+\[Z^D\times C\xrightarrow{\id\times j}Z^D\times D\xrightarrow{\vare_Z}Z,\]
+where $\vare$ is the counit of the adjunction $-\times D\dashv (-)^D$.
+
+Similarly, write $i\wedge j:=(i\times\id_D,\id_B\times j)$ to be the arrow which fits into the following pushout diagram:
+% https://q.uiver.app/?q=WzAsNSxbMSwxLCJBXFx0aW1lcyBEXFxjb3Byb2Rfe0FcXHRpbWVzIEN9QlxcdGltZXMgQyJdLFswLDEsIkFcXHRpbWVzIEQiXSxbMCwwLCJBXFx0aW1lcyBDIl0sWzEsMCwiQlxcdGltZXMgQyJdLFsyLDIsIkJcXHRpbWVzIEQiXSxbMiwzLCJpXFx0aW1lc1xcaWRfQyJdLFszLDBdLFsyLDEsIlxcaWRfQVxcdGltZXMgaiIsMl0sWzEsMF0sWzAsNCwiaVxcd2VkZ2UgaiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDQsIlxcaWRfQlxcdGltZXMgaiIsMCx7ImN1cnZlIjotMn1dLFsxLDQsImlcXHRpbWVzXFxpZF9EIiwyLHsiY3VydmUiOjJ9XSxbMCwyLCIiLDIseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+\[\begin{tikzcd}
+	{A\times C} & {B\times C} \\
+	{A\times D} & {A\times D\coprod_{A\times C}B\times C} \\
+	&& {B\times D}
+	\arrow["{i\times\id_C}", from=1-1, to=1-2]
+	\arrow[from=1-2, to=2-2]
+	\arrow["{\id_A\times j}"', from=1-1, to=2-1]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{i\wedge j}", dashed, from=2-2, to=3-3]
+	\arrow["{\id_B\times j}", curve={height=-12pt}, from=1-2, to=3-3]
+	\arrow["{i\times\id_D}"', curve={height=12pt}, from=2-1, to=3-3]
+	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=2-2, to=1-1]
+\end{tikzcd}\]
+
+\begin{proposition}\label{adjointness_argument}
+  Let $\cC$ be a complete and cocomplete category, and suppose we are given  arrows $i:A\to B$, $j:C\to D$, and $p:X\to Y$ with $C$ and $D$ exponentiable objects in $\cC$. Then there is a bijective correspondence between lifting problems of the form
+  \begin{equation}\label{Aeq1}
+    \begin{tikzcd}
+      {A\times D\coprod_{A\times C}B\times C} & X \\
+      {B\times D} & Y
+      \arrow[from=1-1, to=1-2]
+      \arrow["p", from=1-2, to=2-2]
+      \arrow["{i\wedge j}"', from=1-1, to=2-1]
+      \arrow[from=2-1, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  and lifting problems of the form
+  \begin{equation}\label{Aeq2}
+    \begin{tikzcd}
+      A & {X^D} \\
+      B & {X^C\times_{Y^C}Y^D.}
+      \arrow["i"', from=1-1, to=2-1]
+      \arrow[from=2-1, to=2-2]
+      \arrow[from=1-1, to=1-2]
+      \arrow["{Q(j,p)}", from=1-2, to=2-2]
+    \end{tikzcd}
+  \end{equation}
+  Moreover, this bijection extends to a bijection between the solutions of (\ref{Aeq1}) and the solutions of (\ref{Aeq2}).
+\end{proposition}
+
+Before we prove this proposition, we first recall two results
+
+\begin{lemma}\label{Riehl_4.1.3}
+  Given a pair of adjoint functors $F:\cC\rightleftarrows\cD:G$ ($F$ is the left adjoint), for any morphisms with domains and codomains as displayed below
+  % https://q.uiver.app/?q=WzAsOSxbMCwwLCJGKEMpIl0sWzIsMCwiRCJdLFsyLDIsIkQnIl0sWzAsMiwiRihDJykiXSxbMywxLCJcXGxlZnRyaWdodHNxdWlnYXJyb3ciXSxbNCwwLCJDIl0sWzYsMCwiRyhEKSJdLFs2LDIsIkcoRCcpIl0sWzQsMiwiQyciXSxbMCwxLCJmXlxcc2hhcnAiXSxbMSwyLCJrIl0sWzAsMywiRmgiLDJdLFszLDIsImdeXFxzaGFycCIsMl0sWzUsNiwiZl5cXGZsYXQiXSxbNiw3LCJHayJdLFs1LDgsImgiLDJdLFs4LDcsImdeXFxmbGF0IiwyXV0=
+  \[\begin{tikzcd}[row sep=small,column sep=small]
+    {F(C)} && D && C && {G(D)} \\
+    &&& \leftrightsquigarrow \\
+    {F(C')} && {D'} && {C'} && {G(D')}
+    \arrow["{f^\sharp}", from=1-1, to=1-3]
+    \arrow["k", from=1-3, to=3-3]
+    \arrow["Fh"', from=1-1, to=3-1]
+    \arrow["{g^\sharp}"', from=3-1, to=3-3]
+    \arrow["{f^\flat}", from=1-5, to=1-7]
+    \arrow["Gk", from=1-7, to=3-7]
+    \arrow["h"', from=1-5, to=3-5]
+    \arrow["{g^\flat}"', from=3-5, to=3-7]
+  \end{tikzcd}\]
+  the left-hand square commutes in $\cD$ iff the right-hand transposed square commutes in $\cC$.
+\end{lemma}
+\begin{proof}
+  This is Lemma 4.1.3 from Riehl. \todo{Add reference}
+\end{proof}
+
+\begin{lemma}\label{useful_adjointness_lemma}
+  Let $\cC$ be a complete and cocomplete category, and suppose we are given morphisms $j:C\to D$ and $k^\sharp:Z\times D\to W$ in $\cC$ with $C$ and $D$ exponentiable. Then the following two diagrams commute
+  % https://q.uiver.app/?q=WzAsOCxbMCwwLCJaXFx0aW1lcyBDIl0sWzEsMCwiWlxcdGltZXMgRCJdLFsxLDEsIlciXSxbMCwxLCJXXkRcXHRpbWVzIEMiXSxbNCwwLCJaIl0sWzUsMSwiV15DIl0sWzQsMSwiKFpcXHRpbWVzIEQpXkMiXSxbNSwwLCJXXkQiXSxbMCwxLCJcXGlkXFx0aW1lcyBqIl0sWzEsMiwiayJdLFswLDMsImteXFxmbGF0XFx0aW1lc1xcaWQiLDJdLFszLDIsIihqXlxcYXN0KV5cXHNoYXJwIl0sWzQsNiwiKFxcaWRfWlxcdGltZXMgaileXFxmbGF0IiwyXSxbNiw1LCJrX1xcYXN0Il0sWzQsNywia15cXGZsYXQiXSxbNyw1LCJqXlxcYXN0Il1d
+  \[\begin{tikzcd}
+    {Z\times C} & {Z\times D} &&& Z & {W^D} \\
+    {W^D\times C} & W &&& {(Z\times D)^C} & {W^C}
+    \arrow["{\id\times j}", from=1-1, to=1-2]
+    \arrow["k^\sharp", from=1-2, to=2-2]
+    \arrow["{k^\flat\times\id}"', from=1-1, to=2-1]
+    \arrow["{(j^\ast)^\sharp}", from=2-1, to=2-2]
+    \arrow["{(\id_Z\times j)^\flat}"', from=1-5, to=2-5]
+    \arrow["{(k^\sharp)_\ast}", from=2-5, to=2-6]
+    \arrow["{k^\flat}", from=1-5, to=1-6]
+    \arrow["{j^\ast}", from=1-6, to=2-6]
+  \end{tikzcd}\]
+  \end{lemma}
+\begin{proof}
+  By \autoref{Riehl_4.1.3} it suffices to show that either diagram commutes in order to show they both commute. We will show the left diagram commutes. Recall that by how the pullback $j^\ast$ is defined, that $(j^\ast)^\sharp=\vare_W\circ(\id_{W^D\times j})$. Thus, it suffices to show the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNSxbMCwwLCJaXFx0aW1lcyBDIl0sWzIsMCwiWlxcdGltZXMgRCJdLFsyLDEsIlciXSxbMCwxLCJXXkRcXHRpbWVzIEMiXSxbMSwxLCJXXkRcXHRpbWVzIEQiXSxbMCwxLCJcXGlkXFx0aW1lcyBqIl0sWzEsMiwiayJdLFswLDMsImteXFxmbGF0XFx0aW1lc1xcaWQiLDJdLFszLDQsIlxcaWRcXHRpbWVzIGoiXSxbNCwyLCJcXHZhcmVfRCJdXQ==
+  \begin{equation}\label{Beq1}\begin{tikzcd}
+    {Z\times C} && {Z\times D} \\
+    {W^D\times C} & {W^D\times D} & W
+    \arrow["{\id\times j}", from=1-1, to=1-3]
+    \arrow["k^\sharp", from=1-3, to=2-3]
+    \arrow["{k^\flat\times\id}"', from=1-1, to=2-1]
+    \arrow["{\id\times j}", from=2-1, to=2-2]
+    \arrow["{\vare_D}", from=2-2, to=2-3]
+  \end{tikzcd}\end{equation}
+  It is straightforward to see by the universal property of the product that $(\id_{W^D}\times j)\circ(k^\flat\times\id_C)=(k^\flat\times\id_D)\circ(\id_Z\times j)$. Then by \autoref{Riehl_4.1.3} applied to the following diagram
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJaIl0sWzEsMCwiV15EIl0sWzEsMSwiV15EIl0sWzAsMSwiV15EIl0sWzAsMSwia15cXGZsYXQiXSxbMSwyLCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDMsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsMywia15cXGZsYXQiLDJdXQ==
+  \[\begin{tikzcd}
+    Z & {W^D} \\
+    {W^D} & {W^D}
+    \arrow["{k^\flat}", from=1-1, to=1-2]
+    \arrow[Rightarrow, no head, from=1-2, to=2-2]
+    \arrow[Rightarrow, no head, from=2-2, to=2-1]
+    \arrow["{k^\flat}"', from=1-1, to=2-1]
+  \end{tikzcd}\]
+  we get that $\vare_D\circ(k^\flat\times\id_D)=(\id_{W^D})^\flat\circ(k^\flat\times\id_D)=\id_W\circ k^\sharp=k^\sharp$. To summarize, we get that
+  \[\vare_D\circ(\id_{W^D}\times j)\circ(k^\flat\times\id_C)=\vare_D\circ(k^\flat\times\id_D)\circ(\id_Z\times j)=k^\sharp\circ(\id_Z\times j),\]
+  so diagram (\ref{Beq1}) commutes, as desired.
+\end{proof}
+
+Now we prove the proposition.
+
+\begin{proof}
+  Unravelling definitions, a lifting problem of the form (\ref{Aeq1}) amounts to the data of maps $f^\sharp:A\times D\to X$, $g^\sharp:B\times C\to X$, and $h^\sharp:B\times D\to Y$ such that the following three diagrams commute:
+  \begin{equation}\label{deq1}\begin{tikzcd}
+    {A\times C} & {B\times C} && {A\times D} & X && {B\times C} & X \\
+    {A\times D} & X && {B\times D} & Y && {B\times D} & Y
+    \arrow["{f^\sharp}", from=1-4, to=1-5]
+    \arrow["p", from=1-5, to=2-5]
+    \arrow["{i\times\id_D}"', from=1-4, to=2-4]
+    \arrow["{h^\sharp}", from=2-4, to=2-5]
+    \arrow["{\id_B\times j}"', from=1-7, to=2-7]
+    \arrow["{h^\sharp}", from=2-7, to=2-8]
+    \arrow["{g^\sharp}", from=1-7, to=1-8]
+    \arrow["p", from=1-8, to=2-8]
+    \arrow["{i\times\id_C}", from=1-1, to=1-2]
+    \arrow["{\id_A\times j}"', from=1-1, to=2-1]
+    \arrow["{f^\sharp}", from=2-1, to=2-2]
+    \arrow["g^\sharp", from=1-2, to=2-2]
+  \end{tikzcd}\end{equation}
+  (The left diagram is the data of a morphism $A\times D\coprod_{A\times C}B\times C\to X$ and the other two diagrams assert commutativity of the lifting problem). We label these diagrams (\ref{deq1}A), (\ref{deq1}B), and (\ref{deq1}C), respectively. In terms of these data, a solution to the lifting problem is a single arrow $\ell^\sharp:B\times D\to X$ which serves as a lift for both the diagrams (\ref{deq1}B) and (\ref{deq1}C).
+
+  Conversely, a lifting problem of the form (\ref{Aeq2}) is the data of maps $f^\flat:A\to X^D$, $g^\flat:B\to X^C$, and $h^\flat:B\to Y^D$ such that the following three diagrams commute:
+  \begin{equation}\label{deq2}\begin{tikzcd}
+    B & {X^C} && A & {X^D} && A & {X^D} \\
+    {Y^D} & {Y^C} && B & {Y^D} && B & {X^C}
+    \arrow["{g^\flat}", from=1-1, to=1-2]
+    \arrow["{p_\ast}", from=1-2, to=2-2]
+    \arrow["{h^\flat}"', from=1-1, to=2-1]
+    \arrow["{j^\ast}", from=2-1, to=2-2]
+    \arrow["{f^\flat}", from=1-7, to=1-8]
+    \arrow["{j^\ast}", from=1-8, to=2-8]
+    \arrow["i"', from=1-7, to=2-7]
+    \arrow["{g^\flat}", from=2-7, to=2-8]
+    \arrow["{f^\flat}", from=1-4, to=1-5]
+    \arrow["{p_\ast}", from=1-5, to=2-5]
+    \arrow["i"', from=1-4, to=2-4]
+    \arrow["{h^\flat}", from=2-4, to=2-5]
+  \end{tikzcd}\end{equation}
+  (The left diagram is the data of a morphism $B\to X^C\times_{Y^C}Y^D$ and the other two diagrams asser commutativity of the lifting problem). We label these diagrams (\ref{deq2}A), (\ref{deq2}B), and (\ref{deq2}C), respectively. In terms of these data, a solution to the lifting problem is a single arrow $\ell^\flat:B\to X^D$ which serves as a lift for both the diagrams (\ref{deq2}B) and (\ref{deq2}C).
+
+  Thus, in order to show the desired statement it suffices to show given arrows $f^\sharp:A\times D\to X$, $g^\sharp:B\times C\to X$, $h^\sharp:B\times D\to Y$, and $\ell^\sharp:B\times D\to X$, that:
+  \begin{itemize}
+    \item (\ref{deq1}B) commutes iff (\ref{deq2}B) commutes,
+    \item (\ref{deq1}A) commutes iff (\ref{deq2}C) commutes,
+    \item (\ref{deq1}C) commutes iff (\ref{deq2}A) commutes,
+    \item $\ell^\sharp$ is a lift of (\ref{deq1}B) iff $\ell^\flat$ is a lift of  (\ref{deq2}B), and
+    \item Assuming $\ell^\sharp$ is a lift of $(\ref{deq1}B)$ and $\ell^\flat$ is a lift of $(\ref{deq2}B)$, $\ell^\sharp$ is a lift of (\ref{deq1}C) iff $\ell^\flat$ is a lift of (\ref{deq2}C).
+  \end{itemize}
+
+  To start with, note that (\ref{deq1}B) commutes iff (\ref{deq2}B) commutes, by \autoref{Riehl_4.1.3}. 
+  
+  Next, we claim that (\ref{deq1}A) commutes iff (\ref{deq2}C) commutes. By \autoref{Riehl_4.1.3}, (\ref{deq1}A) commutes iff the following diagram commutes
+  \[\begin{tikzcd}
+    A & B \\
+    {(A\times D)^C} & {X^C}
+    \arrow["{(\id_A\times j)^\flat}"', from=1-1, to=2-1]
+    \arrow["{(f^\sharp)_\ast}", from=2-1, to=2-2]
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["{g^\flat}", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  By \autoref{useful_adjointness_lemma} (the second diagram), $(f^\sharp)_\ast\circ(\id_A\times j)^\flat=j^\ast\circ f^\flat$, so this diagram commutes iff the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJBIl0sWzEsMSwiWF5DIl0sWzEsMCwiQiJdLFswLDEsIlheRCJdLFswLDIsImkiXSxbMiwxLCJnXlxcZmxhdCJdLFswLDMsImZeXFxmbGF0IiwyXSxbMywxLCJqXlxcYXN0Il1d
+  \[\begin{tikzcd}
+    A & B \\
+    {X^D} & {X^C}
+    \arrow["i", from=1-1, to=1-2]
+    \arrow["{g^\flat}", from=1-2, to=2-2]
+    \arrow["{f^\flat}"', from=1-1, to=2-1]
+    \arrow["{j^\ast}", from=2-1, to=2-2]
+  \end{tikzcd}\]
+  This is precisely (\ref{deq2}C) (but flipped), as desired.
+
+  Next, we claim that (\ref{deq1}C) commutes iff (\ref{deq2}A) commutes. By \autoref{Riehl_4.1.3}, (\ref{deq2}A) commutes iff the following diagram commutes
+  \[\begin{tikzcd}
+    {B\times C} & X \\
+    {Y^D\times C} & Y
+    \arrow["{h^\flat\times\id}"', from=1-1, to=2-1]
+    \arrow["{(j^\ast)^\sharp}", from=2-1, to=2-2]
+    \arrow["g^\sharp", from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+  \end{tikzcd}\]
+  By \autoref{useful_adjointness_lemma} (the first diagram), $(j^\ast)^\sharp\circ( h^\flat\times\id_C)=h^\sharp\circ(\id_B\times j)$, so this diagram commutes iff the following diagram commutes:
+  % https://q.uiver.app/?q=WzAsNCxbMCwwLCJCXFx0aW1lcyBDIl0sWzEsMCwiWCJdLFsxLDEsIlkiXSxbMCwxLCJCXFx0aW1lcyBEIl0sWzAsMSwiZ15cXHNoYXJwIl0sWzEsMiwicCJdLFswLDMsIlxcaWRfQlxcdGltZXMgaiIsMl0sWzMsMiwiaF5cXHNoYXJwIl1d
+  \[\begin{tikzcd}
+    {B\times C} & X \\
+    {B\times D} & Y
+    \arrow["{g^\sharp}", from=1-1, to=1-2]
+    \arrow["p", from=1-2, to=2-2]
+    \arrow["{\id_B\times j}"', from=1-1, to=2-1]
+    \arrow["{h^\sharp}", from=2-1, to=2-2]
+  \end{tikzcd}\]
+  This is precisely (\ref{deq1}C), as desired.
+
+  Now, we claim that $\ell$ is a lift for (\ref{deq1}B) iff it is a lift for (\ref{deq2}B). Indeed, by \autoref{Riehl_4.1.3}, $f^\sharp=\ell^\sharp\circ(i\times\id_D)$ iff $f^\flat=\ell^\flat\circ i$ and $p\circ\ell^\sharp=h^\sharp$ iff $p_\ast\circ\ell^\flat=h^\flat$:
+  % https://q.uiver.app/?q=WzAsMTgsWzksMCwiQlxcdGltZXMgRCJdLFs5LDIsIkJcXHRpbWVzIEQiXSxbMTEsMiwiWSJdLFsxMSwwLCJYIl0sWzEyLDEsIlxcbGVmdHJpZ2h0c3F1aWdhcnJvdyJdLFsxMywwLCJCIl0sWzEzLDIsIkIiXSxbMTUsMiwiWV5EIl0sWzE1LDAsIlheRCJdLFs0LDAsIkEiXSxbNiwwLCJYXkQiXSxbNiwyLCJYXkQiXSxbNCwyLCJCIl0sWzAsMiwiQlxcdGltZXMgRCJdLFswLDAsIkFcXHRpbWVzIEQiXSxbMiwyLCJYIl0sWzIsMCwiWCJdLFszLDEsIlxcbGVmdHJpZ2h0c3F1aWdhcnJvdyJdLFswLDEsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMiwiaF5cXHNoYXJwIl0sWzAsMywiXFxlbGxeXFxzaGFycCJdLFszLDIsInAiXSxbNSw2LCIiLDAseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs2LDcsImheXFxmbGF0Il0sWzUsOCwiXFxlbGxeXFxmbGF0Il0sWzgsNywicF9cXGFzdCJdLFs5LDEwLCJmXlxcZmxhdCJdLFsxMCwxMSwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbOSwxMiwiaSIsMl0sWzEyLDExLCJcXGVsbF5cXGZsYXQiXSxbMTQsMTMsImlcXHRpbWVzXFxpZF9EIiwyXSxbMTMsMTUsIlxcZWxsXlxcc2hhcnAiXSxbMTQsMTYsImZeXFxzaGFycCJdLFsxNiwxNSwiIiwyLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+  \[\begin{tikzcd}[column sep=small,row sep=small]
+    {A\times D} && X && A && {X^D} &&& {B\times D} && X && B && {X^D} \\
+    &&& \leftrightsquigarrow &&&&&&&&& \leftrightsquigarrow \\
+    {B\times D} && X && B && {X^D} &&& {B\times D} && Y && B && {Y^D}
+    \arrow[Rightarrow, no head, from=1-10, to=3-10]
+    \arrow["{h^\sharp}", from=3-10, to=3-12]
+    \arrow["{\ell^\sharp}", from=1-10, to=1-12]
+    \arrow["p", from=1-12, to=3-12]
+    \arrow[Rightarrow, no head, from=1-14, to=3-14]
+    \arrow["{h^\flat}", from=3-14, to=3-16]
+    \arrow["{\ell^\flat}", from=1-14, to=1-16]
+    \arrow["{p_\ast}", from=1-16, to=3-16]
+    \arrow["{f^\flat}", from=1-5, to=1-7]
+    \arrow[Rightarrow, no head, from=1-7, to=3-7]
+    \arrow["i"', from=1-5, to=3-5]
+    \arrow["{\ell^\flat}", from=3-5, to=3-7]
+    \arrow["{i\times\id_D}"', from=1-1, to=3-1]
+    \arrow["{\ell^\sharp}", from=3-1, to=3-3]
+    \arrow["{f^\sharp}", from=1-1, to=1-3]
+    \arrow[Rightarrow, no head, from=1-3, to=3-3]
+  \end{tikzcd}\]
+  In other words, $\ell^\sharp$ makes the top (resp.\ bottom) triangle of (\ref{deq1}B) commute iff $\ell^\flat$ makes the top (resp.\ bottom) triangle of (\ref{deq2}B) commute, as desired.
+
+  Finally, it remains to show that if $\ell^\sharp$ and $\ell^\flat$ determine lifts of (\ref{deq1}B) and (\ref{deq2}B), respectively, then $\ell^\sharp$ is a lift for (\ref{deq1}C) iff it is a lift for (\ref{deq2}C). First of all, since $\ell^\sharp$ and $\ell^\flat$ define lifts of (\ref{deq1}B) and (\ref{deq2}B), we already have $p\circ\ell^\sharp=h^\sharp$ and $\ell^\flat\circ i=f^\flat$, so it is sufficient (and necessary) to show that $\ell^\sharp\circ(\id_B\times j)=g^\sharp$ iff $j^\ast\circ\ell^\flat=g^\flat$. Note by \autoref{useful_adjointness_lemma} (second diagram), $j^\ast\circ\ell^\flat=(\ell^\sharp)_\ast\circ(\id_Z\times j)^\flat$, so it suffices to show that $\ell^\sharp\circ(\id_B\times j)=g^\sharp$ iff $(\ell^\sharp)_\ast\circ(\id_Z\times j)^\flat=g^\flat$. Indeed, this follows by \autoref{Riehl_4.1.3}:
+  \[\begin{tikzcd}[column sep=small,row sep=small]
+    {B\times C} && {B\times C} && B && B \\
+    &&& \leftrightsquigarrow \\
+    {B\times D} && X && {(B\times D)^C} && {X^C}
+    \arrow["{\id_B\times j}"', from=1-1, to=3-1]
+    \arrow[Rightarrow, no head, from=1-1, to=1-3]
+    \arrow["{g^\sharp}", from=1-3, to=3-3]
+    \arrow["{\ell^\sharp}", from=3-1, to=3-3]
+    \arrow[Rightarrow, no head, from=1-5, to=1-7]
+    \arrow["{g^\flat}", from=1-7, to=3-7]
+    \arrow["{(\id_B\times j)^\flat}"', from=1-5, to=3-5]
+    \arrow["{(\ell^\sharp)_\ast}", from=3-5, to=3-7]
+  \end{tikzcd}\qedhere\]
+\end{proof}
+\end{document}
