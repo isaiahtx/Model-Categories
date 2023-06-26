@@ -230,7 +230,48 @@ This document follows Mark Hovey's \textit{Model Categories}, and its intention 
 \subfile{sections/section4}
 
 \textbf{Questions/Comments:}\begin{enumerate}
-  \item 
+  \item I don't follow the proof of Lemma 2.1 in Goerss \& Jardine.
+  
+  I think I've figured it out, it is a consequence of the following lemma:
+  \begin{lemma}
+    Let $\cC$ be a category and $K\in\Set_\cC$ a presheaf on $\cC$. Then $K$ is the colimit of the diagram
+    \[F:\cC\downarrow  K\to\Set_\cC\]
+    (here $\cC\downarrow K$ is shorthand for the comma category $\cY\downarrow\iota$, where $\cY:\cC\to\Set_\cC$ is the Yoneda embedding and $\iota:\ast\to\Set_\cC$ picks out $K$)
+    which assigns to each natural transformation $\omega:\cC(-,c)\Rightarrow K$ in $\cC\downarrow K$ the natural transformation $\cC(-,c)$, and sends each morphism in $\cC\downarrow K$
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNDKC0sYykiXSxbMiwwLCJcXGNDKC0sYycpIl0sWzEsMSwiSyJdLFswLDEsImZfXFxhc3QiLDAseyJsZXZlbCI6Mn1dLFsxLDIsIlxcdGF1IiwwLHsibGV2ZWwiOjJ9XSxbMCwyLCJcXHNpZ21hIiwyLHsibGV2ZWwiOjJ9XV0=
+    \[\begin{tikzcd}
+      {\cC(-,c)} && {\cC(-,c')} \\
+      & K
+      \arrow["{f_\ast}", Rightarrow, from=1-1, to=1-3]
+      \arrow["\tau", Rightarrow, from=1-3, to=2-2]
+      \arrow["\sigma"', Rightarrow, from=1-1, to=2-2]
+    \end{tikzcd}\]
+    to the arrow $f_\ast$ in $\Set_\cC$. Then $K$ is the colimit of $F$.
+  \end{lemma}
+  \begin{proof}
+    First, define a cone $\eta$ under $F$ with nadir $K$ by defining $\eta_\sigma:\cC(-,c)\Rightarrow K$ to be simply $\sigma$. This clearly satisfies the naturality condition by how $\cC\downarrow K$ is defined. Now, suppose we are given another cone $\vare:F\Rightarrow\underline{X}$ under $F$. Then note given an object $c$ in $\cC$, by the Yoneda Lemma
+    \[\Set(K(c),X(c))\cong\Set(\Set_\cC(\cC(-,c),K),\Set_\cC(\cC(-,c),X)).\]
+    Define $\lambda:K\Rightarrow X$ by defining $\lambda_c$ to be the morphism $K(c)\to X(c)$ corresponding to the map $\Set_\cC(\cC(-,c),K)\to\Set_\cC(\cC(-,c),X)$ sending $\alpha\mapsto\vare_\alpha$. We claim this transformatio is natural. First, we claim that the map $\Set_\cC(\cC(-,c),K)\to\Set_\cC(\cC(-,c),X)$ is natural in $c$. Indeed, given $f:c\to c'$ in $\cC$, we want to show the following diagram commutes:
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFNldF9cXGNDKFxcY0MoLSxjJyksSykiXSxbMiwwLCJcXFNldF9cXGNDKFxcY0MoLSxjJyksWCkiXSxbMiwyLCJcXFNldF9cXGNDKFxcY0MoLSxjKSxYKSJdLFswLDIsIlxcU2V0X1xcY0MoXFxjQygtLGMpLEspIl0sWzAsMSwiXFxhbHBoYVxcbWFwc3RvXFx2YXJlX1xcYWxwaGEiXSxbMSwyLCJcXFNldF9cXGNDKGZfXFxhc3QsWCkiXSxbMCwzLCJcXFNldF9cXGNDKGZfXFxhc3QsSykiLDJdLFszLDIsIlxcYmV0YVxcbWFwc3RvXFx2YXJlX1xcYmV0YSIsMl1d
+    \[\begin{tikzcd}
+      {\Set_\cC(\cC(-,c'),K)} && {\Set_\cC(\cC(-,c'),X)} \\
+      \\
+      {\Set_\cC(\cC(-,c),K)} && {\Set_\cC(\cC(-,c),X)}
+      \arrow["{\alpha\mapsto\vare_\alpha}", from=1-1, to=1-3]
+      \arrow["{\Set_\cC(f_\ast,X)}", from=1-3, to=3-3]
+      \arrow["{\Set_\cC(f_\ast,K)}"', from=1-1, to=3-1]
+      \arrow["{\beta\mapsto\vare_\beta}"', from=3-1, to=3-3]
+    \end{tikzcd}\]
+    Chasing an element $\alpha$ around the top of the diagram yields $\vare_\alpha\circ f_\ast$, while chasing $\alpha$ around the bottom of the diagram yields $\vare_{\alpha\circ f_\ast}$. Then $\vare_\alpha\circ f_\ast=\vare_{\alpha\circ f_\ast}$ by the naturality condition for $\vare$, which tells us the following diagram commutes:
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNDKC0sYykiXSxbMiwwLCJcXGNDKC0sYycpIl0sWzEsMSwiWCJdLFswLDEsImZfXFxhc3QiLDAseyJsZXZlbCI6Mn1dLFsxLDIsIlxcdmFyZV9cXGFscGhhIiwwLHsibGV2ZWwiOjJ9XSxbMCwyLCJcXHZhcmVfe1xcYWxwaGFcXGNpcmMgZl9cXGFzdH0iLDIseyJsZXZlbCI6Mn1dXQ==
+    \[\begin{tikzcd}
+      {\cC(-,c)} && {\cC(-,c')} \\
+      & X
+      \arrow["{f_\ast}", Rightarrow, from=1-1, to=1-3]
+      \arrow["{\vare_\alpha}", Rightarrow, from=1-3, to=2-2]
+      \arrow["{\vare_{\alpha\circ f_\ast}}"', Rightarrow, from=1-1, to=2-2]
+    \end{tikzcd}\]
+  \end{proof}
 \end{enumerate}
 
 \end{document}

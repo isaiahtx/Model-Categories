@@ -13,9 +13,9 @@ for $n\geq0$ and $\Delta([n],[k])$ is the set of maps $f:[n]\to[k]$ such that $x
   \end{array}
 \]
 
-If $\cC$ is any category, the category of \textit{cosimplicial objects in $\cC$} is the functor category $\cC^\Delta$, and the category of \textit{simplicial objects in $\cC$} is the functor category $\cC^{\Delta^\op}$. Note that these functor categories have whatever colimits and limits exist in $\cC$, taken objectwise. The most important example is when $\cC$ is the category of sets, in which case we denote $\Set^{\Delta^\op}$ by $\SSet$, and refer to $\SSet$ as the \textit{category of simplicial sets}.
+If $\cC$ is any category, the category of \textit{cosimplicial objects in $\cC$} is the functor category $\cC^\Delta$, and the category of \textit{simplicial objects in $\cC$} is the functor category $\cC_\Delta:=\cC^{\Delta^\op}$. Note that these functor categories have whatever colimits and limits exist in $\cC$, taken objectwise. The most important example is when $\cC$ is the category of sets, in which case we refer to $\Set_\Delta$ as the \textit{category of simplicial sets}.
 
-If $K$ is a simplicial set, we denote $K[n]$ by $K_n$ and refer to $K_n$ as the set of $n$-simplices of $K$. If $x\in K_n$, the integer $n$ is referred to as the \textit{dimension of $x$}. Dual to the $d^i$ we have the \textit{face maps} $d_i:K_n\to K_{n-1}$ for $n\geq1$ and $0\leq i\leq n$. Dual to the $s^i$ we have the \textit{degeneracy maps} $s_i:K_{n-1}\to K_n$ for $n\geq1$ and $0\leq i\leq n-1$. These maps are subject to the \textit{simplicial identities}
+If $K$ is a simplicial set, we denote $K([n])$ by $K_n$ and refer to $K_n$ as the set of $n$-simplices of $K$. If $x\in K_n$, the integer $n$ is referred to as the \textit{dimension of $x$}. Dual to the $d^i$ we have the \textit{face maps} $d_i:K_n\to K_{n-1}$ for $n\geq1$ and $0\leq i\leq n$. Dual to the $s^i$ we have the \textit{degeneracy maps} $s_i:K_{n-1}\to K_n$ for $n\geq1$ and $0\leq i\leq n-1$. These maps are subject to the \textit{simplicial identities}
 \[
   \begin{array}{rcll}
     d_id_j & = & d_{j-1}d_i & (i<j) \\
