@@ -2,12 +2,7 @@
 \documentclass{amsart}
 \usepackage[margin=1.3333333in]{geometry}
 \newcommand{\ol}{\overline}
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\DD}{\mathbb{D}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\LL}{\mathbb{L}}
+\newcommand{\bDelta}{\mathbf{\Delta}}
 \newcommand{\abs}[1]{\left\lvert #1\right\rvert}
 \newcommand{\wh}{\widehat}
 
@@ -101,6 +96,7 @@
 \newcommand{\cA}{\mathcal A}
 \newcommand{\cB}{\mathcal B}
 \newcommand{\cC}{\mathcal C}
+\newcommand{\sk}{\mathrm{sk}}
 \newcommand{\cD}{\mathcal D}
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\cE}{\mathcal E}
@@ -229,15 +225,17 @@ This document follows Mark Hovey's \textit{Model Categories}, and its intention 
 
 \subfile{sections/section4}
 
+As I work through simplicial set stuff, I am going to take a slightly different approach to stuff. Namely, if there is something that I'm struggling with for too long, I'm going to move on and put it here, instead of working on it until I either figure it out or we meet. I probably should have done this from the beginning.
+
 \textbf{Questions/Comments:}\begin{enumerate}
   \item I don't follow the proof of Lemma 2.1 in Goerss \& Jardine.
   
-  I think I've figured it out, it is a consequence of the following lemma:
+  I think I've mostly figured it out, it is a consequence of the following lemma:
   \begin{lemma}
     Let $\cC$ be a category and $K\in\Set_\cC$ a presheaf on $\cC$. Then $K$ is the colimit of the diagram
     \[F:\cC\downarrow  K\to\Set_\cC\]
     (here $\cC\downarrow K$ is shorthand for the comma category $\cY\downarrow\iota$, where $\cY:\cC\to\Set_\cC$ is the Yoneda embedding and $\iota:\ast\to\Set_\cC$ picks out $K$)
-    which assigns to each natural transformation $\omega:\cC(-,c)\Rightarrow K$ in $\cC\downarrow K$ the natural transformation $\cC(-,c)$, and sends each morphism in $\cC\downarrow K$
+    which assigns to each natural transformation $\sigma:\cC(-,c)\Rightarrow K$ in $\cC\downarrow K$ the presheaf $\cC(-,c)$, and sends each morphism in $\cC\downarrow K$
     % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNDKC0sYykiXSxbMiwwLCJcXGNDKC0sYycpIl0sWzEsMSwiSyJdLFswLDEsImZfXFxhc3QiLDAseyJsZXZlbCI6Mn1dLFsxLDIsIlxcdGF1IiwwLHsibGV2ZWwiOjJ9XSxbMCwyLCJcXHNpZ21hIiwyLHsibGV2ZWwiOjJ9XV0=
     \[\begin{tikzcd}
       {\cC(-,c)} && {\cC(-,c')} \\
@@ -249,20 +247,23 @@ This document follows Mark Hovey's \textit{Model Categories}, and its intention 
     to the arrow $f_\ast$ in $\Set_\cC$. Then $K$ is the colimit of $F$.
   \end{lemma}
   \begin{proof}
-    First, define a cone $\eta$ under $F$ with nadir $K$ by defining $\eta_\sigma:\cC(-,c)\Rightarrow K$ to be simply $\sigma$. This clearly satisfies the naturality condition by how $\cC\downarrow K$ is defined. Now, suppose we are given another cone $\vare:F\Rightarrow\underline{X}$ under $F$. Then note given an object $c$ in $\cC$, by the Yoneda Lemma
-    \[\Set(K(c),X(c))\cong\Set(\Set_\cC(\cC(-,c),K),\Set_\cC(\cC(-,c),X)).\]
-    Define $\lambda:K\Rightarrow X$ by defining $\lambda_c$ to be the morphism $K(c)\to X(c)$ corresponding to the map $\Set_\cC(\cC(-,c),K)\to\Set_\cC(\cC(-,c),X)$ sending $\alpha\mapsto\vare_\alpha$. We claim this transformatio is natural. First, we claim that the map $\Set_\cC(\cC(-,c),K)\to\Set_\cC(\cC(-,c),X)$ is natural in $c$. Indeed, given $f:c\to c'$ in $\cC$, we want to show the following diagram commutes:
-    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFNldF9cXGNDKFxcY0MoLSxjJyksSykiXSxbMiwwLCJcXFNldF9cXGNDKFxcY0MoLSxjJyksWCkiXSxbMiwyLCJcXFNldF9cXGNDKFxcY0MoLSxjKSxYKSJdLFswLDIsIlxcU2V0X1xcY0MoXFxjQygtLGMpLEspIl0sWzAsMSwiXFxhbHBoYVxcbWFwc3RvXFx2YXJlX1xcYWxwaGEiXSxbMSwyLCJcXFNldF9cXGNDKGZfXFxhc3QsWCkiXSxbMCwzLCJcXFNldF9cXGNDKGZfXFxhc3QsSykiLDJdLFszLDIsIlxcYmV0YVxcbWFwc3RvXFx2YXJlX1xcYmV0YSIsMl1d
-    \[\begin{tikzcd}
+    In this proof, given an object $c$ in $\cC$, we will write $h_c$ to denote the representable functor $\cC(-,c)\in\Set_\cC$.
+
+    By the universal property of the colimit, it suffices to show that for any presheaf $X$, there is a natural bijection
+    \[\Set_\cC(K,X)\cong[\cC\downarrow K,\Set_\cC](F,\ul X).\]
+    First, suppose we are given a natural transformation $\vare:F\Rightarrow\ul X$. Then for each $\sigma:h_c\to K$ in $\cC\downarrow K$, we have a natural transformation $\vare_\sigma:h_c\to X$. 
+
+    First, define a cone $\eta$ under $F$ with nadir $K$ by defining $\eta_\sigma:\cC(-,c)\Rightarrow K$ to be simply $\sigma$. This clearly satisfies the naturality condition by how $\cC\downarrow K$ is defined. For objects $c$ in $\cC$, define maps $\lambda_c:\Set_\cC(\cC(-,c),K)\Rightarrow\Set_\cC(\cC(-,c),X)$ (here the diagrams are indexed by $c\in\cC$) to send $\alpha\mapsto\vare_\alpha$. We claim these maps are natural in $c$. Indeed, given $f:c\to c'$ in $\cC$, we want to show the following diagram commutes:
+    \begin{equation}\label{DE1}\begin{tikzcd}
       {\Set_\cC(\cC(-,c'),K)} && {\Set_\cC(\cC(-,c'),X)} \\
       \\
       {\Set_\cC(\cC(-,c),K)} && {\Set_\cC(\cC(-,c),X)}
-      \arrow["{\alpha\mapsto\vare_\alpha}", from=1-1, to=1-3]
+      \arrow["{\lambda_{c'}}", from=1-1, to=1-3]
       \arrow["{\Set_\cC(f_\ast,X)}", from=1-3, to=3-3]
       \arrow["{\Set_\cC(f_\ast,K)}"', from=1-1, to=3-1]
-      \arrow["{\beta\mapsto\vare_\beta}"', from=3-1, to=3-3]
-    \end{tikzcd}\]
-    Chasing an element $\alpha$ around the top of the diagram yields $\vare_\alpha\circ f_\ast$, while chasing $\alpha$ around the bottom of the diagram yields $\vare_{\alpha\circ f_\ast}$. Then $\vare_\alpha\circ f_\ast=\vare_{\alpha\circ f_\ast}$ by the naturality condition for $\vare$, which tells us the following diagram commutes:
+      \arrow["{\lambda_c}"', from=3-1, to=3-3]
+    \end{tikzcd}\end{equation}
+    Chasing an element $\alpha$ around the top of the diagram yields $\vare_\alpha\circ f_\ast$, while chasing $\alpha$ around the bottom of the diagram yields $\vare_{\alpha\circ f_\ast}$. Then by the naturality condition for $\vare$, the following diagram commutes:
     % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNDKC0sYykiXSxbMiwwLCJcXGNDKC0sYycpIl0sWzEsMSwiWCJdLFswLDEsImZfXFxhc3QiLDAseyJsZXZlbCI6Mn1dLFsxLDIsIlxcdmFyZV9cXGFscGhhIiwwLHsibGV2ZWwiOjJ9XSxbMCwyLCJcXHZhcmVfe1xcYWxwaGFcXGNpcmMgZl9cXGFzdH0iLDIseyJsZXZlbCI6Mn1dXQ==
     \[\begin{tikzcd}
       {\cC(-,c)} && {\cC(-,c')} \\
@@ -271,7 +272,44 @@ This document follows Mark Hovey's \textit{Model Categories}, and its intention 
       \arrow["{\vare_\alpha}", Rightarrow, from=1-3, to=2-2]
       \arrow["{\vare_{\alpha\circ f_\ast}}"', Rightarrow, from=1-1, to=2-2]
     \end{tikzcd}\]
+    Hence $\vare_\alpha\circ f_\ast=\vare_{\alpha\circ f_\ast}$, so that diagram (\ref{DE1}) commutes as desired. Now, by the Yoneda Lemma, we may redefine $\lambda$ to be a natural transformation $K\Rightarrow X$ by considering the composite
+    \[K(c)\cong\Set_\cC(\cC(-,c),K)\xrightarrow{\lambda_c}\Set_\cC(\cC(-,c),X)\cong X(c),\]
+    (the Yoneda lemma tells us these isomorphisms are natural in $c$). 
+    
+    Now, how do I show $\lambda$ is actually a morphism of cocones from $\eta$ to $\vare$, and that it is the unique one?
   \end{proof}
+  \item After the proof of Proposition 2.2 in Goerss \& Jardine, the book writes ``Note that $\Set_\Delta$ has all colimits and the realization functor $|\,|$ preserves them, since it has a right adjoint''. This is not saying that $\Set_\Delta$ is cocomplete \textit{because} $|\,|$ is a right adjoint, is that correct? It's simply asserting without proof that $\Set_\Delta$ is cocomplete, and then saying $|\,|$ preserves colimits, right? 
+
+  Wait dumb question: the presheaf category is always cocomplete lol
+  \item In the proof that the topological realization of a simplicial complex is a CW complex, it is asserted that the following is a pushout diagram:
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGNvcHJvZF97eFxcaW4gTlhfbn1cXHBhcnRpYWxcXERlbHRhXm4iXSxbMSwwLCJcXHNrX3tuLTF9WCJdLFsxLDEsIlxcc2tfblgiXSxbMCwxLCJcXGNvcHJvZF97eFxcaW4gTlhfbn1cXERlbHRhXm4iXSxbMCwxXSxbMSwyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDMsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsMl1d
+  \[\begin{tikzcd}
+    {\coprod_{x\in NX_n}\partial\Delta^n} & {\sk_{n-1}X} \\
+    {\coprod_{x\in NX_n}\Delta^n} & {\sk_nX}
+    \arrow[from=1-1, to=1-2]
+    \arrow[hook, from=1-2, to=2-2]
+    \arrow[hook, from=1-1, to=2-1]
+    \arrow[from=2-1, to=2-2]
+  \end{tikzcd}\]
+  ($NX_n$ is the set of nondegenerate $n$-simplices in $X$). How is this proven explicitly?
+  \item Is this what the coequalizer diagram of simplicial sets on pg.\ 8 is saying?
+  % https://q.uiver.app/#q=WzAsNixbMiwyLCJcXGRpc3BsYXlzdHlsZVxcY29wcm9kX3swXFxsZXEgaTxqXFxsZXEgbn1cXERlbHRhXntuLTJ9Il0sWzQsMiwiXFxkaXNwbGF5c3R5bGVcXGNvcHJvZF97aT0wfV5uXFxEZWx0YV57bi0xfSJdLFs2LDIsIlxccGFydGlhbFxcRGVsdGFebiJdLFswLDIsIihcXERlbHRhXntuLTJ9KV97aSxqfSJdLFsyLDQsIlxcRGVsdGFee24tMX0iXSxbMiwwLCJcXERlbHRhXntuLTF9Il0sWzAsMSwiIiwwLHsib2Zmc2V0IjotMX1dLFswLDEsIiIsMCx7Im9mZnNldCI6MX1dLFsxLDJdLFszLDQsImRee2otMX0iXSxbMyw1LCJkXmkiXSxbNSwxLCJqXlxcdGV4dHt0aH0iLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFs0LDEsImleXFx0ZXh0e3RofSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsMCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XV0=
+  \[\begin{tikzcd}
+    && {\Delta^{n-1}} \\
+    \\
+    {(\Delta^{n-2})_{i,j}} && {\displaystyle\coprod_{0\leq i<j\leq n}\Delta^{n-2}} && {\displaystyle\coprod_{i=0}^n\Delta^{n-1}} && {\partial\Delta^n} \\
+    \\
+    && {\Delta^{n-1}}
+    \arrow[shift left=1, from=3-3, to=3-5]
+    \arrow[shift right=1, from=3-3, to=3-5]
+    \arrow[from=3-5, to=3-7]
+    \arrow["{d^{j-1}}", from=3-1, to=5-3]
+    \arrow["{d^i}", from=3-1, to=1-3]
+    \arrow["{j^\text{th}}", hook, from=1-3, to=3-5]
+    \arrow["{i^\text{th}}", hook, from=5-3, to=3-5]
+    \arrow[hook, from=3-1, to=3-3]
+  \end{tikzcd}\]
+  
 \end{enumerate}
 
 \end{document}
