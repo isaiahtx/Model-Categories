@@ -1,10 +1,14 @@
 % Hirschorn model structure on Top
 \documentclass{amsart}
 \usepackage[margin=1.3333333in]{geometry}
+\usepackage[bbgreekl]{mathbbol}
+
 \newcommand{\ol}{\overline}
 \newcommand{\bDelta}{\mathbf{\Delta}}
+\DeclareMathSymbol\bbDelta\mathord{bbold}{"01}
 \newcommand{\abs}[1]{\left\lvert #1\right\rvert}
 \newcommand{\wh}{\widehat}
+
 
 \setlength{\marginparwidth}{1in}
 
@@ -80,6 +84,7 @@
 \newcommand{\Top}{\mbf{Top}}
 \newcommand{\SSet}{\mbf{SSet}}
 \newcommand{\Set}{\mbf{Set}}
+\newcommand{\Sing}{\mathrm{Sing}}
 \newcommand{\Grp}{\mbf{Grp}}
 \newcommand{\Ord}{\mbf{Ord}}
 \newcommand{\RMod}{R-\mbf{Mod}}
@@ -228,7 +233,13 @@ This document follows Mark Hovey's \textit{Model Categories}, and its intention 
 As I work through simplicial set stuff, I am going to take a slightly different approach to stuff. Namely, if there is something that I'm struggling with for too long, I'm going to move on and put it here, instead of working on it until I either figure it out or we meet. I probably should have done this from the beginning.
 
 \textbf{Questions/Comments:}\begin{enumerate}
-  \item 
+  \item Potentially a dumb question: What is the Quillen model structure on $\Top$/classical model structure on $\Set_\bbDelta$ actually useful for? Like, are computations carried out using these model structures?
+  \item What is the most common notation for the simplex category: $\Delta$, $\bDelta$, or $\bbDelta$?
+  \item Does simplicial group = group object in $\Set_\bbDelta$?
+  \item Question: In the proof that the nerve of a groupoid is a Kan complex (Lemma 3.4), it is stated that given a small category $\cC$ and a simplicial set $X$, a morphism of simplicial sets $X\to N\cC$ is in bijection with morphisms $\mathrm{tr}_2X\to\mathrm{tr}_2N\bC$ (where $\mathrm{tr}_2$ is the truncation functor $\Set_\bbDelta\to\Set_{\bbDelta|_{\leq 2}}$). It is asserted that in order to show this result, it suffices to prove it when $X=\Delta^n$. Why?
+  
+  Here is how I think I woiuld show this. Suppose we have shown the desired statement for the standard simplices. Then given a simplicial set $X$, we have
+  \[\Set_\bbDelta(X,N\cC)\cong\]
 \end{enumerate}
 
 \end{document}
