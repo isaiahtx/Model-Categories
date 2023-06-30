@@ -236,10 +236,20 @@ As I work through simplicial set stuff, I am going to take a slightly different 
   \item Potentially a dumb question: What is the Quillen model structure on $\Top$/classical model structure on $\Set_\bbDelta$ actually useful for? Like, are computations carried out using these model structures?
   \item What is the most common notation for the simplex category: $\Delta$, $\bDelta$, or $\bbDelta$?
   \item Does simplicial group = group object in $\Set_\bbDelta$?
-  \item Question: In the proof that the nerve of a groupoid is a Kan complex (Lemma 3.4), it is stated that given a small category $\cC$ and a simplicial set $X$, a morphism of simplicial sets $X\to N\cC$ is in bijection with morphisms $\mathrm{tr}_2X\to\mathrm{tr}_2N\bC$ (where $\mathrm{tr}_2$ is the truncation functor $\Set_\bbDelta\to\Set_{\bbDelta|_{\leq 2}}$). It is asserted that in order to show this result, it suffices to prove it when $X=\Delta^n$. Why?
-  
-  Here is how I think I woiuld show this. Suppose we have shown the desired statement for the standard simplices. Then given a simplicial set $X$, we have
-  \[\Set_\bbDelta(X,N\cC)\cong\]
+  \item In the proof that the nerve of a groupoid is a Kan complex (Lemma 3.4), it is stated that given a small category $\cC$ and a simplicial set $X$, a morphism of simplicial sets $X\to N\cC$ is in bijection with morphisms $\mathrm{tr}_2X\to\mathrm{tr}_2N\cC$ (where $\mathrm{tr}_2$ is the truncation functor $\Set_\bbDelta\to\Set_{\bbDelta|_{\leq 2}}$). It is asserted that in order to show this result, it suffices to prove it when $X=\Delta^n$. How is this supposed to be seen? I can prove it like so:
+  \begin{proof}
+	First, note the following: let $F:\cC\to\cD$ and $D:\cI\to\cC$ be functors such that $F$ preserves colimits, and let $y$ in $\cC$. Suppose that $F$ induces isomorphisms
+	\[\cC(Dx,y)\cong\cD(FDx,Fy)\]
+	for all $x$ in $\cI$. Then
+	\[\cC(\colim D,y)\cong\cD(F(\colim D),Fy).\]
+	Indeed, if this is true then
+	\[\cC(\colim D,y)\cong\lim_{x\in\cI}\cC(Dx,y)\overset{(\ast)}\cong\lim_{x\in\cI}\cD(FDx,Fy)\cong\cD(\colim FD,Fy)\cong\cD(F(\colim D),Fy),\]
+	where $(\ast)$ follows by the fact that the maps $\cC(Dx,y)\cong\cD(FDx,Fy)$ induced by $F$ are natural in $x$ (by functoriality of $F$). According to the nLab, the restriction functor $\Set_{\bbDelta}\to\Set_{\bbDelta|_{\leq2}}$ has a right adjoint given by the coskeleton construction, so that according to what we have shown, if $\Set_\bbDelta(\Delta^n,N\cC)\to\Set_{\bbDelta|_{\leq2}}(\mathrm{tr}_2\Delta_n,\mathrm{tr}_2N\cC)$ is an isomorphism for all $n\geq0$, then
+	\[\Set_\bbDelta(X,N\cC)\cong\Set_\bbDelta(\colim_{\bbDelta\downarrow X}\Delta^n,N\cC)\cong\Set_{\bbDelta|_{\leq2}}(\mathrm{tr}_2(\colim_{\bbDelta\downarrow X}\Delta^n),\mathrm{tr}_2N\cC)\cong\Set_{\bbDelta_{\leq2}}(\mathrm{tr}_2X,\mathrm{tr}_2N\cC),\]
+	as desired.
+  \end{proof}
+  Is this the intended way to show this, or is there a more elementary way to do this that doesn't involve considering the coskeleton construction/showing the restriction functor $\Set_\bbDelta\to\Set_{\bbDelta|_{\leq2}}$ is colimit preserving?
+
 \end{enumerate}
 
 \end{document}
