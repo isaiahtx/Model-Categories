@@ -84,6 +84,7 @@
 \newcommand{\Top}{\mbf{Top}}
 \newcommand{\SSet}{\mbf{SSet}}
 \newcommand{\Set}{\mbf{Set}}
+\newcommand{\Map}{\mathrm{Map}}
 \newcommand{\Sing}{\mathrm{Sing}}
 \newcommand{\Grp}{\mbf{Grp}}
 \newcommand{\Ord}{\mbf{Ord}}
@@ -232,10 +233,10 @@ This document follows Mark Hovey's \textit{Model Categories}, and its intention 
 
 As I work through simplicial set stuff, I am going to take a slightly different approach to stuff. Namely, if there is something that I'm struggling with for too long, I'm going to move on and put it here, instead of working on it until I either figure it out or we meet. I probably should have done this from the beginning.
 
-\textbf{Questions/Comments:}\begin{enumerate}
+\textbf{Questions/Comments:}\begin{enumerate}[listparindent=\parindent,parsep=5pt]
   \item Potentially a dumb question: What is the Quillen model structure on $\Top$/classical model structure on $\Set_\bbDelta$ actually useful for? Like, are computations carried out using these model structures?
   \item What is the most common notation for the simplex category: $\Delta$, $\bDelta$, or $\bbDelta$?
-  \item Does simplicial group = group object in $\Set_\bbDelta$?
+  \item Is a simplicial group (an element of $\Grp_\bbDelta$) the same thing as a group object in $\Set_\bbDelta$?
   \item In the proof that the nerve of a groupoid is a Kan complex (Lemma 3.4), it is stated that given a small category $\cC$ and a simplicial set $X$, a morphism of simplicial sets $X\to N\cC$ is in bijection with morphisms $\mathrm{tr}_2X\to\mathrm{tr}_2N\cC$ (where $\mathrm{tr}_2$ is the truncation functor $\Set_\bbDelta\to\Set_{\bbDelta|_{\leq 2}}$). It is asserted that in order to show this result, it suffices to prove it when $X=\Delta^n$. How is this supposed to be seen? I can prove it like so:
   \begin{proof}
 	First, note the following: let $F:\cC\to\cD$ and $D:\cI\to\cC$ be functors such that $F$ preserves colimits, and let $y$ in $\cC$. Suppose that $F$ induces isomorphisms
@@ -249,6 +250,10 @@ As I work through simplicial set stuff, I am going to take a slightly different 
 	as desired.
   \end{proof}
   Is this the intended way to show this, or is there a more elementary way to do this that doesn't involve considering the coskeleton construction/showing the restriction functor $\Set_\bbDelta\to\Set_{\bbDelta|_{\leq2}}$ is colimit preserving?
+  \item In \href{https://people.mpim-bonn.mpg.de/scholze/SixFunctors.pdf}{these notes}, an $\infty$-category (quasicategory) is a simplicial set $C$ such that
+  \[\Map(\Delta^2,C)\to\Map(\Lambda_1^2,C)\]
+  is a trivial Kan fibration (has the right lifting property against the inclusion $\partial\Delta^n\into\Delta^n$), where given simplicial sets $X$, $Y$, $\Map(X,Y)$ is the internal mapping object with $n$-simplices given by
+  $\Map(X,Y)_n:=\Set_\bbDelta(X\times\Delta^n,Y)$. How do you see this definition is equivalent, and does this definition provide any particular insight or value?
 
 \end{enumerate}
 
