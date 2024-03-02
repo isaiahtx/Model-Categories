@@ -1,0 +1,4 @@
+**/.DS_STORE
+./251B/PA1/proj/.git
+**/build/*
+!**/build/**/*.pdf
